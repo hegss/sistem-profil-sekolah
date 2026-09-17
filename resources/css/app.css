@@ -4,83 +4,29 @@
 
 /* ================= IMAGE PAGE ================= */
 .login-image{
-    position:relative;
-    height:calc(100vh - 125px);
-    overflow:hidden;
-    border-radius:24px;
+    height: 90vh;
 }.login-image::before{
     content:"";
     position:absolute;
     inset:0;
     background:linear-gradient(90deg,rgba(255,255,255,0.18),rgba(255,255,255,0.04));
     z-index:1;
-}.login-image img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
-
-.image-overlay{
-    position:absolute;
-    top:25%;
-    left:10%;
-    z-index:2;
-    color:black;
-}.image-overlay h1{
-    font-size:30px;
-    font-weight:700;
-    margin-bottom:8px;
-}.image-overlay p{
-    font-size:15px;
-    line-height:1.5;
-    font-weight:500;
 }
 
 .login-slider{
-    width:100%;
-    height:100%;
-    overflow:hidden;
-    cursor:pointer;
     user-select:none;
 }.login-slider-list{
-    display:flex;
-    width:100%;
-    height:100%;
     transition:transform 0.6s ease;
 }
 
-.login-slide{
-    min-width:100%;
-    width:100%;
-    height:100%;
-    flex-shrink:0;
-}.login-slide img{
-    width:100%;
-    height:100%;
-    object-fit:cover;
-    display:block;
-}
-
-.login-slider-dot{
-    display:flex;
-    justify-content:center;
-    gap:12px;
-    position:absolute;
-    bottom:20px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:10;
-}.login-dot{
+.login-dot{
     width:9px;
     height:9px;
-    border-radius:50%;
-    background:grey;
-    cursor:pointer;
+    background: white;
     transition:background 0.3s,transform 0.3s;
 }
 
 .active-login-dot{
-    background:black;
+    background: blue;
     transform:scale(1.3);
 }
