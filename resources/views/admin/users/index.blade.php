@@ -1,0 +1,181 @@
+<x-admin-layout>
+    <!-- Wrapper Utama (Fit Layar & Scroll Intern untuk Tabel) -->
+    <div class="p-6 space-y-4 flex flex-col h-full overflow-hidden">
+
+        <!-- Header Halaman & Tombol Tambah -->
+        <div class="flex items-center justify-between shrink-0">
+            <div>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Users Management</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Manage user data, access rights, and contact
+                    information.</p>
+            </div>
+
+            <a href="{{ route('users.create') }}"
+                class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
+                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+                </svg>
+                Add User
+            </a>
+        </div>
+
+        <!-- Card Container Tabel -->
+        <div
+            class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col flex-1 min-h-0 overflow-hidden">
+
+            <!-- Table Area (Overflow-x auto untuk responsif di layar kecil) -->
+            <div class="overflow-x-auto overflow-y-auto flex-1 custom-scrollbar">
+                <table class="w-full text-left text-xs border-collapse">
+
+                    <!-- Table Header -->
+                    <thead
+                        class="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
+                        <tr>
+                            <th scope="col" class="py-3.5 px-4 w-16 text-center">ID</th>
+                            <th scope="col" class="py-3.5 px-4">Name</th>
+                            <th scope="col" class="py-3.5 px-4">Email</th>
+                            <th scope="col" class="py-3.5 px-4">Phone</th>
+                            <th scope="col" class="py-3.5 px-4">Role</th>
+                            <th scope="col" class="py-3.5 px-4 text-center w-28">Action</th>
+                        </tr>
+                    </thead>
+
+                    <!-- Table Body -->
+                    <tbody class="divide-y divide-gray-100 dark:divide-gray-700/60 text-gray-700 dark:text-gray-200">
+                        @forelse ($users as $user)
+                            <!-- Contoh Baris 1 -->
+                            <tr class="hover:bg-gray-50/80 dark:hover:bg-gray-700/40 transition">
+                                <td class="py-3 px-4 text-center font-mono text-gray-400">{{ $user->id }}</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center gap-3">
+                                        <!-- Foto Profil -->
+                                        <img class="size-9 rounded-full object-cover border border-gray-200 dark:border-gray-600 shrink-0"
+                                            src="{{ $user->photo ? asset('storage/' . $user->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=0D8ABC&color=fff' }}"
+                                            alt="{{ $user->name }}">
+
+                                        <!-- Nama + Username (Stacked) -->
+                                        <div class="flex flex-col">
+                                            <span
+                                                class="font-bold text-gray-900 dark:text-white text-sm leading-tight">{{ $user->name }}</span>
+                                            <span
+                                                class="text-[11px] text-gray-400 dark:text-gray-400">{{ $user->username }}</span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4 font-medium">{{ $user->email }}</td>
+                                <td class="py-3 px-4 text-gray-500 dark:text-gray-400">{{ $user->phone }}</td>
+                                <td class="py-3 px-4">
+                                    <!-- Badge Role -->
+                                    @if ($user->role === 'admin')
+                                        <span
+                                            class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
+                                            Administrator
+                                        </span>
+                                    @else
+                                        <span
+                                            class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-purple-100 text-purple-700 dark:bg-purle-950 dark:text-purple-300">
+                                            User
+                                        </span>
+                                    @endif
+                                </td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center justify-center gap-1.5">
+                                        <!-- Edit Button -->
+                                        <a href="{{ route('users.edit', $user->id) }}"
+                                            class="p-1.5 rounded-lg text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition"
+                                            title="Edit User">
+                                            <svg class="size-4" fill="none" stroke="currentColor"
+                                                viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+                                            </svg>
+                                        </a>
+
+                                        <!-- Delete Button (Form POST/DELETE) -->
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST"
+                                            onsubmit="return confirm('Apakah Anda yakin ingin menghapus user ini?')">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                class="p-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
+                                                title="Hapus User">
+                                                <svg class="size-4" fill="none" stroke="currentColor"
+                                                    viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round"
+                                                        stroke-width="2"
+                                                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+                                                </svg>
+                                            </button>
+                                        </form>
+                                    </div>
+                                </td>
+                            </tr>
+                        @empty
+                            <tr>
+                                <td colspan="6" class="text-center py-6 text-gray-400">No user data yet.</td>
+                            </tr>
+                        @endforelse
+
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Footer Pagination -->
+            <div
+                class="px-4 py-3 bg-gray-50/50 dark:bg-gray-700/30 border-t border-gray-100 dark:border-gray-700 text-xs text-gray-500 dark:text-gray-400 flex items-center justify-between shrink-0">
+
+                <!-- Informasi Jumlah Data -->
+                <div>
+                    Menampilkan <span
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $users->firstItem() ?? 0 }}</span>
+                    sampai <span
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $users->lastItem() ?? 0 }}</span>
+                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $users->total() }}</span> User
+                </div>
+
+                <!-- Tombol Navigasi Halaman -->
+                <div class="flex items-center gap-1">
+                    <!-- Tombol Sebelumnya -->
+                    @if ($users->onFirstPage())
+                        <span
+                            class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
+                            Sebelumnya
+                        </span>
+                    @else
+                        <a href="{{ $users->previousPageUrl() }}"
+                            class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
+                            Sebelumnya
+                        </a>
+                    @endif
+
+                    <!-- Nomor Halaman -->
+                    @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
+                        @if ($page == $users->currentPage())
+                            <span class="px-2.5 py-1 rounded bg-blue-600 text-white font-semibold">
+                                {{ $page }}
+                            </span>
+                        @else
+                            <a href="{{ $url }}"
+                                class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
+                                {{ $page }}
+                            </a>
+                        @endif
+                    @endforeach
+
+                    <!-- Tombol Selanjutnya -->
+                    @if ($users->hasMorePages())
+                        <a href="{{ $users->nextPageUrl() }}"
+                            class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
+                            Selanjutnya
+                        </a>
+                    @else
+                        <span
+                            class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
+                            Selanjutnya
+                        </span>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
+</x-admin-layout>
