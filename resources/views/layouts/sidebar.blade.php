@@ -1,7 +1,8 @@
 <!-- SideBar -->
-<aside class="container-sidebar relative h-screen flex flex-col items-center bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 transition-all duration-300 shadow-sm overflow-hidden z-40 ">
+<aside
+    class="container-sidebar relative h-screen flex flex-col items-center bg-white dark:bg-gray-800 border border-gray-100 dark:border-gray-700 transition-all duration-300 shadow-sm overflow-hidden z-40 ">
     <!-- Logo -->
-    <div class="logo p-6 flex justify-center items-center shrink-0">
+    <div class="logo p-7 flex justify-center items-center shrink-0">
         <a href="{{ route('home') }}">
             <x-application-logo class="block h-9 w-auto fill-current" />
         </a>
@@ -9,31 +10,37 @@
 
     <!-- Minimized Button -->
     <x-minimized-icon
-        class="minimize-btn size-5 absolute w-10 h-10 -right-4 top-12 cursor-pointer bg-white dark:bg-gray-800 text-blue-600 dark:text-gray-100 p-2 border border-gray-100 dark:border-gray-700 rounded-full shadow-sm z-40" />
+        class="minimize-btn size-5 absolute w-10 h-10 right-0 top-12 cursor-pointer bg-white dark:bg-gray-800 text-blue-600 dark:text-gray-100 p-2 border border-gray-100 dark:border-gray-700 rounded-full shadow-sm z-50" />
 
     <!-- Navigation List -->
     <div class="nav-list w-full flex flex-col items-center overflow-y-auto overflow-x-hidden">
-        <div class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.dashboard') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
-            <x-dashboard-icon class="size-5 {{ request()->routeIs('admin.dashboard') ? 'text-white' : 'text-blue-600 dark:text-gray-100' }}" />
-            <a href="{{ route('admin.dashboard') }}" class="text-nav">Dashboard</a>
-        </div>
+        <a href="{{ route('admin.dashboard') }}"
+            class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.dashboard') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
+            <x-dashboard-icon
+                class="size-5 {{ request()->routeIs('admin.dashboard') ? 'text-white' : 'text-blue-600 dark:text-gray-100' }}" />
+            <p class="text-nav">Dashboard</p>
+        </a>
 
-        <div class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.teachers') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
+        <div
+            class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.teachers') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
             <x-teachers-icon class="size-5 dark:text-gray-100 text-blue-600" />
             <a href="#" class="text-nav text-blue-950 dark:text-gray-100">Teachers</a>
         </div>
 
-        <div class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.students') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
+        <div
+            class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.students') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
             <x-students-icon class="size-5 text-blue-600 dark:text-gray-100" />
             <a href="#" class="text-nav text-blue-950 dark:text-gray-100">Students</a>
         </div>
 
-        <div class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.staffs') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
+        <div
+            class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.staffs') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
             <x-admin-staff-icon class="size-5 text-blue-600 dark:text-gray-100" />
             <a href="#" class="text-nav text-blue-950 dark:text-gray-100">Admin Staff</a>
         </div>
 
-        <div class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.greetings') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
+        <div
+            class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.greetings') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
             <x-greetings-icon class="size-5 text-blue-600 dark:text-gray-100" />
             <a href="#" class="text-nav text-blue-950 dark:text-gray-100">Greeting</a>
         </div>
@@ -86,14 +93,17 @@
             </div>
         </div>
 
-        <div class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.messages') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
+        <div
+            class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.messages') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
             <x-mail-icon class="size-5 dark:text-gray-100 text-blue-600" />
             <a href="#" class="text-nav text-blue-950 dark:text-gray-100">Messages</a>
         </div>
 
-        <div class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('users.*') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
-            <x-profile-icon class="size-5 {{ request()->routeIs('users.*') ? 'text-white' : 'text-blue-600 dark:text-gray-100' }}" />
-            <a href="{{ route('users.index') }}" class="text-nav">Users</a>
-        </div>
+        <a href="{{ route('users.index') }}"
+            class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('users.*') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
+            <x-profile-icon
+                class="size-5 {{ request()->routeIs('users.*') ? 'text-white' : 'text-blue-600 dark:text-gray-100' }}" />
+            <p class="text-nav">Users</p>
+        </a>
     </div>
 </aside>

@@ -29,11 +29,13 @@
         <!-- Page Content -->
         <main class="flex-1 flex flex-col h-screen transition-all duration-300 overflow-y-hidden">
             @include('layouts.header-admin')
+
             {{ $slot }}
         </main>
 
-        <!-- CDN Chart -->
+        <!-- Script Source CDN -->
         <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
         @stack('scripts')
     </div>
 </body>

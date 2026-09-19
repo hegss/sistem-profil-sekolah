@@ -1,6 +1,6 @@
 <x-admin-layout>
     <!-- Dashboard Page -->
-    <div class="p-4 space-y-4 bg-gray-50 dark:bg-gray-900 min-h-screen z-10">
+    <div class="p-4 space-y-4 bg-gray-50 dark:bg-gray-900 min-h-screen">
 
         <!-- 1. STAT CARDS GRID -->
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">

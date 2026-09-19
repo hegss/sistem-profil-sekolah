@@ -82,7 +82,7 @@ class UserController extends Controller
             'username' => ['required', 'string', 'max:255', Rule::unique('users')->ignore($user->id)],
             'email' => ['required', 'string', 'max:255', 'email', Rule::unique('users')->ignore($user->id)],
             'phone' => ['required', 'string', 'max:20'],
-            'role' => ['required', 'string', 'in:admin,user'],
+            'role' => ['nullable', 'string', 'in:admin,user'],
             'password' => ['nullable', 'string', 'min:8', 'confirmed'],
             'photo' => ['nullable', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
         ]);
