@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
 class UserController extends Controller
@@ -13,10 +14,23 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        // mengambil data user dengan pagination (10 data per halaman)
-        $users = User::latest()->paginate(10);
+        // Ambil keyword pencarian dari URL
+        $search = $request->input('search');
+
+        // Query data user dengan filter jika keyword search diisi
+        $users = User::when($search, function ($query, $search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('name', 'like', "%{$search}%")
+                    ->orWhere('username', 'like', "%{$search}%")
+                    ->orWhere('email', 'like', "%{$search}%")
+                    ->orWhere('phone', 'like', "%{$search}%");
+            });
+        })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString(); // Memastikan keyword search tetap terbawa saat berpindah halaman (pagination)
 
         return view('admin.users.index', compact('users'));
     }
@@ -45,7 +59,15 @@ class UserController extends Controller
         ]);
 
         if ($request->hasFile('photo')) {
-            $validated['photo'] = $request->file('photo')->store('photo-profile', 'public');
+            $file = $request->file('photo');
+
+            // format nama file
+            $slugNames = Str::slug($request->name, '_');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = 'img_profile_'.$slugNames.'_'.time().'.'.$extension;
+
+            // simpan file dengan custom name file
+            $validated['photo'] = $file->storeAs('photo-profile', $fileName, 'public');
         }
 
         $validated['password'] = Hash::make($validated['password']);
@@ -53,7 +75,7 @@ class UserController extends Controller
         User::create($validated);
 
         return redirect()->route('users.index')
-            ->with('success', 'User added successfully!');
+            ->with('success', 'Data added successfully!');
     }
 
     /**
@@ -93,7 +115,15 @@ class UserController extends Controller
             if ($user->photo && Storage::disk('public')->exists($user->photo)) {
                 Storage::disk('public')->delete($user->photo);
             }
-            $validated['photo'] = $request->file('photo')->store('photo-profile', 'public');
+
+            // nama file baru sesuai nama user yang diupdate
+            $file = $request->file('photo');
+            $slugName = Str::slug($request->name, '_');
+            $extension = $file->getClientOriginalExtension();
+            $fileName = 'img_profile_'.$slugName.'_'.time().'.'.$extension;
+
+            // simpan file baru
+            $validated['photo'] = $file->storeAs('photo-profile', $fileName, 'public');
         }
 
         // update password hanya jika di isi
@@ -106,7 +136,7 @@ class UserController extends Controller
         $user->update($validated);
 
         return redirect()->route('users.index')
-            ->with('success', 'User data updated successfully!');
+            ->with('success', 'Data updated successfully!');
     }
 
     /**
@@ -127,6 +157,6 @@ class UserController extends Controller
         $user->delete();
 
         return redirect()->route('users.index')
-            ->with('success', 'User deleted successfully!');
+            ->with('success', 'Data deleted successfully!');
     }
 }

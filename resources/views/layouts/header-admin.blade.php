@@ -6,7 +6,7 @@
         <form class="relative">
             <x-search-icon class="text-blue-600 dark:text-gray-200 size-6 absolute top-2 left-2 stroke-2" />
             <input type="text"
-                class="w-80 bg-white dark:bg-gray-800 text-blue-950 dark:text-gray-100 border-2 border-gray-200 dark:border-gray-600 rounded-lg py-2 px-3 pl-10 focus:border-blue-600 focus:dark:border-gray-400"
+                class="w-80 pl-10 pr-6 py-2 rounded-lg bg-white dark:bg-gray-800 text-blue-950 dark:text-gray-100 border border-gray-200 dark:border-gray-600 focus:outline-none focus:border-blue-600 dark:focus:border-blue-400"
                 placeholder="Search here...">
         </form>
     </div>

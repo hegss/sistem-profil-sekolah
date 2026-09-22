@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -27,8 +28,10 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         return view('admin.dashboard');
     })->name('admin.dashboard');
 
-    // User Management
+    // Data User Management
     Route::resource('users', UserController::class);
+    // Data Teacher Management
+    Route::resource('teachers', TeacherController::class);
 });
 
 Route::middleware('auth')->group(function () {

@@ -10,10 +10,7 @@
 
             <a href="{{ route('users.index') }}"
                 class="flex items-center gap-2 px-3.5 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs font-semibold rounded-lg transition">
-                <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M10 19l-7-7m0 0l7-7m-7 7h18" />
-                </svg>
+                <x-back-arrow-icon class="size-4" />
                 Back
             </a>
         </div>
@@ -110,9 +107,9 @@
                         <select name="role" id="role" required
                             class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 @error('role') border-red-500 @enderror">
                             {{-- <option value="">-- Choose Role --</option> --}}
-                            <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Administrator
+                            <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Administrator
                             </option>
-                            <option value="user" {{ old('role') == 'user' ? 'selected' : '' }}>User
+                            <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>User
                             </option>
                         </select>
                         @error('role')

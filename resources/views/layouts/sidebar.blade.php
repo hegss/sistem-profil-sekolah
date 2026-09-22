@@ -21,11 +21,12 @@
             <p class="text-nav">Dashboard</p>
         </a>
 
-        <div
-            class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.teachers') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
-            <x-teachers-icon class="size-5 dark:text-gray-100 text-blue-600" />
-            <a href="#" class="text-nav text-blue-950 dark:text-gray-100">Teachers</a>
-        </div>
+        <a href="{{ route('teachers.index') }}"
+            class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('teachers.*') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
+            <x-teachers-icon
+                class="size-5 {{ request()->routeIs('teachers.*') ? 'text-white' : 'text-blue-600 dark:text-gray-100' }}" />
+            <p class="text-nav">Teachers</p>
+        </a>
 
         <div
             class="nav-item gap-2 w-[85%] my-2 rounded-lg py-2.5 {{ request()->routeIs('admin.students') ? 'bg-blue-600 text-white dark:text-gray-100 hover:bg-blue-600 hover:text-white' : 'bg-transparent hover:bg-gray-200 dark:hover:bg-gray-500 text-blue-950 dark:text-gray-100' }}">
