@@ -63,7 +63,7 @@
                     <!-- Table Body -->
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-700/60 text-gray-700 dark:text-gray-200">
                         @forelse ($users as $user)
-                            <!-- Contoh Baris 1 -->
+                            <!-- Baris User -->
                             <tr class="hover:bg-gray-50/80 dark:hover:bg-gray-700/40 transition">
                                 <td class="py-3 px-4 text-center font-mono text-gray-400">{{ $user->id }}</td>
                                 <td class="py-3 px-4">
@@ -108,21 +108,12 @@
                                         </a>
 
                                         <!-- Delete Button (Pemicu Modal Delete) -->
-                                        @if ($user->id === auth()->id())
-                                            {{-- <button type="button" disabled
-                                                @click="openDeleteModal = true; deleteUrl = '{{ route('users.destroy', $user->id) }}'; userName = '{{ addslashes($user->name) }}'"
-                                                class="p-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
-                                                title="Hapus User">
-                                                <x-trash-icon class="size-4" />
-                                            </button> --}}
-                                        @else
-                                            <button type="button"
-                                                @click="openDeleteModal = true; deleteUrl = '{{ route('users.destroy', $user->id) }}'; userName = '{{ addslashes($user->name) }}'"
-                                                class="p-1.5 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
-                                                title="Hapus User">
-                                                <x-trash-icon class="size-4" />
-                                            </button>
-                                        @endif
+                                        <button type="button"
+                                            @click="openDeleteModal = true; deleteUrl = '{{ route('users.destroy', $user->id) }}'; userName = '{{ addslashes($user->name) }}'"
+                                            class="p-1.5 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
+                                            title="Hapus User">
+                                            <x-trash-icon class="size-4" />
+                                        </button>
                                     </div>
                                 </td>
                             </tr>

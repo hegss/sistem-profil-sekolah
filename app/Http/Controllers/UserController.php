@@ -20,14 +20,15 @@ class UserController extends Controller
         $search = $request->input('search');
 
         // Query data user dengan filter jika keyword search diisi
-        $users = User::when($search, function ($query, $search) {
-            $query->where(function ($q) use ($search) {
-                $q->where('name', 'like', "%{$search}%")
-                    ->orWhere('username', 'like', "%{$search}%")
-                    ->orWhere('email', 'like', "%{$search}%")
-                    ->orWhere('phone', 'like', "%{$search}%");
-            });
-        })
+        $users = User::where('id', '!=', auth()->id())
+            ->when($search, function ($query, $search) {
+                $query->where(function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%")
+                        ->orWhere('username', 'like', "%{$search}%")
+                        ->orWhere('email', 'like', "%{$search}%")
+                        ->orWhere('phone', 'like', "%{$search}%");
+                });
+            })
             ->latest()
             ->paginate(10)
             ->withQueryString(); // Memastikan keyword search tetap terbawa saat berpindah halaman (pagination)

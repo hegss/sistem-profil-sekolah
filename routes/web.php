@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
@@ -24,12 +26,16 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
     // Dashboard
-    Route::get('/admin/dashboard', function () {
-        return view('admin.dashboard');
-    })->name('admin.dashboard');
+    Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+
+    // Profile Admin
+    Route::get('admin/profile', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
+    Route::patch('admin/profile', [AdminProfileController::class, 'update'])->name('admin.profile.update');
+    Route::patch('admin/profile/password', [AdminProfileController::class, 'updatePassword'])->name('admin.profile.password');
 
     // Data User Management
     Route::resource('users', UserController::class);
+
     // Data Teacher Management
     Route::resource('teachers', TeacherController::class);
 });

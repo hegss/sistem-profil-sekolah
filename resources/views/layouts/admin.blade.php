@@ -16,7 +16,7 @@
         rel="stylesheet">
 
     <!-- Scripts -->
-    @vite(['resources/css/navigation.css', 'resources/js/navigation.js'])
+    @vite(['resources/css/navigation.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-sans antialiased">

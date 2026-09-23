@@ -50,7 +50,7 @@
                                 class="text-red-500">*</span></label>
                         <input type="text" name="name" id="name" value="{{ old('name') }}"
                             placeholder="Input your full name" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 @error('name') border-red-500 @enderror">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
                         @error('name')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -63,7 +63,7 @@
                                 class="text-red-500">*</span></label>
                         <input type="text" name="username" id="username" value="{{ old('username') }}"
                             placeholder="example: giashegy" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 @error('username') border-red-500 @enderror">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
                         @error('username')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -76,7 +76,7 @@
                                 class="text-red-500">*</span></label>
                         <input type="email" name="email" id="email" value="{{ old('email') }}"
                             placeholder="example@email.ac.id" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 @error('email') border-red-500 @enderror">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
                         @error('email')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -88,7 +88,7 @@
                             class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Phone </label>
                         <input type="text" name="phone" id="phone" value="{{ old('phone') }}"
                             placeholder="+62 812-xxxx-xxxx"
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 @error('phone') border-red-500 @enderror">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
                         @error('phone')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -100,7 +100,7 @@
                             class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Role / Access
                             <span class="text-red-500">*</span></label>
                         <select name="role" id="role" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 @error('role') border-red-500 @enderror">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
                             <option value="">-- Choose Role --</option>
                             <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Administrator
                             </option>
@@ -120,7 +120,7 @@
                             class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Password <span
                                 class="text-red-500">*</span></label>
                         <input type="password" name="password" id="password" placeholder="Minimal 8 characters" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400 @error('password') border-red-500 @enderror">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
                         @error('password')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror

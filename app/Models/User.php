@@ -7,11 +7,15 @@ use Database\Factories\UserFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Spatie\Activitylog\Models\Concerns\LogsActivity;
+use Spatie\Activitylog\Support\LogOptions;
 
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable;
+
+    use LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -49,5 +53,20 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    // Konfigurasi Spatie Activity Log
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly(['name', 'username', 'email', 'phone', 'role']) // Kolom yang dipantau
+            ->logOnlyDirty() // Hanya catat kolom yang berubah nilainya saat update
+            ->useLogName('user') // Label log
+            ->setDescriptionForEvent(fn (string $eventName) => match ($eventName) {
+                'created' => 'Added New User',
+                'updated' => 'Updated Data User',
+                'deleted' => 'Deleted User',
+                default => "User {$eventName}",
+            });
     }
 }
