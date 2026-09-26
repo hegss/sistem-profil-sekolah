@@ -1,20 +1,19 @@
 <x-admin-layout>
     <!-- Wrapper Utama (Fit Layar & Scroll Intern untuk Tabel) -->
-    <div x-data="{ openDeleteModal: false, deleteUrl: '', userName: '' }" class="p-6 space-y-4 flex flex-col h-full overflow-hidden">
+    <div x-data="{ openDeleteModal: false, deleteUrl: '', facilitieName: '' }" class="p-6 space-y-4 flex flex-col h-full overflow-hidden">
 
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Users Management</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Manage user data, access rights, and contact
-                    information.</p>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Banner Management</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Manage the banners photo, title, subtitle, and description.</p>
             </div>
 
             <div class="flex items-center gap-3">
                 <!-- Form Pencarian -->
-                <form action="{{ route('users.index') }}" method="get" class="relative flex-1 md:w-64">
+                <form action="{{ route('banners.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
-                        placeholder="Search name, username, email..."
+                        placeholder="Search facility name, location..."
                         class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
 
                     <!-- Icon Search -->
@@ -22,7 +21,7 @@
 
                     <!-- Tombol Reset Search (Muncul jika ada keyword) -->
                     @if (request('search'))
-                        <a href="{{ route('users.index') }}"
+                        <a href="{{ route('banners.index') }}"
                             class="absolute right-2.5 top-2.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                             title="Clear search">
                             <x-clear-icon class="size-4" />
@@ -30,11 +29,11 @@
                     @endif
                 </form>
 
-                <!-- Tomboh tambah user -->
-                <a href="{{ route('users.create') }}"
+                <!-- Tomboh tambah facilitie -->
+                <a href="{{ route('banners.create') }}"
                     class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
-                    Add User
+                    Add Banner
                 </a>
             </div>
         </div>
@@ -49,69 +48,56 @@
 
                     <!-- Table Header -->
                     <thead
-                        class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
+                        class="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
                         <tr>
-                            <th scope="col" class="py-3.5 px-4 w-16 text-center">ID</th>
-                            <th scope="col" class="py-3.5 px-4">Name</th>
-                            <th scope="col" class="py-3.5 px-4">Email</th>
-                            <th scope="col" class="py-3.5 px-4">Phone</th>
-                            <th scope="col" class="py-3.5 px-4">Role</th>
-                            <th scope="col" class="py-3.5 px-4 text-center w-28">Action</th>
+                            <th class="py-3.5 px-4 w-16 text-center">No</th>
+                            <th class="py-3.5 px-4">Gallery Photo</th>
+                            <th class="py-3.5 px-4">Title</th>
+                            <th class="py-3.5 px-4">Subtitle</th>
+                            <th class="py-3.5 px-4 max-w-xs">Description</th>
+                            <th class="py-3.5 px-4 text-center w-28">Action</th>
                         </tr>
                     </thead>
 
                     <!-- Table Body -->
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-700/60 text-gray-700 dark:text-gray-200">
-                        @forelse ($users as $user)
-                            <!-- Baris User -->
+                        @forelse ($banners as $banner)
+                            <!-- Baris facilitie -->
                             <tr class="hover:bg-gray-50/80 dark:hover:bg-gray-700/40 transition">
-                                <td class="py-3 px-4 text-center font-mono text-gray-400">{{ $user->id }}</td>
+                                <td class="py-3 px-4 text-center font-mono text-gray-400">{{ $loop->iteration }}</td>
                                 <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <!-- Foto Profil -->
-                                        <img class="size-9 rounded-full object-cover border border-gray-200 dark:border-gray-600 shrink-0"
-                                            src="{{ $user->photo ? asset('storage/' . $user->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($user->name) . '&background=0D8ABC&color=fff' }}"
-                                            alt="{{ $user->name }}">
-
-                                        <!-- Nama + Username (Stacked) -->
-                                        <div class="flex flex-col">
+                                    <div class="flex items-center -space-x-2 overflow-hidden">
+                                        @forelse ($banner->photos->take(3) as $photo)
+                                            <img src="{{ asset('storage/' . $photo->photos) }}"
+                                                class="inline-block size-9 rounded-lg object-cover ring-2 ring-white dark:ring-gray-800">
+                                        @empty
+                                            <span class="text-gray-400 text-[11px] italic">Without a Photo</span>
+                                        @endforelse
+                                        @if ($banner->photos->count() > 3)
                                             <span
-                                                class="font-bold text-gray-900 dark:text-white text-sm leading-tight">{{ $user->name }}</span>
-                                            <span
-                                                class="text-[11px] text-gray-400 dark:text-gray-400">{{ $user->username }}</span>
-                                        </div>
+                                                class="flex items-center justify-center size-9 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-[10px] font-bold ring-2 ring-white dark:ring-gray-800">
+                                                +{{ $banner->photos->count() - 3 }}
+                                            </span>
+                                        @endif
                                     </div>
                                 </td>
-                                <td class="py-3 px-4 font-medium">{{ $user->email }}</td>
-                                <td class="py-3 px-4 text-gray-500 dark:text-gray-400">{{ $user->phone }}</td>
-                                <td class="py-3 px-4">
-                                    <!-- Badge Role -->
-                                    @if ($user->role === 'admin')
-                                        <span
-                                            class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300">
-                                            Administrator
-                                        </span>
-                                    @else
-                                        <span
-                                            class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
-                                            User
-                                        </span>
-                                    @endif
-                                </td>
+                                <td class="py-3 px-4 font-bold text-gray-900 dark:text-white">
+                                    {{ $banner->title }}</td>
+                                <td class="py-3 px-4 font-medium text-gray-500 dark:text-gray-400">
+                                    {{ $banner->subtitle }}</td>
+                                <td class="py-3 px-4 text-gray-500 dark:text-gray-400 truncate max-w-xs">
+                                    {{ Str::limit($banner->description, 60) }}</td>
                                 <td class="py-3 px-4">
                                     <div class="flex items-center justify-center gap-1.5">
-                                        <!-- Edit Button -->
-                                        <a href="{{ route('users.edit', $user->id) }}"
-                                            class="p-1.5 rounded-lg text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition"
-                                            title="Edit User">
+                                        <a href="{{ route('banners.edit', $banner->id) }}"
+                                            class="p-1.5 rounded-lg text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition"
+                                            title="Edit Fasilitas">
                                             <x-edit-icon class="size-4" />
                                         </a>
-
-                                        <!-- Delete Button (Pemicu Modal Delete) -->
                                         <button type="button"
-                                            @click="openDeleteModal = true; deleteUrl = '{{ route('users.destroy', $user->id) }}'; userName = '{{ addslashes($user->name) }}'"
-                                            class="p-1.5 rounded-lg text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
-                                            title="Hapus User">
+                                            @click="openDeleteModal = true; deleteUrl = '{{ route('banners.destroy', $banner->id) }}'; facilityName = '{{ addslashes($banner->name) }}'"
+                                            class="p-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
+                                            title="Hapus Fasilitas">
                                             <x-trash-icon class="size-4" />
                                         </button>
                                     </div>
@@ -121,10 +107,10 @@
                             <tr>
                                 <td colspan="6" class="text-center py-8 text-gray-400">
                                     @if (request('search'))
-                                        No user data matches the search "<span
+                                        No banner data matches the search "<span
                                             class="font-semibold">{{ request('search') }}</span>".
                                     @else
-                                        There is no user data yet.
+                                        There is no banner data yet.
                                     @endif
                                 </td>
                             </tr>
@@ -140,31 +126,31 @@
 
                 <!-- Informasi Jumlah Data -->
                 <div>
-                    Showing <span
-                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $users->firstItem() ?? 0 }}</span>
+                    Show <span
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $banners->firstItem() ?? 0 }}</span>
                     - <span
-                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $users->lastItem() ?? 0 }}</span>
-                    from <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $users->total() }}</span> Users
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $banners->lastItem() ?? 0 }}</span>
+                    from <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $banners->total() }}</span> banners
                 </div>
 
                 <!-- Tombol Navigasi Halaman -->
                 <div class="flex items-center gap-1">
                     <!-- Tombol Sebelumnya -->
-                    @if ($users->onFirstPage())
+                    @if ($banners->onFirstPage())
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
-                            Sebelumnya
+                            Prev
                         </span>
                     @else
-                        <a href="{{ $users->previousPageUrl() }}"
+                        <a href="{{ $banners->previousPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
-                            Sebelumnya
+                            Prev
                         </a>
                     @endif
 
                     <!-- Nomor Halaman -->
-                    @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
-                        @if ($page == $users->currentPage())
+                    @foreach ($banners->getUrlRange(1, $banners->lastPage()) as $page => $url)
+                        @if ($page == $banners->currentPage())
                             <span class="px-2.5 py-1 rounded bg-blue-600 text-white font-semibold">
                                 {{ $page }}
                             </span>
@@ -177,15 +163,15 @@
                     @endforeach
 
                     <!-- Tombol Selanjutnya -->
-                    @if ($users->hasMorePages())
-                        <a href="{{ $users->nextPageUrl() }}"
+                    @if ($banners->hasMorePages())
+                        <a href="{{ $banners->nextPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
-                            Selanjutnya
+                            Next
                         </a>
                     @else
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
-                            Selanjutnya
+                            Next
                         </span>
                     @endif
                 </div>
@@ -212,10 +198,10 @@
                 </div>
 
                 <div class="text-center space-y-1">
-                    <h3 class="text-base font-bold text-gray-900 dark:text-white">Delete this user?</h3>
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white">Delete this banners?</h3>
                     <p class="text-xs text-gray-500 dark:text-gray-400">
                         Are you sure want to delete this data <span
-                            class="font-semibold text-gray-800 dark:text-gray-200" x-text="userName"></span>?
+                            class="font-semibold text-gray-800 dark:text-gray-200" x-text="facilitieName"></span>?
                         This action can't be undone.
                     </p>
                 </div>

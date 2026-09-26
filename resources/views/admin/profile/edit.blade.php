@@ -77,7 +77,7 @@
                                 Foto Profil Baru</label>
                             <input type="file" name="photo" id="photo-file-input"
                                 accept="image/jpeg,image/png,image/jpg"
-                                class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-200 cursor-pointer">
+                                class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:hover:file:bg-gray-500 dark:file:bg-gray-700 dark:file:text-gray-200 cursor-pointer">
                             @error('photo')
                                 <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                             @enderror

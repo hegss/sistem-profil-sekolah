@@ -125,11 +125,11 @@
 
                 <!-- Informasi Jumlah Data -->
                 <div>
-                    Menampilkan <span
+                    Showing <span
                         class="font-semibold text-gray-700 dark:text-gray-200">{{ $teachers->firstItem() ?? 0 }}</span>
-                    sampai <span
+                    - <span
                         class="font-semibold text-gray-700 dark:text-gray-200">{{ $teachers->lastItem() ?? 0 }}</span>
-                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $teachers->total() }}</span> User
+                    from <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $teachers->total() }}</span> Teachers
                 </div>
 
                 <!-- Tombol Navigasi Halaman -->

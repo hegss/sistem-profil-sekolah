@@ -7,14 +7,9 @@
 
     <!-- Logo & Title Header -->
     <div
-        class="p-5 flex items-center gap-3 shrink-0 h-18 border-b border-gray-100 dark:border-gray-700/50 overflow-hidden">
-        <a href="{{ route('home') }}" class="flex items-center gap-3">
+        class="p-5 flex justify-center items-center gap-3 shrink-0 h-18 border-b border-gray-100 dark:border-gray-700/50 overflow-hidden">
+        <a href="{{ route('home') }}" class="flex justify-center items-center">
             <x-application-logo class="h-8 w-auto fill-current shrink-0 text-blue-600 dark:text-blue-400" />
-            <span x-show="!isMinimized" x-transition:enter="transition ease-out duration-200"
-                x-transition:enter-start="opacity-0 translate-x-2" x-transition:enter-end="opacity-100 translate-x-0"
-                class="font-bold text-gray-800 dark:text-white text-base tracking-wide whitespace-nowrap">
-                SchoolAdmin
-            </span>
         </a>
     </div>
 
@@ -40,7 +35,16 @@
             <span x-show="!isMinimized" class="truncate">Dashboard</span>
         </a>
 
-        <!-- 2. Teachers -->
+        <!-- 2. Banner -->
+        <a href="{{ route('banners.index') }}"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('banner.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
+            :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Dashboard' : ''">
+            <x-image-icon
+                class="size-5 shrink-0 {{ request()->routeIs('banner.*') ? 'text-white' : 'text-blue-600 dark:text-gray-100' }}" />
+            <span x-show="!isMinimized" class="truncate">Banner</span>
+        </a>
+
+        <!-- 3. Teachers -->
         <a href="{{ route('teachers.index') }}"
             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('teachers.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
             :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Teachers' : ''">
@@ -49,7 +53,7 @@
             <span x-show="!isMinimized" class="truncate">Teachers</span>
         </a>
 
-        <!-- 3. Students -->
+        <!-- 4. Students -->
         <a href="#"
             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('admin.students') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
             :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Students' : ''">
@@ -57,7 +61,7 @@
             <span x-show="!isMinimized" class="truncate">Students</span>
         </a>
 
-        <!-- 4. Admin Staff -->
+        <!-- 5. Admin Staff -->
         <a href="#"
             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('admin.staffs') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
             :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Admin Staff' : ''">
@@ -65,7 +69,7 @@
             <span x-show="!isMinimized" class="truncate">Admin Staff</span>
         </a>
 
-        <!-- 5. Greeting -->
+        <!-- 6. Greeting -->
         <a href="#"
             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('admin.greetings') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
             :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Greeting' : ''">
@@ -73,7 +77,7 @@
             <span x-show="!isMinimized" class="truncate">Greeting</span>
         </a>
 
-        <!-- 6. Sub-Menu Group: Activities -->
+        <!-- 7. Sub-Menu Group: Activities -->
         <div class="space-y-1">
             <button type="button"
                 @click="openGroup = (openGroup === 'activities' ? '' : 'activities'); if(isMinimized) isMinimized = false;"
@@ -104,15 +108,15 @@
             </div>
         </div>
 
-        <!-- 7. Facilities -->
-        <a href="#"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60"
+        <!-- 8. Facilities -->
+        <a href="{{ route('facilities.index') }}"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('facilities.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
             :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Facilities' : ''">
-            <x-facilities-icon class="size-5 shrink-0 text-blue-600 dark:text-gray-100" />
+            <x-facilities-icon class="size-5 shrink-0 {{ request()->routeIs('facilities.*') ? 'text-white' : 'text-blue-600 dark:text-gray-100' }}" />
             <span x-show="!isMinimized" class="truncate">Facilities</span>
         </a>
 
-        <!-- 8. Sub-Menu Group: Informations -->
+        <!-- 9. Sub-Menu Group: Informations -->
         <div class="space-y-1">
             <button type="button"
                 @click="openGroup = (openGroup === 'informations' ? '' : 'informations'); if(isMinimized) isMinimized = false;"
@@ -143,7 +147,7 @@
             </div>
         </div>
 
-        <!-- 9. Messages -->
+        <!-- 10. Messages -->
         <a href="#"
             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('admin.messages') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
             :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Messages' : ''">
@@ -151,7 +155,7 @@
             <span x-show="!isMinimized" class="truncate">Messages</span>
         </a>
 
-        <!-- 10. Users -->
+        <!-- 11. Users -->
         <a href="{{ route('users.index') }}"
             class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('users.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
             :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Users' : ''">

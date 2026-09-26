@@ -1,7 +1,9 @@
 <?php
 
 use App\Http\Controllers\AdminProfileController;
+use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
@@ -26,24 +28,41 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
     // Dashboard
-    Route::get('admin/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('admin/dashboard', [DashboardController::class, 'index'])
+        ->name('admin.dashboard');
 
     // Profile Admin
-    Route::get('admin/profile', [AdminProfileController::class, 'edit'])->name('admin.profile.edit');
-    Route::patch('admin/profile', [AdminProfileController::class, 'update'])->name('admin.profile.update');
-    Route::patch('admin/profile/password', [AdminProfileController::class, 'updatePassword'])->name('admin.profile.password');
+    Route::get('admin/profile', [AdminProfileController::class, 'edit'])
+        ->name('admin.profile.edit');
+    Route::patch('admin/profile', [AdminProfileController::class, 'update'])
+        ->name('admin.profile.update');
+    Route::patch('admin/profile/password', [AdminProfileController::class, 'updatePassword'])
+        ->name('admin.profile.password');
 
     // Data User Management
     Route::resource('users', UserController::class);
 
     // Data Teacher Management
     Route::resource('teachers', TeacherController::class);
+
+    // Data Information Facilities
+    Route::resource('facilities', FacilityController::class);
+    Route::delete('facilities/photo/{id}', [FacilityController::class, 'destroyPhoto'])
+        ->name('facilities.photo.destroy');
+
+    // Banner Management
+    Route::resource('banners', BannerController::class);
+    Route::delete('banners/photo/{id}', [BannerController::class, 'destroyPhoto'])
+        ->name('banners.photo.destroy');
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ProfileController::class, 'edit'])
+        ->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])
+        ->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])
+        ->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
