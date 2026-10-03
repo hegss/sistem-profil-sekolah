@@ -9,7 +9,7 @@
                 class="text-gray-400 dark:text-gray-400 size-4 absolute top-2 left-3.5 stroke-2 pointer-events-none" />
             <input type="text" name="search" value="{{ request('search') }}"
                 class="w-72 md:w-80 pl-10 pr-4 py-2 text-xs rounded-xl bg-gray-50 dark:bg-gray-900/50 text-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-gray-900 transition duration-200"
-                placeholder="Search here...">
+                placeholder="Cari disini...">
         </form>
     </div>
 
@@ -174,7 +174,7 @@
                             class="font-bold text-gray-800 dark:text-gray-200 truncate max-w-[170px]">{{ Auth::user()->email }}</span>
                     </div>
                     <div class="flex items-center justify-between">
-                        <span class="text-gray-400 font-medium">Phone:</span>
+                        <span class="text-gray-400 font-medium">Telepon:</span>
                         <span
                             class="font-bold text-gray-800 dark:text-gray-200">{{ Auth::user()->phone ?? '-' }}</span>
                     </div>
@@ -186,7 +186,7 @@
                     <a href="{{ route('admin.profile.edit') }}"
                         class="flex-1 flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs font-semibold transition">
                         <x-settings-icon class="size-4 text-gray-500 dark:text-gray-300" />
-                        <span>Settings</span>
+                        <span>Profil</span>
                     </a>
 
                     <!-- Navigasi Logout -->
@@ -195,7 +195,7 @@
                         <button type="submit"
                             class="w-full flex items-center justify-center gap-2 py-2.5 px-3 rounded-xl bg-red-50 hover:bg-red-100 dark:bg-red-950/40 dark:hover:bg-red-900/60 text-red-600 dark:text-red-400 text-xs font-semibold transition">
                             <x-logout-icon class="size-4 text-red-600 dark:text-red-400" />
-                            <span>Logout</span>
+                            <span>Keluar</span>
                         </button>
                     </form>
                 </div>

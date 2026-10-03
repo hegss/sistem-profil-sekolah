@@ -5,15 +5,15 @@
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Data Guru</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola data guru, status aktif, dan posisi.</p>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Data Siswa</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola data siswa atau ubah status aktifnya.</p>
             </div>
 
             <div class="flex items-center gap-3">
                 <!-- Form Pencarian -->
-                <form action="{{ route('teachers.index') }}" method="get" class="relative flex-1 md:w-64">
+                <form action="{{ route('students.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
-                        placeholder="Cari nama, posisi..."
+                        placeholder="Cari nisn, nama, nama ibu..."
                         class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
 
                     <!-- Icon Search -->
@@ -21,7 +21,7 @@
 
                     <!-- Tombol Reset Search (Muncul jika ada keyword) -->
                     @if (request('search'))
-                        <a href="{{ route('teachers.index') }}"
+                        <a href="{{ route('students.index') }}"
                             class="absolute right-2.5 top-2.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                             title="Clear search">
                             <x-clear-icon class="size-4" />
@@ -30,10 +30,10 @@
                 </form>
 
                 <!-- Tomboh tambah user -->
-                <a href="{{ route('teachers.create') }}"
+                <a href="{{ route('students.create') }}"
                     class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
-                    Tambah Guru
+                    Tambah Siswa
                 </a>
             </div>
         </div>
@@ -50,9 +50,10 @@
                     <thead
                         class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
                         <tr>
-                            <th scope="col" class="py-3.5 px-4 w-16 text-center">ID</th>
-                            <th scope="col" class="py-3.5 px-4">Nama Guru</th>
-                            <th scope="col" class="py-3.5 px-4">Posisi</th>
+                            <th scope="col" class="py-3.5 px-4 w-16 text-center">No</th>
+                            <th scope="col" class="py-3.5 px-4">NISN</th>
+                            <th scope="col" class="py-3.5 px-4">Nama</th>
+                            <th scope="col" class="py-3.5 px-4">Nama Ibu</th>
                             <th scope="col" class="py-3.5 px-4 text-center">Status</th>
                             <th scope="col" class="py-3.5 px-4 text-center w-28">Aksi</th>
                         </tr>
@@ -60,21 +61,14 @@
 
                     <!-- Table Body -->
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-700/60 text-gray-700 dark:text-gray-200">
-                        @forelse ($teachers as $teacher)
+                        @forelse ($students as $student)
                             <tr class="hover:bg-gray-50/80 dark:hover:bg-gray-700/40 transition">
                                 <td class="py-3 px-4 text-center font-mono text-gray-400">{{ $loop->iteration }}</td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img class="size-9 rounded-full object-cover border border-gray-200 dark:border-gray-600 shrink-0"
-                                            src="{{ $teacher->photo ? asset('storage/' . $teacher->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($teacher->name) . '&background=0D8ABC&color=fff' }}"
-                                            alt="{{ $teacher->name }}">
-                                        <span
-                                            class="font-bold text-gray-900 dark:text-white text-sm">{{ $teacher->name }}</span>
-                                    </div>
-                                </td>
-                                <td class="py-3 px-4 font-medium">{{ $teacher->position }}</td>
+                                <td class="py-3 px-4 font-medium">{{ $student->nisn }}</td>
+                                <td class="py-3 px-4 font-medium">{{ $student->name }}</td>
+                                <td class="py-3 px-4 font-medium">{{ $student->mothers_name }}</td>
                                 <td class="py-3 px-4 text-center">
-                                    @if ($teacher->is_active)
+                                    @if ($student->is_active)
                                         <span
                                             class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
                                             Aktif
@@ -88,13 +82,13 @@
                                 </td>
                                 <td class="py-3 px-4">
                                     <div class="flex items-center justify-center gap-1.5">
-                                        <a href="{{ route('teachers.edit', $teacher->id) }}"
+                                        <a href="{{ route('students.edit', $student->id) }}"
                                             class="p-1.5 rounded-lg text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition"
                                             title="Edit Guru">
                                             <x-edit-icon class="size-4" />
                                         </a>
                                         <button type="button"
-                                            @click="openDeleteModal = true; deleteUrl = '{{ route('teachers.destroy', $teacher->id) }}'; teacherName = '{{ addslashes($teacher->name) }}'"
+                                            @click="openDeleteModal = true; deleteUrl = '{{ route('students.destroy', $student->id) }}'; teacherName = '{{ addslashes($student->nama_lengkap) }}'"
                                             class="p-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
                                             title="Hapus Guru">
                                             <x-trash-icon class="size-4" />
@@ -106,10 +100,10 @@
                             <tr>
                                 <td colspan="6" class="text-center py-8 text-gray-400">
                                     @if (request('search'))
-                                        Tidak ada data guru yang cocok dengan "<span
+                                        Tidak ada data siswa yang cocok dengan "<span
                                             class="font-semibold">{{ request('search') }}</span>".
                                     @else
-                                        Tidak ada data guru yang tersedia.
+                                        Belum ada data siswa. Silahkan tambahkan data siswa baru.
                                     @endif
                                 </td>
                             </tr>
@@ -125,31 +119,32 @@
 
                 <!-- Informasi Jumlah Data -->
                 <div>
-                    Menampilkan <span
-                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $teachers->firstItem() ?? 0 }}</span>
+                    Showing <span
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $students->firstItem() ?? 0 }}</span>
                     - <span
-                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $teachers->lastItem() ?? 0 }}</span>
-                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $teachers->total() }}</span> Guru
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $students->lastItem() ?? 0 }}</span>
+                    from <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $students->total() }}</span>
+                    Students
                 </div>
 
                 <!-- Tombol Navigasi Halaman -->
                 <div class="flex items-center gap-1">
                     <!-- Tombol Sebelumnya -->
-                    @if ($teachers->onFirstPage())
+                    @if ($students->onFirstPage())
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
-                            Sebelumnya
+                            Prev
                         </span>
                     @else
-                        <a href="{{ $teachers->previousPageUrl() }}"
+                        <a href="{{ $students->previousPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
-                            Sebelumnya
+                            Prev
                         </a>
                     @endif
 
                     <!-- Nomor Halaman -->
-                    @foreach ($teachers->getUrlRange(1, $teachers->lastPage()) as $page => $url)
-                        @if ($page == $teachers->currentPage())
+                    @foreach ($students->getUrlRange(1, $students->lastPage()) as $page => $url)
+                        @if ($page == $students->currentPage())
                             <span class="px-2.5 py-1 rounded bg-blue-600 text-white font-semibold">
                                 {{ $page }}
                             </span>
@@ -162,15 +157,15 @@
                     @endforeach
 
                     <!-- Tombol Selanjutnya -->
-                    @if ($teachers->hasMorePages())
-                        <a href="{{ $teachers->nextPageUrl() }}"
+                    @if ($students->hasMorePages())
+                        <a href="{{ $students->nextPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
-                            Selanjutnya
+                            Next
                         </a>
                     @else
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
-                            Selanjutnya
+                            Next
                         </span>
                     @endif
                 </div>
@@ -197,18 +192,18 @@
                 </div>
 
                 <div class="text-center space-y-1">
-                    <h3 class="text-base font-bold text-gray-900 dark:text-white">Hapus data guru ini?</h3>
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white">Delete this student?</h3>
                     <p class="text-xs text-gray-500 dark:text-gray-400">
-                        Anda yakin ingin menghapus data ini <span
+                        Are you sure want to delete this data <span
                             class="font-semibold text-gray-800 dark:text-gray-200" x-text="userName"></span>?
-                        Aksi ini tidak bisa dibatalkan.
+                        This action can't be undone.
                     </p>
                 </div>
 
                 <div class="flex items-center gap-3 pt-2">
                     <button type="button" @click="openDeleteModal = false"
                         class="flex-1 py-2 px-4 text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition">
-                        Batal
+                        Cancel
                     </button>
 
                     <form :action="deleteUrl" method="POST" class="flex-1">
@@ -216,7 +211,7 @@
                         @method('DELETE')
                         <button type="submit"
                             class="w-full py-2 px-4 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition">
-                            Ya, Hapus
+                            Yes, Delete
                         </button>
                     </form>
                 </div>

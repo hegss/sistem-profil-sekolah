@@ -5,15 +5,15 @@
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Banner Management</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Manage the banners photo, title, subtitle, and description.</p>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Kelola Banner</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola foto, judul, subjudul, dan deskripsi banner.</p>
             </div>
 
             <div class="flex items-center gap-3">
                 <!-- Form Pencarian -->
                 <form action="{{ route('banners.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
-                        placeholder="Search facility name, location..."
+                        placeholder="Cari nama banner, judul..."
                         class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
 
                     <!-- Icon Search -->
@@ -33,7 +33,7 @@
                 <a href="{{ route('banners.create') }}"
                     class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
-                    Add Banner
+                    Tambah Banner
                 </a>
             </div>
         </div>
@@ -51,11 +51,11 @@
                         class="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
                         <tr>
                             <th class="py-3.5 px-4 w-16 text-center">No</th>
-                            <th class="py-3.5 px-4">Gallery Photo</th>
-                            <th class="py-3.5 px-4">Title</th>
-                            <th class="py-3.5 px-4">Subtitle</th>
-                            <th class="py-3.5 px-4 max-w-xs">Description</th>
-                            <th class="py-3.5 px-4 text-center w-28">Action</th>
+                            <th class="py-3.5 px-4">Foto Galeri</th>
+                            <th class="py-3.5 px-4">Judul</th>
+                            <th class="py-3.5 px-4">Subjudul</th>
+                            <th class="py-3.5 px-4 max-w-xs">Deskripsi</th>
+                            <th class="py-3.5 px-4 text-center w-28">Aksi</th>
                         </tr>
                     </thead>
 
@@ -107,10 +107,10 @@
                             <tr>
                                 <td colspan="6" class="text-center py-8 text-gray-400">
                                     @if (request('search'))
-                                        No banner data matches the search "<span
+                                        Tidak ada banner yang cocok dengan "<span
                                             class="font-semibold">{{ request('search') }}</span>".
                                     @else
-                                        There is no banner data yet.
+                                        Tidak ada data banner.
                                     @endif
                                 </td>
                             </tr>
@@ -126,11 +126,11 @@
 
                 <!-- Informasi Jumlah Data -->
                 <div>
-                    Show <span
+                    Menampilkan <span
                         class="font-semibold text-gray-700 dark:text-gray-200">{{ $banners->firstItem() ?? 0 }}</span>
                     - <span
                         class="font-semibold text-gray-700 dark:text-gray-200">{{ $banners->lastItem() ?? 0 }}</span>
-                    from <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $banners->total() }}</span> banners
+                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $banners->total() }}</span> banners
                 </div>
 
                 <!-- Tombol Navigasi Halaman -->
@@ -139,12 +139,12 @@
                     @if ($banners->onFirstPage())
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
-                            Prev
+                            Sebelumnya
                         </span>
                     @else
                         <a href="{{ $banners->previousPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
-                            Prev
+                            Sebelumnya
                         </a>
                     @endif
 
@@ -166,12 +166,12 @@
                     @if ($banners->hasMorePages())
                         <a href="{{ $banners->nextPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
-                            Next
+                            Selanjutnya
                         </a>
                     @else
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
-                            Next
+                            Selanjutnya
                         </span>
                     @endif
                 </div>
@@ -198,18 +198,18 @@
                 </div>
 
                 <div class="text-center space-y-1">
-                    <h3 class="text-base font-bold text-gray-900 dark:text-white">Delete this banners?</h3>
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white">Hapus banner ini?</h3>
                     <p class="text-xs text-gray-500 dark:text-gray-400">
-                        Are you sure want to delete this data <span
+                        Anda yakin ingin menghapus data ini <span
                             class="font-semibold text-gray-800 dark:text-gray-200" x-text="facilitieName"></span>?
-                        This action can't be undone.
+                        Aksi ini tidak bisa dibatalkan.
                     </p>
                 </div>
 
                 <div class="flex items-center gap-3 pt-2">
                     <button type="button" @click="openDeleteModal = false"
                         class="flex-1 py-2 px-4 text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition">
-                        Cancel
+                        Batal
                     </button>
 
                     <form :action="deleteUrl" method="POST" class="flex-1">
@@ -217,7 +217,7 @@
                         @method('DELETE')
                         <button type="submit"
                             class="w-full py-2 px-4 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition">
-                            Yes, Delete
+                            Ya, Hapus
                         </button>
                     </form>
                 </div>

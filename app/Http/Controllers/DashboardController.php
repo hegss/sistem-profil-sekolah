@@ -19,7 +19,6 @@ class DashboardController extends Controller
         // ambil 5 riwayat aktivitas terbaru beserta data admin (causer) & data yang diubah (subject)
         $recentActivities = Activity::with(['causer', 'subject'])
             ->latest()
-            ->take(5)
             ->get();
 
         return view('admin.dashboard', compact('recentActivities', 'activeTeacher', 'totalFacilities'));

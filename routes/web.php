@@ -5,6 +5,8 @@ use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\ReferralCodeController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -27,9 +29,31 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
-    // Dashboard
+    // Route Dashboard
     Route::get('admin/dashboard', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
+
+    // Route Banner
+    Route::resource('banners', BannerController::class);
+    Route::delete('banners/photo/{id}', [BannerController::class, 'destroyPhoto'])
+        ->name('banners.photo.destroy');
+
+    // Route Referral Code
+    Route::resource('referrals', ReferralCodeController::class);
+
+    // Route Data Teacher
+    Route::resource('teachers', TeacherController::class);
+
+    // Route Data Student
+    Route::resource('students', StudentController::class);
+
+    // Route Data Facilities
+    Route::resource('facilities', FacilityController::class);
+    Route::delete('facilities/photo/{id}', [FacilityController::class, 'destroyPhoto'])
+        ->name('facilities.photo.destroy');
+
+    // Route Data User
+    Route::resource('users', UserController::class);
 
     // Profile Admin
     Route::get('admin/profile', [AdminProfileController::class, 'edit'])
@@ -38,22 +62,6 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
         ->name('admin.profile.update');
     Route::patch('admin/profile/password', [AdminProfileController::class, 'updatePassword'])
         ->name('admin.profile.password');
-
-    // Data User Management
-    Route::resource('users', UserController::class);
-
-    // Data Teacher Management
-    Route::resource('teachers', TeacherController::class);
-
-    // Data Information Facilities
-    Route::resource('facilities', FacilityController::class);
-    Route::delete('facilities/photo/{id}', [FacilityController::class, 'destroyPhoto'])
-        ->name('facilities.photo.destroy');
-
-    // Banner Management
-    Route::resource('banners', BannerController::class);
-    Route::delete('banners/photo/{id}', [BannerController::class, 'destroyPhoto'])
-        ->name('banners.photo.destroy');
 });
 
 Route::middleware('auth')->group(function () {

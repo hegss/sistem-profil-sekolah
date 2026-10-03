@@ -9,7 +9,7 @@
             <div
                 class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Students</p>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Jumlah Siswa</p>
                     <h3 class="text-2xl font-bold text-blue-950 dark:text-gray-100 mt-1">1.250</h3>
                 </div>
                 <div class="p-3 bg-blue-100 dark:bg-blue-800 rounded-xl text-blue-600 dark:text-blue-200">
@@ -21,7 +21,7 @@
             <div
                 class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Teachers</p>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Jumlah Guru</p>
                     <h3 class="text-2xl font-bold text-blue-950 dark:text-gray-100 mt-1">{{ number_format($activeTeacher) }}</h3>
                 </div>
                 <div class="p-3 bg-emerald-100 dark:bg-emerald-800 rounded-xl text-emerald-600 dark:text-emerald-200">
@@ -33,7 +33,7 @@
             <div
                 class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Facilities</p>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Fasilitas</p>
                     <h3 class="text-2xl font-bold text-blue-950 dark:text-gray-100 mt-1">{{ number_format($totalFacilities) }}</h3>
                 </div>
                 <div class="p-3 bg-amber-100 dark:bg-amber-800 rounded-xl text-amber-600 dark:text-amber-200">
@@ -45,7 +45,7 @@
             <div
                 class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
                 <div>
-                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Extracurriculars</p>
+                    <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Ektrakurikuler</p>
                     <h3 class="text-2xl font-bold text-blue-950 dark:text-gray-100 mt-1">12</h3>
                 </div>
                 <div class="p-3 bg-purple-100 dark:bg-purple-800 rounded-xl text-purple-600 dark:text-purple-200">
@@ -63,8 +63,8 @@
                 class="lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                 <div class="flex items-center justify-between mb-4">
                     <div>
-                        <h3 class="text-base font-semibold text-blue-950 dark:text-gray-100">Visitor Statistics</h3>
-                        <p class="text-xs text-gray-500 dark:text-gray-400">Number of website visitors per month</p>
+                        <h3 class="text-base font-semibold text-blue-950 dark:text-gray-100">Statistik Pengunjung</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">Jumlah pengunjung website perbulan</p>
                     </div>
                 </div>
                 <div class="relative w-full h-72">
@@ -75,10 +75,10 @@
             <!-- Log Aktivitas Admin (1 Kolom) -->
             <div
                 class="bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
-                <h3 class="text-base font-semibold text-blue-950 dark:text-gray-100 mb-1">Recent Activities</h3>
-                <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">History of data changes by admin</p>
+                <h3 class="text-base font-semibold text-blue-950 dark:text-gray-100 mb-1">Riwayat Aktivitas</h3>
+                <p class="text-xs text-gray-500 dark:text-gray-400 mb-4">Riwayat perubahan data oleh admin</p>
 
-                <div class="space-y-4">
+                <div class="max-h-[290px] overflow-y-auto pr-2 space-y-3 custom-scrollbar flex-1">
                     @forelse ($recentActivities as $activity)
                         <div class="flex items-start gap-3 p-2.5 rounded-xl bg-gray-50 dark:bg-gray-700/30 transition">
 
@@ -115,7 +115,7 @@
                                     {{ $activity->description }}
                                 </span>
                                 <span class="text-[11px] text-gray-400 truncate">
-                                    Oleh: <span
+                                    By: <span
                                         class="font-semibold text-gray-600 dark:text-gray-300">{{ $activity->causer->name ?? 'Sistem' }}</span>
                                     @if ($activity->subject)
                                         — "{{ $activity->subject->name ?? ($activity->subject->nama_lengkap ?? '') }}"

@@ -1,19 +1,19 @@
 <x-admin-layout>
     <!-- Wrapper Utama (Fit Layar & Scroll Intern untuk Tabel) -->
-    <div x-data="{ openDeleteModal: false, deleteUrl: '', userName: '' }" class="p-6 space-y-4 flex flex-col h-full overflow-hidden">
+    <div x-data="{ openDeleteModal: false, deleteUrl: '', referralName: '' }" class="p-6 space-y-4 flex flex-col h-full overflow-hidden">
 
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Data Guru</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola data guru, status aktif, dan posisi.</p>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Kode Referal</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola kelas, kode, dan status referal.</p>
             </div>
 
             <div class="flex items-center gap-3">
                 <!-- Form Pencarian -->
-                <form action="{{ route('teachers.index') }}" method="get" class="relative flex-1 md:w-64">
+                <form action="{{ route('referrals.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
-                        placeholder="Cari nama, posisi..."
+                        placeholder="Cari kelas atau kode referal..."
                         class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
 
                     <!-- Icon Search -->
@@ -21,7 +21,7 @@
 
                     <!-- Tombol Reset Search (Muncul jika ada keyword) -->
                     @if (request('search'))
-                        <a href="{{ route('teachers.index') }}"
+                        <a href="{{ route('referrals.index') }}"
                             class="absolute right-2.5 top-2.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                             title="Clear search">
                             <x-clear-icon class="size-4" />
@@ -29,11 +29,11 @@
                     @endif
                 </form>
 
-                <!-- Tomboh tambah user -->
-                <a href="{{ route('teachers.create') }}"
+                <!-- Tomboh tambah referral -->
+                <a href="{{ route('referrals.create') }}"
                     class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
-                    Tambah Guru
+                    Tambah Referral
                 </a>
             </div>
         </div>
@@ -45,58 +45,55 @@
             <!-- Table Area (Overflow-x auto untuk responsif di layar kecil) -->
             <div class="overflow-x-auto overflow-y-auto flex-1 custom-scrollbar">
                 <table class="w-full text-left text-xs border-collapse">
-
-                    <!-- Table Header -->
                     <thead
-                        class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
+                        class="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
                         <tr>
-                            <th scope="col" class="py-3.5 px-4 w-16 text-center">ID</th>
-                            <th scope="col" class="py-3.5 px-4">Nama Guru</th>
-                            <th scope="col" class="py-3.5 px-4">Posisi</th>
-                            <th scope="col" class="py-3.5 px-4 text-center">Status</th>
-                            <th scope="col" class="py-3.5 px-4 text-center w-28">Aksi</th>
+                            <th class="py-3.5 px-4 w-16 text-center">No</th>
+                            <th class="py-3.5 px-4">Kelas</th>
+                            <th class="py-3.5 px-4">Shift</th>
+                            <th class="py-3.5 px-4">Kode Referal</th>
+                            <th class="py-3.5 px-4 text-center">Status</th>
+                            <th class="py-3.5 px-4 text-center w-28">Aksi</th>
                         </tr>
                     </thead>
-
-                    <!-- Table Body -->
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-700/60 text-gray-700 dark:text-gray-200">
-                        @forelse ($teachers as $teacher)
+                        @forelse ($referrals as $referral)
                             <tr class="hover:bg-gray-50/80 dark:hover:bg-gray-700/40 transition">
                                 <td class="py-3 px-4 text-center font-mono text-gray-400">{{ $loop->iteration }}</td>
-                                <td class="py-3 px-4">
-                                    <div class="flex items-center gap-3">
-                                        <img class="size-9 rounded-full object-cover border border-gray-200 dark:border-gray-600 shrink-0"
-                                            src="{{ $teacher->photo ? asset('storage/' . $teacher->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($teacher->name) . '&background=0D8ABC&color=fff' }}"
-                                            alt="{{ $teacher->name }}">
-                                        <span
-                                            class="font-bold text-gray-900 dark:text-white text-sm">{{ $teacher->name }}</span>
-                                    </div>
+                                <td class="py-3 px-4 font-bold text-gray-900 dark:text-white">{{ $referral->class }}
                                 </td>
-                                <td class="py-3 px-4 font-medium">{{ $teacher->position }}</td>
+                                <td class="py-3 px-4 font-bold text-gray-900 dark:text-white">{{ $referral->shift }}
+                                </td>
+                                <td class="py-3 px-4">
+                                    <span
+                                        class="font-mono text-xs font-bold px-2.5 py-1 rounded-md bg-gray-100 dark:bg-gray-700 text-blue-600 dark:text-blue-400 border border-gray-200 dark:border-gray-600">
+                                        {{ $referral->reff_code }}
+                                    </span>
+                                </td>
                                 <td class="py-3 px-4 text-center">
-                                    @if ($teacher->is_active)
+                                    @if ($referral->is_active)
                                         <span
                                             class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
-                                            Aktif
+                                            Active
                                         </span>
                                     @else
                                         <span
                                             class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-rose-100 text-rose-700 dark:bg-rose-950 dark:text-rose-300">
-                                            Nonaktif
+                                            Not Active
                                         </span>
                                     @endif
                                 </td>
                                 <td class="py-3 px-4">
                                     <div class="flex items-center justify-center gap-1.5">
-                                        <a href="{{ route('teachers.edit', $teacher->id) }}"
+                                        <a href="{{ route('referrals.edit', $referral->id) }}"
                                             class="p-1.5 rounded-lg text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition"
-                                            title="Edit Guru">
+                                            title="Edit Code">
                                             <x-edit-icon class="size-4" />
                                         </a>
                                         <button type="button"
-                                            @click="openDeleteModal = true; deleteUrl = '{{ route('teachers.destroy', $teacher->id) }}'; teacherName = '{{ addslashes($teacher->name) }}'"
+                                            @click="openDeleteModal = true; deleteUrl = '{{ route('referrals.destroy', $referral->id) }}'; reff_code = '{{ addslashes($referral->reff_code) }}'"
                                             class="p-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
-                                            title="Hapus Guru">
+                                            title="Delete Code">
                                             <x-trash-icon class="size-4" />
                                         </button>
                                     </div>
@@ -106,15 +103,14 @@
                             <tr>
                                 <td colspan="6" class="text-center py-8 text-gray-400">
                                     @if (request('search'))
-                                        Tidak ada data guru yang cocok dengan "<span
+                                        Tidak ada kode referal yang cocok dengan "<span
                                             class="font-semibold">{{ request('search') }}</span>".
                                     @else
-                                        Tidak ada data guru yang tersedia.
+                                        Belum ada data kode referal. Silahkan tambahkan kode referal baru.
                                     @endif
                                 </td>
                             </tr>
                         @endforelse
-
                     </tbody>
                 </table>
             </div>
@@ -126,30 +122,31 @@
                 <!-- Informasi Jumlah Data -->
                 <div>
                     Menampilkan <span
-                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $teachers->firstItem() ?? 0 }}</span>
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $referrals->firstItem() ?? 0 }}</span>
                     - <span
-                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $teachers->lastItem() ?? 0 }}</span>
-                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $teachers->total() }}</span> Guru
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $referrals->lastItem() ?? 0 }}</span>
+                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $referrals->total() }}</span>
+                    Referal
                 </div>
 
                 <!-- Tombol Navigasi Halaman -->
                 <div class="flex items-center gap-1">
                     <!-- Tombol Sebelumnya -->
-                    @if ($teachers->onFirstPage())
+                    @if ($referrals->onFirstPage())
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
                             Sebelumnya
                         </span>
                     @else
-                        <a href="{{ $teachers->previousPageUrl() }}"
+                        <a href="{{ $referrals->previousPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
                             Sebelumnya
                         </a>
                     @endif
 
                     <!-- Nomor Halaman -->
-                    @foreach ($teachers->getUrlRange(1, $teachers->lastPage()) as $page => $url)
-                        @if ($page == $teachers->currentPage())
+                    @foreach ($referrals->getUrlRange(1, $referrals->lastPage()) as $page => $url)
+                        @if ($page == $referrals->currentPage())
                             <span class="px-2.5 py-1 rounded bg-blue-600 text-white font-semibold">
                                 {{ $page }}
                             </span>
@@ -162,8 +159,8 @@
                     @endforeach
 
                     <!-- Tombol Selanjutnya -->
-                    @if ($teachers->hasMorePages())
-                        <a href="{{ $teachers->nextPageUrl() }}"
+                    @if ($referrals->hasMorePages())
+                        <a href="{{ $referrals->nextPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
                             Selanjutnya
                         </a>
@@ -197,10 +194,10 @@
                 </div>
 
                 <div class="text-center space-y-1">
-                    <h3 class="text-base font-bold text-gray-900 dark:text-white">Hapus data guru ini?</h3>
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white">Hapus referal ini?</h3>
                     <p class="text-xs text-gray-500 dark:text-gray-400">
                         Anda yakin ingin menghapus data ini <span
-                            class="font-semibold text-gray-800 dark:text-gray-200" x-text="userName"></span>?
+                            class="font-semibold text-gray-800 dark:text-gray-200" x-text="referralName"></span>?
                         Aksi ini tidak bisa dibatalkan.
                     </p>
                 </div>

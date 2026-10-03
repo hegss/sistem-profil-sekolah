@@ -2,15 +2,14 @@
     <div class="p-6 space-y-4 flex flex-col h-full overflow-y-auto custom-scrollbar">
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Add New Teacher</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Fill out the form below to add a new teacher to the
-                    system.</p>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Tambah Guru Baru</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Lengkapi formulir di bawah ini untuk menambahkan guru baru.</p>
             </div>
 
-            <a href="{{ route('users.index') }}"
+            <a href="{{ route('teachers.index') }}"
                 class="flex items-center gap-2 px-3.5 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs font-semibold rounded-lg transition">
                 <x-back-arrow-icon class="size-4" />
-                Back
+                Kembali
             </a>
         </div>
 
@@ -27,7 +26,7 @@
                             class="size-20 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 shadow-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Teacher Photo
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Foto Guru
                             (Opsional)</label>
                         <input type="file" name="photo" id="photo-input" accept="image/jpeg,image/png,image/jpg"
                             class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
@@ -41,12 +40,11 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <!-- Nama Lengkap + Gelar -->
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Name (including
-                            title)
-                            *</label>
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Nama (termasuk gelar)
+                        <span class="text-red-500"> *</span></label>
                         <input type="text" name="name" value="{{ old('name') }}" required
                             class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white"
-                            placeholder="Example: John Doe, Ph.D">
+                            placeholder="Contoh: John Doe, Ph.D">
                         @error('name')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -54,9 +52,9 @@
 
                     <!-- Jabatan -->
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Position / Subject Teachers *</label>
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Posisi / Mata Pelajaran <span class="text-red-500">*</span></label>
                         <input type="text" name="position" value="{{ old('position') }}"
-                            placeholder="Example: Math Teacher" required
+                            placeholder="Contoh: Guru Matematika" required
                             class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white">
                         @error('position')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
@@ -69,20 +67,20 @@
                     <input type="checkbox" name="is_active" id="is_active" value="1"
                         {{ old('is_active', true) ? 'checked' : '' }}
                         class="size-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
-                    <label for="is_active" class="text-xs font-semibold text-gray-700 dark:text-gray-200">Show in
-                        School Profile (Active Status)</label>
+                    <label for="is_active" class="text-xs font-semibold text-gray-700 dark:text-gray-200">Tampilkan di Halaman
+                        Profil Sekolah (Status Aktif)</label>
                 </div>
 
                 {{-- Footer Actions Button --}}
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <a href="{{ route('teachers.index') }}"
                         class="px-4 py-2 text-xs font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition">
-                        Cancel
+                        Batal
                     </a>
 
                     <button type="submit"
                         class="px-5 py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg">
-                        Save Data
+                        Simpan Data
                     </button>
                 </div>
             </form>
