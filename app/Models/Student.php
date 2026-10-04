@@ -27,10 +27,10 @@ class Student extends Model
             ->logOnlyDirty()
             ->useLogName('students')
             ->setDescriptionForEvent(fn (string $eventName) => match ($eventName) {
-                'created' => 'Added New Data Student',
-                'updated' => 'Updated Data Student',
-                'deleted' => 'Deleted Data Student',
-                default => "Student {$eventName}",
+                'created' => 'Menambahkan Data Siswa',
+                'updated' => 'Memperbarui Data Siswa',
+                'deleted' => 'Menghapus Data Siswa',
+                default => "Siswa {$eventName}",
             });
     }
 }

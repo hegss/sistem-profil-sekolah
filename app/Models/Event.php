@@ -7,34 +7,34 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Models\Concerns\LogsActivity;
 use Spatie\Activitylog\Support\LogOptions;
 
-class Banner extends Model
+class Event extends Model
 {
     use HasFactory, LogsActivity;
 
     protected $fillable = [
-        'title',
-        'subtitle',
+        'name',
+        'schedule',
         'description',
     ];
 
     // relasi one-to-many ke galeri foto
     public function photos()
     {
-        return $this->hasMany(BannerPhoto::class);
+        return $this->hasMany(EventPhoto::class);
     }
 
     // Log Activity (Spatie)
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['title', 'subtitle', 'description'])
+            ->logOnly(['name', 'schedule', 'description'])
             ->logOnlyDirty()
-            ->useLogName('banner')
+            ->useLogName('event')
             ->setDescriptionForEvent(fn (string $eventName) => match ($eventName) {
-                'created' => 'Menambahkan Banner',
-                'updated' => 'Memperbarui Data Banner',
-                'deleted' => 'Menghapus Data Banner',
-                default => "Banner {$eventName}",
+                'created' => 'Menambahkan Acara',
+                'updated' => 'Memperbarui Data Acara',
+                'deleted' => 'Menghapus Data Acara',
+                default => "Acara {$eventName}",
             });
     }
 }

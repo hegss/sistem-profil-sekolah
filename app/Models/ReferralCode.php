@@ -30,10 +30,10 @@ class ReferralCode extends Model
             ->logOnlyDirty()
             ->useLogName('referral_codes')
             ->setDescriptionForEvent(fn (string $eventName) => match ($eventName) {
-                'created' => 'Added New Referral Code',
-                'updated' => 'Updated Referral Code',
-                'deleted' => 'Deleted Referral Code',
-                default => "Referral Code {$eventName}",
+                'created' => 'Menambahkan Kode Referal',
+                'updated' => 'Memperbarui Kode Referal',
+                'deleted' => 'Menghapus Kode Referal',
+                default => "Kode Referal {$eventName}",
             });
     }
 }

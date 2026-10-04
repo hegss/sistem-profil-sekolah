@@ -2,31 +2,31 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Facility;
-use App\Models\FacilityPhoto;
+use App\Models\Event;
+use App\Models\EventPhoto;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
-class FacilityController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index(Request $request)
     {
-        $search = $request->input('search');
+        $search = $request->query('search');
 
-        $facilities = Facility::with('photos')
+        $events = Event::with('photos')
             ->when($search, function ($query, $search) {
                 $query->where('name', 'like', "%{$search}%")
-                    ->orWhere('location', 'like', "%{$search}%");
+                    ->orWhere('schedule', 'like', "%{$search}%");
             })
             ->latest()
             ->paginate(10)
             ->withQueryString();
 
-        return view('admin.facilities.index', compact('facilities'));
+        return view('admin.events.index', compact('events'));
     }
 
     /**
@@ -34,7 +34,7 @@ class FacilityController extends Controller
      */
     public function create()
     {
-        return view('admin.facilities.create');
+        return view('admin.events.create');
     }
 
     /**
@@ -44,41 +44,40 @@ class FacilityController extends Controller
     {
         $validated = $request->validate([
             'name' => ['required', 'string', 'max:255'],
-            'location' => ['required', 'string', 'max:255'],
+            'schedule' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
-            'photos.*' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
+            'photos.*' => ['required', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
         ]);
 
-        $facility = Facility::create([
+        $event = Event::create([
             'name' => $validated['name'],
-            'location' => $validated['location'],
+            'schedule' => $validated['schedule'],
             'description' => $validated['description'],
         ]);
 
-        // Simpan Galeri Foto jika ada yang diunggah
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $index => $file) {
-                $slugName = Str::slug($facility->name, '_');
+                $slugName = Str::slug($event->name, '_');
                 $extension = $file->getClientOriginalExtension();
-                $fileName = 'img_facility_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
+                $fileName = 'docs_of_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
 
-                $path = $file->storeAs('facility-photos', $fileName, 'public');
+                $path = $file->storeAs('event-photos', $fileName, 'public');
 
-                FacilityPhoto::create([
-                    'facility_id' => $facility->id,
+                EventPhoto::create([
+                    'event_id' => $event->id,
                     'photos' => $path,
                 ]);
             }
         }
 
-        return redirect()->route('facilities.index')
-            ->with('success', 'Data fasilitas berhasil ditambahkan!');
+        return redirect()->route('events.index')
+            ->with('success', 'Data acara berhasil ditambahkan.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Event $event)
     {
         //
     }
@@ -86,74 +85,74 @@ class FacilityController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Facility $facility)
+    public function edit(Event $event)
     {
-        $facility->load('photos');
+        $event->load('photos');
 
-        return view('admin.facilities.edit', compact('facility'));
+        return view('admin.events.edit', compact('event'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Facility $facility)
+    public function update(Request $request, Event $event)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'description' => 'required|string',
-            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'name' => ['required', 'string', 'max:255'],
+            'schedule' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'photos.*' => ['required', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
         ]);
 
-        $facility->update([
+        $event->update([
             'name' => $validated['name'],
-            'location' => $validated['location'],
+            'schedule' => $validated['schedule'],
             'description' => $validated['description'],
         ]);
 
-        // Tambah foto baru jika diunggah saat edit
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $index => $file) {
-                $slugName = Str::slug($facility->name, '_');
+                $slugName = Str::slug($event->name, '_');
                 $extension = $file->getClientOriginalExtension();
-                $fileName = 'img_facility_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
+                $fileName = 'docs_of_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
 
-                $path = $file->storeAs('facility-photos', $fileName, 'public');
+                $path = $file->storeAs('event-photos', $fileName, 'public');
 
-                FacilityPhoto::create([
-                    'facility_id' => $facility->id,
+                EventPhoto::create([
+                    'event_id' => $event->id,
                     'photos' => $path,
                 ]);
             }
         }
 
-        return redirect()->route('facilities.index')
-            ->with('success', 'Data updated successfully!');
+        return redirect()->route('events.index')
+            ->with('success', 'Data acara berhasil diperbarui.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Facility $facility)
+    public function destroy(Event $event)
     {
         // Hapus semua file foto fisik di folder public/storage
-        foreach ($facility->photos as $photo) {
+        foreach ($event->photos as $photo) {
             if (Storage::disk('public')->exists($photo->photos)) {
                 Storage::disk('public')->delete($photo->photos);
             }
+
+            $event->delete();
+
+            return redirect()->route('events.index')
+                ->with('success', 'Data acara berhasil dihapus!');
         }
-
-        $facility->delete();
-
-        return redirect()->route('facilities.index')
-            ->with('success', 'Data deleted successfully!');
     }
 
     // Method tambahan untuk menghapus satu foto galeri spesifik
     public function destroyPhoto($id)
     {
-        $photo = FacilityPhoto::findOrFail($id);
+        $photo = EventPhoto::findOrFail($id);
 
+        // hapus file foto dari folder public storage
         if (Storage::disk('public')->exists($photo->photos)) {
             Storage::disk('public')->delete($photo->photos);
         }

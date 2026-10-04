@@ -31,10 +31,10 @@ class Facility extends Model
             ->logOnlyDirty()
             ->useLogName('facility')
             ->setDescriptionForEvent(fn (string $eventName) => match ($eventName) {
-                'created' => 'Added New Facility',
-                'updated' => 'Updated Data Facility',
-                'deleted' => 'Deleted Data Facility',
-                default => "Facility {$eventName}",
+                'created' => 'Menambahkan Fasilitas Baru',
+                'updated' => 'Memperbarui Data Fasilitas',
+                'deleted' => 'Menghapus Data Fasilitas',
+                default => "Fasilitas {$eventName}",
             });
     }
 }

@@ -5,9 +5,8 @@
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Facility Information Management</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Manage the facilities and infrastructure available at
-                    the school.</p>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Informasi Fasilitas</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola informasi fasilitas yang tersedia di sekolah.</p>
             </div>
 
             <div class="flex items-center gap-3">
@@ -34,7 +33,7 @@
                 <a href="{{ route('facilities.create') }}"
                     class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
-                    Add Facility
+                    Tambah Fasilitas
                 </a>
             </div>
         </div>
@@ -52,11 +51,11 @@
                         class="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
                         <tr>
                             <th class="py-3.5 px-4 w-16 text-center">No</th>
-                            <th class="py-3.5 px-4">Gallery Photo</th>
-                            <th class="py-3.5 px-4">Facility Name</th>
-                            <th class="py-3.5 px-4">Location</th>
-                            <th class="py-3.5 px-4 max-w-xs">Description</th>
-                            <th class="py-3.5 px-4 text-center w-28">Action</th>
+                            <th class="py-3.5 px-4">Foto Fasilitas</th>
+                            <th class="py-3.5 px-4">Nama Fasilitas</th>
+                            <th class="py-3.5 px-4">Lokasi</th>
+                            <th class="py-3.5 px-4 max-w-xs">Deskripsi</th>
+                            <th class="py-3.5 px-4 text-center w-28">Aksi</th>
                         </tr>
                     </thead>
 
@@ -108,10 +107,10 @@
                             <tr>
                                 <td colspan="6" class="text-center py-8 text-gray-400">
                                     @if (request('search'))
-                                        No facility data matches the search "<span
-                                            class="font-semibold">{{ request('search') }}</span>".
+                                        Pencarian "<span
+                                            class="font-semibold">{{ request('search') }}</span>" tidak ditemukan.
                                     @else
-                                        There is no facility data yet.
+                                        Belum ada data fasilitas.
                                     @endif
                                 </td>
                             </tr>
@@ -127,11 +126,12 @@
 
                 <!-- Informasi Jumlah Data -->
                 <div>
-                    Show <span
+                    Menampilkan <span
                         class="font-semibold text-gray-700 dark:text-gray-200">{{ $facilities->firstItem() ?? 0 }}</span>
                     - <span
                         class="font-semibold text-gray-700 dark:text-gray-200">{{ $facilities->lastItem() ?? 0 }}</span>
-                    from <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $facilities->total() }}</span> facilities
+                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $facilities->total() }}</span>
+                    Fasilitas
                 </div>
 
                 <!-- Tombol Navigasi Halaman -->
@@ -140,12 +140,12 @@
                     @if ($facilities->onFirstPage())
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
-                            Prev
+                            Sebelumnya
                         </span>
                     @else
                         <a href="{{ $facilities->previousPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
-                            Prev
+                            Sebelumnya
                         </a>
                     @endif
 
@@ -167,12 +167,12 @@
                     @if ($facilities->hasMorePages())
                         <a href="{{ $facilities->nextPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
-                            Next
+                            Selanjutnya
                         </a>
                     @else
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
-                            Next
+                            Selanjutnya
                         </span>
                     @endif
                 </div>
@@ -180,49 +180,52 @@
         </div>
 
         <!-- Modal Konfirmasi Hapus -->
-        <div x-show="openDeleteModal" x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-            style="display: none;">
+        <template x-teleport="body">
+            <div x-show="openDeleteModal" x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed min-h-full inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+                style="display: none;">
 
-            <div @click.away="openDeleteModal = false"
-                class="bg-white dark:bg-gray-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-700 space-y-4">
+                <div @click.away="openDeleteModal = false"
+                    class="bg-white dark:bg-gray-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-700 space-y-4">
 
-                <div
-                    class="size-12 rounded-full bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 flex items-center justify-center mx-auto">
-                    <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                </div>
+                    <div
+                        class="size-12 rounded-full bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 flex items-center justify-center mx-auto">
+                        <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
 
-                <div class="text-center space-y-1">
-                    <h3 class="text-base font-bold text-gray-900 dark:text-white">Delete this facilities?</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                        Are you sure want to delete this data <span
-                            class="font-semibold text-gray-800 dark:text-gray-200" x-text="facilitieName"></span>?
-                        This action can't be undone.
-                    </p>
-                </div>
+                    <div class="text-center space-y-1">
+                        <h3 class="text-base font-bold text-gray-900 dark:text-white">Hapus data fasilitas?</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                            Anda yakin ingin menghapus data ini <span
+                                class="font-semibold text-gray-800 dark:text-gray-200" x-text="facilitieName"></span>?
+                            Aksi ini tidak bisa dibatalkan.
+                        </p>
+                    </div>
 
-                <div class="flex items-center gap-3 pt-2">
-                    <button type="button" @click="openDeleteModal = false"
-                        class="flex-1 py-2 px-4 text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition">
-                        Cancel
-                    </button>
-
-                    <form :action="deleteUrl" method="POST" class="flex-1">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="w-full py-2 px-4 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition">
-                            Yes, Delete
+                    <div class="flex items-center gap-3 pt-2">
+                        <button type="button" @click="openDeleteModal = false"
+                            class="flex-1 py-2 px-4 text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition">
+                            Batal
                         </button>
-                    </form>
+
+                        <form :action="deleteUrl" method="POST" class="flex-1">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="w-full py-2 px-4 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition">
+                                Ya, Hapus
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </template>
+
     </div>
 </x-admin-layout>

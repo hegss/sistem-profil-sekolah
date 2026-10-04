@@ -3,6 +3,8 @@
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\EventController;
+use App\Http\Controllers\ExtracurricularController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReferralCodeController;
@@ -46,6 +48,16 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
     // Route Data Student
     Route::resource('students', StudentController::class);
+
+    // Route Data Extracurricular
+    Route::resource('extracurriculars', ExtracurricularController::class);
+    Route::delete('extracurriculars/photo/{id}', [ExtracurricularController::class, 'destroyPhoto'])
+        ->name('extracurriculars.photo.destroy');
+
+    // Route Data Event
+    Route::resource('events', EventController::class);
+    Route::delete('events/photo/{id}', [EventController::class, 'destroyPhoto'])
+        ->name('events.photo.destroy');
 
     // Route Data Facilities
     Route::resource('facilities', FacilityController::class);

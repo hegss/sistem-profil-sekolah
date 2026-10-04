@@ -100,8 +100,8 @@
                             <tr>
                                 <td colspan="6" class="text-center py-8 text-gray-400">
                                     @if (request('search'))
-                                        Tidak ada data siswa yang cocok dengan "<span
-                                            class="font-semibold">{{ request('search') }}</span>".
+                                        Pencarian "<span class="font-semibold">{{ request('search') }}</span>" tidak
+                                        ditemukan.
                                     @else
                                         Belum ada data siswa. Silahkan tambahkan data siswa baru.
                                     @endif
@@ -119,12 +119,12 @@
 
                 <!-- Informasi Jumlah Data -->
                 <div>
-                    Showing <span
+                    Menampilkan <span
                         class="font-semibold text-gray-700 dark:text-gray-200">{{ $students->firstItem() ?? 0 }}</span>
                     - <span
                         class="font-semibold text-gray-700 dark:text-gray-200">{{ $students->lastItem() ?? 0 }}</span>
-                    from <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $students->total() }}</span>
-                    Students
+                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $students->total() }}</span>
+                    Siswa
                 </div>
 
                 <!-- Tombol Navigasi Halaman -->
@@ -133,12 +133,12 @@
                     @if ($students->onFirstPage())
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
-                            Prev
+                            Sebelumnya
                         </span>
                     @else
                         <a href="{{ $students->previousPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
-                            Prev
+                            Sebelumnya
                         </a>
                     @endif
 
@@ -160,12 +160,12 @@
                     @if ($students->hasMorePages())
                         <a href="{{ $students->nextPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
-                            Next
+                            Selanjutnya
                         </a>
                     @else
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
-                            Next
+                            Selanjutnya
                         </span>
                     @endif
                 </div>
@@ -173,49 +173,51 @@
         </div>
 
         <!-- Modal Konfirmasi Hapus -->
-        <div x-show="openDeleteModal" x-transition:enter="transition ease-out duration-200"
-            x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
-            x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
-            x-transition:leave-end="opacity-0"
-            class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
-            style="display: none;">
+        <template x-teleport="body">
+            <div x-show="openDeleteModal" x-transition:enter="transition ease-out duration-200"
+                x-transition:enter-start="opacity-0" x-transition:enter-end="opacity-100"
+                x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100"
+                x-transition:leave-end="opacity-0"
+                class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm"
+                style="display: none;">
 
-            <div @click.away="openDeleteModal = false"
-                class="bg-white dark:bg-gray-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-700 space-y-4">
+                <div @click.away="openDeleteModal = false"
+                    class="bg-white dark:bg-gray-800 rounded-2xl max-w-sm w-full p-6 shadow-2xl border border-gray-100 dark:border-gray-700 space-y-4">
 
-                <div
-                    class="size-12 rounded-full bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 flex items-center justify-center mx-auto">
-                    <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                            d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-                    </svg>
-                </div>
+                    <div
+                        class="size-12 rounded-full bg-red-100 dark:bg-red-950/50 text-red-600 dark:text-red-400 flex items-center justify-center mx-auto">
+                        <svg class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                        </svg>
+                    </div>
 
-                <div class="text-center space-y-1">
-                    <h3 class="text-base font-bold text-gray-900 dark:text-white">Delete this student?</h3>
-                    <p class="text-xs text-gray-500 dark:text-gray-400">
-                        Are you sure want to delete this data <span
-                            class="font-semibold text-gray-800 dark:text-gray-200" x-text="userName"></span>?
-                        This action can't be undone.
-                    </p>
-                </div>
+                    <div class="text-center space-y-1">
+                        <h3 class="text-base font-bold text-gray-900 dark:text-white">Delete this student?</h3>
+                        <p class="text-xs text-gray-500 dark:text-gray-400">
+                            Are you sure want to delete this data <span
+                                class="font-semibold text-gray-800 dark:text-gray-200" x-text="userName"></span>?
+                            This action can't be undone.
+                        </p>
+                    </div>
 
-                <div class="flex items-center gap-3 pt-2">
-                    <button type="button" @click="openDeleteModal = false"
-                        class="flex-1 py-2 px-4 text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition">
-                        Cancel
-                    </button>
-
-                    <form :action="deleteUrl" method="POST" class="flex-1">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                            class="w-full py-2 px-4 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition">
-                            Yes, Delete
+                    <div class="flex items-center gap-3 pt-2">
+                        <button type="button" @click="openDeleteModal = false"
+                            class="flex-1 py-2 px-4 text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition">
+                            Cancel
                         </button>
-                    </form>
+
+                        <form :action="deleteUrl" method="POST" class="flex-1">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit"
+                                class="w-full py-2 px-4 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition">
+                                Yes, Delete
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
+        </template>
     </div>
 </x-admin-layout>

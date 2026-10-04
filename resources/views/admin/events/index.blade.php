@@ -5,16 +5,16 @@
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Kelola Banner</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola foto, judul, subjudul, dan deskripsi banner.
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Acara Sekolah</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola nama, deskripsi, dan informasi acara lainnya.
                 </p>
             </div>
 
             <div class="flex items-center gap-3">
                 <!-- Form Pencarian -->
-                <form action="{{ route('banners.index') }}" method="get" class="relative flex-1 md:w-64">
+                <form action="{{ route('events.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
-                        placeholder="Cari nama banner, judul..."
+                        placeholder="Cari nama acara, jadwal..."
                         class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
 
                     <!-- Icon Search -->
@@ -22,7 +22,7 @@
 
                     <!-- Tombol Reset Search (Muncul jika ada keyword) -->
                     @if (request('search'))
-                        <a href="{{ route('banners.index') }}"
+                        <a href="{{ route('events.index') }}"
                             class="absolute right-2.5 top-2.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                             title="Clear search">
                             <x-clear-icon class="size-4" />
@@ -30,11 +30,11 @@
                     @endif
                 </form>
 
-                <!-- Tomboh tambah banner -->
-                <a href="{{ route('banners.create') }}"
+                <!-- Tomboh tambah facilitie -->
+                <a href="{{ route('events.create') }}"
                     class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
-                    Tambah Banner
+                    Tambah Acara
                 </a>
             </div>
         </div>
@@ -52,9 +52,9 @@
                         class="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
                         <tr>
                             <th class="py-3.5 px-4 w-16 text-center">No</th>
-                            <th class="py-3.5 px-4">Foto Galeri</th>
-                            <th class="py-3.5 px-4">Judul</th>
-                            <th class="py-3.5 px-4">Subjudul</th>
+                            <th class="py-3.5 px-4">Nama Acara</th>
+                            <th class="py-3.5 px-4">Jadwal</th>
+                            <th class="py-3.5 px-4">Dokumentasi</th>
                             <th class="py-3.5 px-4 max-w-xs">Deskripsi</th>
                             <th class="py-3.5 px-4 text-center w-28">Aksi</th>
                         </tr>
@@ -62,43 +62,43 @@
 
                     <!-- Table Body -->
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-700/60 text-gray-700 dark:text-gray-200">
-                        @forelse ($banners as $banner)
-                            <!-- Baris banner -->
+                        @forelse ($events as $event)
+                            <!-- Baris acara -->
                             <tr class="hover:bg-gray-50/80 dark:hover:bg-gray-700/40 transition">
                                 <td class="py-3 px-4 text-center font-mono text-gray-400">{{ $loop->iteration }}</td>
+                                <td class="py-3 px-4 font-semibold text-gray-900 dark:text-white">
+                                    {{ $event->name }}</td>
+                                <td class="py-3 px-4 font-semibold text-gray-900 dark:text-white">
+                                    {{ $event->schedule }}</td>
                                 <td class="py-3 px-4">
                                     <div class="flex items-center -space-x-2 overflow-hidden">
-                                        @forelse ($banner->photos->take(3) as $photo)
+                                        @forelse ($event->photos->take(3) as $photo)
                                             <img src="{{ asset('storage/' . $photo->photos) }}"
                                                 class="inline-block size-9 rounded-lg object-cover ring-2 ring-white dark:ring-gray-800">
                                         @empty
-                                            <span class="text-gray-400 text-[11px] italic">Without a Photo</span>
+                                            <span class="text-gray-400 text-[11px] italic">Tanpa Foto</span>
                                         @endforelse
-                                        @if ($banner->photos->count() > 3)
+                                        @if ($event->photos->count() > 3)
                                             <span
                                                 class="flex items-center justify-center size-9 rounded-lg bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-[10px] font-bold ring-2 ring-white dark:ring-gray-800">
-                                                +{{ $banner->photos->count() - 3 }}
+                                                +{{ $event->photos->count() - 3 }}
                                             </span>
                                         @endif
                                     </div>
                                 </td>
-                                <td class="py-3 px-4 font-bold text-gray-900 dark:text-white">
-                                    {{ $banner->title }}</td>
-                                <td class="py-3 px-4 font-medium text-gray-500 dark:text-gray-400">
-                                    {{ $banner->subtitle }}</td>
-                                <td class="py-3 px-4 text-gray-500 dark:text-gray-400 truncate max-w-xs">
-                                    {{ Str::limit($banner->description, 60) }}</td>
+                                <td class="py-3 px-4 font-semibold text-gray-500 dark:text-gray-400 truncate max-w-xs">
+                                    {{ Str::limit($event->description, 60) }}</td>
                                 <td class="py-3 px-4">
                                     <div class="flex items-center justify-center gap-1.5">
-                                        <a href="{{ route('banners.edit', $banner->id) }}"
+                                        <a href="{{ route('events.edit', $event->id) }}"
                                             class="p-1.5 rounded-lg text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition"
-                                            title="Edit Banner">
+                                            title="Edit Acara">
                                             <x-edit-icon class="size-4" />
                                         </a>
                                         <button type="button"
-                                            @click="openDeleteModal = true; deleteUrl = '{{ route('banners.destroy', $banner->id) }}'; bannerName = '{{ addslashes($banner->title) }}'"
+                                            @click="openDeleteModal = true; deleteUrl = '{{ route('events.destroy', $event->id) }}'; facilityName = '{{ addslashes($event->name) }}'"
                                             class="p-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
-                                            title="Hapus Banner">
+                                            title="Hapus Acara">
                                             <x-trash-icon class="size-4" />
                                         </button>
                                     </div>
@@ -108,10 +108,10 @@
                             <tr>
                                 <td colspan="6" class="text-center py-8 text-gray-400">
                                     @if (request('search'))
-                                        Pencarian "<span class="font-semibold">{{ request('search') }}</span>" tidak
+                                        Pencarian acara "<span class="font-semibold">{{ request('search') }}</span>" tidak
                                         ditemukan.
                                     @else
-                                        Belum ada data banner.
+                                        Belum ada data acara.
                                     @endif
                                 </td>
                             </tr>
@@ -128,31 +128,32 @@
                 <!-- Informasi Jumlah Data -->
                 <div>
                     Menampilkan <span
-                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $banners->firstItem() ?? 0 }}</span>
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $events->firstItem() ?? 0 }}</span>
                     - <span
-                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $banners->lastItem() ?? 0 }}</span>
-                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $banners->total() }}</span>
-                    Banner
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $events->lastItem() ?? 0 }}</span>
+                    dari <span
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $events->total() }}</span>
+                    Acara
                 </div>
 
                 <!-- Tombol Navigasi Halaman -->
                 <div class="flex items-center gap-1">
                     <!-- Tombol Sebelumnya -->
-                    @if ($banners->onFirstPage())
+                    @if ($events->onFirstPage())
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
                             Sebelumnya
                         </span>
                     @else
-                        <a href="{{ $banners->previousPageUrl() }}"
+                        <a href="{{ $events->previousPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
                             Sebelumnya
                         </a>
                     @endif
 
                     <!-- Nomor Halaman -->
-                    @foreach ($banners->getUrlRange(1, $banners->lastPage()) as $page => $url)
-                        @if ($page == $banners->currentPage())
+                    @foreach ($events->getUrlRange(1, $events->lastPage()) as $page => $url)
+                        @if ($page == $events->currentPage())
                             <span class="px-2.5 py-1 rounded bg-blue-600 text-white font-semibold">
                                 {{ $page }}
                             </span>
@@ -165,8 +166,8 @@
                     @endforeach
 
                     <!-- Tombol Selanjutnya -->
-                    @if ($banners->hasMorePages())
-                        <a href="{{ $banners->nextPageUrl() }}"
+                    @if ($events->hasMorePages())
+                        <a href="{{ $events->nextPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
                             Selanjutnya
                         </a>
@@ -201,7 +202,7 @@
                     </div>
 
                     <div class="text-center space-y-1">
-                        <h3 class="text-base font-bold text-gray-900 dark:text-white">Hapus banner ini?</h3>
+                        <h3 class="text-base font-bold text-gray-900 dark:text-white">Hapus acara ini?</h3>
                         <p class="text-xs text-gray-500 dark:text-gray-400">
                             Anda yakin ingin menghapus data ini <span
                                 class="font-semibold text-gray-800 dark:text-gray-200" x-text="facilitieName"></span>?

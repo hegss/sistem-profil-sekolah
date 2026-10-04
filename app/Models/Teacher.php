@@ -31,10 +31,10 @@ class Teacher extends Model
             ->logOnlyDirty() // Hanya catat jika ada data yang berubah
             ->useLogName('teacher') // Label log
             ->setDescriptionForEvent(fn (string $eventName) => match ($eventName) {
-                'created' => 'Added Data Teacher',
-                'updated' => 'Updated Data Teacher',
-                'deleted' => 'Deleted Data Teacher',
-                default => "Teacher {$eventName}",
+                'created' => 'Menambahkan Data Guru',
+                'updated' => 'Memperbarui Data Guru',
+                'deleted' => 'Menghapus Data Guru',
+                default => "Guru {$eventName}",
             });
     }
 }

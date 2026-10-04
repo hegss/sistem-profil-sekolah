@@ -63,10 +63,10 @@ class User extends Authenticatable
             ->logOnlyDirty() // Hanya catat kolom yang berubah nilainya saat update
             ->useLogName('user') // Label log
             ->setDescriptionForEvent(fn (string $eventName) => match ($eventName) {
-                'created' => 'Added New User',
-                'updated' => 'Updated Data User',
-                'deleted' => 'Deleted User',
-                default => "User {$eventName}",
+                'created' => 'Menambahkan Pengguna Baru',
+                'updated' => 'Memperbarui Data Pengguna',
+                'deleted' => 'Menghapus Pengguna',
+                default => "Pengguna {$eventName}",
             });
     }
 }
