@@ -1,11 +1,13 @@
 <?php
 
+use App\Http\Controllers\AcademicInfoController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\BannerController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExtracurricularController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReferralCodeController;
 use App\Http\Controllers\StudentController;
@@ -14,7 +16,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 });
 
 // Route::get('/dashboard', function () {
@@ -63,6 +65,12 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::resource('facilities', FacilityController::class);
     Route::delete('facilities/photo/{id}', [FacilityController::class, 'destroyPhoto'])
         ->name('facilities.photo.destroy');
+
+    // Route Data Academic Info
+    Route::resource('academic_infos', AcademicInfoController::class);
+
+    // Route News
+    Route::resource('news', NewsController::class);
 
     // Route Data User
     Route::resource('users', UserController::class);

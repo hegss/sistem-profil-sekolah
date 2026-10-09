@@ -213,18 +213,18 @@
                     </div>
 
                     <div class="text-center space-y-1">
-                        <h3 class="text-base font-bold text-gray-900 dark:text-white">Delete this user?</h3>
+                        <h3 class="text-base font-bold text-gray-900 dark:text-white">Hapus data pengguna ini?</h3>
                         <p class="text-xs text-gray-500 dark:text-gray-400">
-                            Are you sure want to delete this data <span
+                            Anda yakin ingin menghapus data ini <span
                                 class="font-semibold text-gray-800 dark:text-gray-200" x-text="userName"></span>?
-                            This action can't be undone.
+                            Aksi ini tidak bisa dibatalkan.
                         </p>
                     </div>
 
                     <div class="flex items-center gap-3 pt-2">
                         <button type="button" @click="openDeleteModal = false"
                             class="flex-1 py-2 px-4 text-xs font-semibold text-gray-600 dark:text-gray-300 bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 rounded-lg transition">
-                            Cancel
+                            Batal
                         </button>
 
                         <form :action="deleteUrl" method="POST" class="flex-1">
@@ -232,7 +232,7 @@
                             @method('DELETE')
                             <button type="submit"
                                 class="w-full py-2 px-4 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow-sm transition">
-                                Yes, Delete
+                                Ya, Hapus
                             </button>
                         </form>
                     </div>

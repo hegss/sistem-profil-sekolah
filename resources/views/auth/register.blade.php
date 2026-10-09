@@ -4,7 +4,7 @@
 
         <!-- Name -->
         <div class="relative">
-            <x-input-label for="name" :value="__('Name')" />
+            <x-input-label for="name" :value="__('Nama')" />
             <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" placeholder="John Doe" required autofocus autocomplete="name" />
             <x-input-error :messages="$errors->get('name')" class="mt-2" />
         </div>
@@ -26,7 +26,7 @@
             </div>
             {{-- Phone --}}
             <div class="relative">
-                <x-input-label for="phone" :value="__('Phone')" />
+                <x-input-label for="phone" :value="__('Telepon')" />
                 <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" placeholder="+62 8xx-xxxx-xxxx" required autocomplete="phone" />
                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
             </div>
@@ -46,7 +46,7 @@
 
         <!-- Confirm Password -->
         <div class="relative mt-4">
-            <x-input-label for="password_confirmation" :value="__('Confirm Password')" />
+            <x-input-label for="password_confirmation" :value="__('Konfirmasi Password')" />
 
             <x-text-input id="password_confirmation" class="block mt-1 w-full"
                             type="password"
@@ -57,7 +57,7 @@
 
         <div class="flex flex-col items-center align-center mt-4">
             <a class=" w-full underline text-right text-sm text-gray-900 dark:text-gray-200 hover:text-gray-500 focus:outline-none" href="{{ route('login') }}">
-                {{ __('Already registered?') }}
+                {{ __('Sudah terdaftar?') }}
             </a>
 
             <x-primary-button class="flex items-center justify-center w-full mt-4">

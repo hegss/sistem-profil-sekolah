@@ -2,12 +2,11 @@
     <div class="p-6 space-y-4 flex flex-col h-full overflow-y-auto custom-scrollbar">
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Tambah Ekskul Baru</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Isi form dibawah ini untuk menambahkan ekskul baru
-                </p>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Tambah Berita Baru</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Isi form dibawah ini untuk menambahkan berita baru.</p>
             </div>
 
-            <a href="{{ route('extracurriculars.index') }}"
+            <a href="{{ route('news.index') }}"
                 class="flex items-center gap-2 px-3.5 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs font-semibold rounded-lg transition">
                 <x-back-arrow-icon class="size-4" />
                 Kembali
@@ -15,7 +14,7 @@
         </div>
 
         <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
-            <form action="{{ route('extracurriculars.store') }}" method="POST" enctype="multipart/form-data"
+            <form action="{{ route('news.store') }}" method="POST" enctype="multipart/form-data"
                 class="space-y-6">
                 @csrf
 
@@ -28,12 +27,12 @@
                             class="size-20 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 shadow-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Logo Ekskul
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Foto Berita
                             (Opsional)</label>
-                        <input type="file" name="logo" id="photo-input" accept="image/jpeg,image/png,image/jpg"
+                        <input type="file" name="photo" id="photo-input" accept="image/jpeg,image/png,image/jpg" required
                             class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
                         <p class="text-[10px] text-gray-400 mt-1">Format: JPG, JPEG, PNG. Maksimal 2MB.</p>
-                        @error('logo')
+                        @error('photo')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
                     </div>
@@ -41,48 +40,41 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Nama Ekskul
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Judul Berita
                             <span class="text-red-500">*</span></label>
-                        <input type="text" name="name" value="{{ old('name') }}"
-                            placeholder="Contoh: Futsal Gedong 12" required
+                        <input type="text" name="title" value="{{ old('title') }}"
+                            placeholder="Contoh: Juara 1 O2SN" required
                             class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white">
-                        @error('name')
+                        @error('title')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Jadwal <span
-                                class="text-red-500">*</span></label>
-                        <input type="text" name="schedule" value="{{ old('schedule') }}"
-                            placeholder="Contoh: Jumat, 15.00-16.00" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white">
-                        @error('schedule')
-                            <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
-                        @enderror
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Tanggal
+                            Unggah (Otomatis)</label>
+                        <input type="text" value="{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}" readonly
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white cursor-not-allowed">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Deskripsi <span
                             class="text-red-500">*</span></label>
-                    <textarea name="description" rows="4" required placeholder="Tulis deskripsi singkat tentang ekskul ini..."
+                    <textarea name="description" rows="4" required placeholder="Tuliskan konten berita ini..."
                         class="w-full text-xs p-3 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white">{{ old('description') }}</textarea>
                     @error('description')
                         <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <!-- Multi-Image File Input -->
-                <div>
-                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Galeri Dokumentasi
-                        (Bisa lebih dari satu foto)</label>
-                    <input type="file" name="photos[]" multiple accept="image/*"
-                        class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
-                    <p class="text-[10px] text-gray-400 mt-1">Format: JPG, PNG, JPEG. Maksimal 2MB per foto.</p>
-                    @error('photos')
-                        <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
-                    @enderror
+                <!-- Checkbox Status -->
+                <div class="flex items-center gap-3 pt-2">
+                    <input type="checkbox" name="is_active" id="is_active" value="1"
+                        {{ old('is_active', true) ? 'checked' : '' }}
+                        class="size-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                    <label for="is_active" class="text-xs font-semibold text-gray-700 dark:text-gray-200">Aktif Status
+                        (Berita akan ditampilkan.)</label>
                 </div>
 
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
@@ -94,7 +86,7 @@
         </div>
     </div>
 
-    <!-- Script Live Preview Logo Ekskul -->
+    <!-- Script Live Preview photo Ekskul -->
     <script>
         document.getElementById('photo-input').addEventListener('change', function(e) {
             const file = e.target.files[0];

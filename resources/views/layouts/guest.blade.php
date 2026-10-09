@@ -16,9 +16,9 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans text-gray-900 antialiased">
+<body class="font-sans text-gray-900 dark:text-gray-100 antialiased">
     <div class="min-h-screen p-6 grid grid-cols-5 gap-6 items-center bg-gray-100 dark:bg-gray-900">
-        <div class="login-image relative rounded-3xl overflow-hidden col-span-3 shadow-lg shadow-gray-500/50">
+        <div class="login-image relative rounded-3xl overflow-hidden col-span-3 shadow-md shadow-gray-400/50">
             <div class="login-slider w-full h-full overflow-hidden cursor-pointer">
                 <div class="login-slider-list w-full h-full flex">
                     <div class="login-slide min-w-full w-full h-full flex-shrink-0">
@@ -37,11 +37,15 @@
             </div>
         </div>
 
-        <div class="h-[90vh] col-span-2 flex flex-col items-center justify-center rounded-3xl shadow-lg shadow-gray-500/50 dark:bg-gray-800 backdrop-blur-sm">
+        <div class="h-[90vh] col-span-2 flex flex-col items-center justify-center rounded-3xl shadow-md shadow-gray-400/50 dark:bg-gray-800 backdrop-blur-sm">
             <div>
                 <a href="/">
                     <x-application-logo class="w-20 h-20 fill-current text-gray-500" />
                 </a>
+            </div>
+
+            <div>
+                <p class="text-lg font-semibold">Halo, Selamat Datang</p>
             </div>
 
             <div

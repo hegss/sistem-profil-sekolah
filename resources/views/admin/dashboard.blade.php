@@ -46,7 +46,7 @@
                 class="bg-white dark:bg-gray-800 p-5 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700 flex items-center justify-between">
                 <div>
                     <p class="text-xs font-medium text-gray-500 dark:text-gray-400 uppercase">Ektrakurikuler</p>
-                    <h3 class="text-2xl font-bold text-blue-950 dark:text-gray-100 mt-1">12</h3>
+                    <h3 class="text-2xl font-bold text-blue-950 dark:text-gray-100 mt-1">{{ number_format($totalExtracurricular) }}</h3>
                 </div>
                 <div class="p-3 bg-purple-100 dark:bg-purple-800 rounded-xl text-purple-600 dark:text-purple-200">
                     <x-activities-icon class="size-6" />

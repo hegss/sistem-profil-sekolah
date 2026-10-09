@@ -33,7 +33,7 @@
                 <a href="{{ route('facilities.create') }}"
                     class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
-                    Tambah Fasilitas
+                    Tambah
                 </a>
             </div>
         </div>

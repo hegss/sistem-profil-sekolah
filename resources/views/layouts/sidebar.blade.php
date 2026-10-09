@@ -7,9 +7,9 @@
 
     <!-- Logo & Title Header -->
     <div
-        class="p-3 flex justify-center items-center gap-3 shrink-0 border-b border-gray-100 dark:border-gray-700/50 overflow-hidden">
+        class="p-1 flex justify-center items-center gap-3 shrink-0 border-b border-gray-100 dark:border-gray-700/50 overflow-hidden">
         <a href="{{ route('home') }}" class="flex justify-center items-center">
-            <x-application-logo class="h-12 w-auto fill-current shrink-0 text-blue-600 dark:text-blue-400" />
+            <x-application-logo class="h-16 w-auto fill-current shrink-0 text-blue-600 dark:text-blue-400" />
         </a>
     </div>
 
@@ -138,10 +138,10 @@
         <div class="space-y-1">
             <button type="button"
                 @click="openGroup = (openGroup === 'informations' ? '' : 'informations'); if(isMinimized) isMinimized = false;"
-                class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60 transition-all duration-200"
+                class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('academic_infos.*', 'news.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
                 :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Informations' : ''">
                 <div class="flex items-center gap-3">
-                    <x-information-icon class="size-5 shrink-0 text-blue-600 dark:text-gray-100" />
+                    <x-information-icon class="size-5 shrink-0 {{ request()->routeIs('academic_infos.*', 'news.*') ? 'text-white' : 'text-blue-600 dark:text-gray-100' }}" />
                     <span x-show="!isMinimized" class="truncate">Informasi</span>
                 </div>
                 <svg x-show="!isMinimized"
@@ -154,13 +154,13 @@
 
             <!-- Sublist Items -->
             <div x-show="openGroup === 'informations' && !isMinimized" x-collapse class="pl-9 pr-2 space-y-1 pt-0.5">
-                <a href="#"
-                    class="block py-2 px-3 text-xs text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700/40 rounded-lg transition">
-                    Artikel
+                <a href="{{ route('news.index') }}"
+                    class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('news.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
+                    Berita
                 </a>
-                <a href="#"
-                    class="block py-2 px-3 text-xs text-gray-500 dark:text-gray-400 hover:text-blue-600 dark:hover:text-white hover:bg-gray-50 dark:hover:bg-gray-700/40 rounded-lg transition">
-                    Informasi Umum
+                <a href="{{ route('academic_infos.index') }}"
+                    class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('academic_infos.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
+                    Informasi Akademik
                 </a>
             </div>
         </div>
