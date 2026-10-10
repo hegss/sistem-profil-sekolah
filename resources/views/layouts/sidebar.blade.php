@@ -85,12 +85,13 @@
             </div>
         </div>
 
-        <!-- 5. Greeting -->
-        <a href="#"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('admin.greetings') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
-            :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Greeting' : ''">
-            <x-paragraph-icon class="size-5 shrink-0 text-blue-600 dark:text-gray-100" />
-            <span x-show="!isMinimized" class="truncate">Visi Misi</span>
+        <!-- 5. Greetings -->
+        <a href="{{ route('greetings.index') }}"
+            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('greetings.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
+            :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Dashboard' : ''">
+            <x-paragraph-icon
+                class="size-5 shrink-0 {{ request()->routeIs('greetings.*') ? 'text-white' : 'text-blue-600 dark:text-gray-100' }}" />
+            <span x-show="!isMinimized" class="truncate">Sambutan</span>
         </a>
 
         <!-- 6. Sub-Menu Group: Activities -->
@@ -165,13 +166,40 @@
             </div>
         </div>
 
-        <!-- 9. Messages -->
-        <a href="#"
-            class="flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('admin.messages') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
-            :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'Messages' : ''">
-            <x-mail-icon class="size-5 shrink-0 text-blue-600 dark:text-gray-100" />
-            <span x-show="!isMinimized" class="truncate">Messages</span>
-        </a>
+        <!-- 9. Sub-Menu Group: Messages -->
+        <div class="space-y-1">
+            <button type="button"
+                @click="openGroup = (openGroup === 'mails' ? '' : 'mails'); if(isMinimized) isMinimized = false;"
+                class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-xs font-semibold transition-all duration-200 {{ request()->routeIs('questions.*', 'complaints.*', 'docs_request.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}"
+                :class="isMinimized ? 'justify-center' : ''" :title="isMinimized ? 'mails' : ''">
+                <div class="flex items-center gap-3">
+                    <x-mail-icon class="size-5 shrink-0 {{ request()->routeIs('questions.*', 'complaints.*', 'docs_request.*') ? 'text-white' : 'text-blue-600 dark:text-gray-100' }}" />
+                    <span x-show="!isMinimized" class="truncate">Pesan</span>
+                </div>
+                <svg x-show="!isMinimized"
+                    class="size-3.5 stroke-2 text-gray-400 transition-transform duration-200 shrink-0"
+                    :class="openGroup === 'mails' ? 'rotate-180 text-blue-600 dark:text-gray-200' : ''"
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                </svg>
+            </button>
+
+            <!-- Sublist Items -->
+            <div x-show="openGroup === 'mails' && !isMinimized" x-collapse class="pl-9 pr-2 space-y-1 pt-0.5">
+                <a href="#"
+                    class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('questions.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
+                    Pertanyaan
+                </a>
+                <a href="#"
+                    class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('complaints.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
+                    Keluhan
+                </a>
+                <a href="#"
+                    class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('docs_request.*') ? 'bg-blue-600 text-white shadow-md shadow-blue-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
+                    Pengajuan Dokumen
+                </a>
+            </div>
+        </div>
 
         <!-- 10. Users -->
         <a href="{{ route('users.index') }}"

@@ -2,15 +2,14 @@
     <div class="p-6 space-y-4 flex flex-col h-full overflow-y-auto custom-scrollbar">
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Add New Facility</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Fill out the form below to add a new facility to the
-                    system.</p>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Tambah Fasilitas Baru</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Lengkapi form dibawah ini untuk menambahkan fasilitas baru.</p>
             </div>
 
             <a href="{{ route('facilities.index') }}"
                 class="flex items-center gap-2 px-3.5 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs font-semibold rounded-lg transition">
                 <x-back-arrow-icon class="size-4" />
-                Back
+                Kembali
             </a>
         </div>
 

@@ -5,15 +5,15 @@
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Data Siswa</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola data siswa atau ubah status aktifnya.</p>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Kata Sambutan</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola kata sambutan dari Kepala Sekolah.</p>
             </div>
 
             <div class="flex items-center gap-3">
                 <!-- Form Pencarian -->
-                <form action="{{ route('students.index') }}" method="get" class="relative flex-1 md:w-64">
+                <form action="{{ route('greetings.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
-                        placeholder="Cari nisn, nama, nama ibu..."
+                        placeholder="Cari kata sambutan..."
                         class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
 
                     <!-- Icon Search -->
@@ -21,7 +21,7 @@
 
                     <!-- Tombol Reset Search (Muncul jika ada keyword) -->
                     @if (request('search'))
-                        <a href="{{ route('students.index') }}"
+                        <a href="{{ route('greetings.index') }}"
                             class="absolute right-2.5 top-2.5 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
                             title="Clear search">
                             <x-clear-icon class="size-4" />
@@ -30,7 +30,7 @@
                 </form>
 
                 <!-- Tomboh tambah user -->
-                <a href="{{ route('students.create') }}"
+                <a href="{{ route('greetings.create') }}"
                     class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
                     Tambah
@@ -51,9 +51,8 @@
                         class="bg-gray-50 dark:bg-gray-700 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
                         <tr>
                             <th scope="col" class="py-3.5 px-4 w-16 text-center">No</th>
-                            <th scope="col" class="py-3.5 px-4">NISN</th>
-                            <th scope="col" class="py-3.5 px-4">Nama</th>
-                            <th scope="col" class="py-3.5 px-4">Nama Ibu</th>
+                            <th scope="col" class="py-3.5 px-4">Kepala Sekolah</th>
+                            <th scope="col" class="py-3.5 px-4">Isi Sambutan</th>
                             <th scope="col" class="py-3.5 px-4 text-center">Status</th>
                             <th scope="col" class="py-3.5 px-4 text-center w-28">Aksi</th>
                         </tr>
@@ -61,14 +60,35 @@
 
                     <!-- Table Body -->
                     <tbody class="divide-y divide-gray-100 dark:divide-gray-700/60 text-gray-700 dark:text-gray-200">
-                        @forelse ($students as $student)
+                        @forelse ($greetings as $item)
                             <tr class="hover:bg-gray-50/80 dark:hover:bg-gray-700/40 transition">
                                 <td class="py-3 px-4 text-center font-mono text-gray-400">{{ $loop->iteration }}</td>
-                                <td class="py-3 px-4 font-medium">{{ $student->nisn }}</td>
-                                <td class="py-3 px-4 font-medium">{{ $student->name }}</td>
-                                <td class="py-3 px-4 font-medium">{{ $student->mothers_name }}</td>
+                                <td class="py-3 px-4">
+                                    <div class="flex items-center gap-3">
+                                        @if (isset($item->teacher->photo) && $item->teacher->photo)
+                                            <img src="{{ asset('storage/' . $item->teacher->photo) }}"
+                                                class="size-10 rounded-full object-cover border border-gray-200 dark:border-gray-700">
+                                        @else
+                                            <div
+                                                class="size-10 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 font-bold flex items-center justify-center shrink-0">
+                                                {{ strtoupper(substr($item->teacher->nama_guru ?? 'KS', 0, 2)) }}
+                                            </div>
+                                        @endif
+                                        <div>
+                                            <div class="font-bold text-gray-900 dark:text-white">
+                                                {{ $item->teacher->name ?? 'N/A' }}</div>
+                                            <div class="text-[11px] text-gray-400">
+                                                {{ $item->teacher->position ?? 'Kepala Sekolah' }}</div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="py-3 px-4">
+                                    <p class="text-xs text-gray-600 dark:text-gray-300 line-clamp-2 max-w-md">
+                                        "{{ strip_tags($item->greeting_text) }}"
+                                    </p>
+                                </td>
                                 <td class="py-3 px-4 text-center">
-                                    @if ($student->is_active)
+                                    @if ($item->is_active)
                                         <span
                                             class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300">
                                             Aktif
@@ -82,15 +102,15 @@
                                 </td>
                                 <td class="py-3 px-4">
                                     <div class="flex items-center justify-center gap-1.5">
-                                        <a href="{{ route('students.edit', $student->id) }}"
+                                        <a href="{{ route('greetings.edit', $item->id) }}"
                                             class="p-1.5 rounded-lg text-amber-600 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition"
-                                            title="Edit Guru">
+                                            title="Edit Kata Sambutan">
                                             <x-edit-icon class="size-4" />
                                         </a>
                                         <button type="button"
-                                            @click="openDeleteModal = true; deleteUrl = '{{ route('students.destroy', $student->id) }}'; teacherName = '{{ addslashes($student->nama_lengkap) }}'"
+                                            @click="openDeleteModal = true; deleteUrl = '{{ route('greetings.destroy', $item->id) }}'; teacherName = '{{ addslashes($item->teacher->name) }}'"
                                             class="p-1.5 rounded-lg text-red-600 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
-                                            title="Hapus Guru">
+                                            title="Hapus Kata Sambutan">
                                             <x-trash-icon class="size-4" />
                                         </button>
                                     </div>
@@ -103,7 +123,7 @@
                                         Pencarian "<span class="font-semibold">{{ request('search') }}</span>" tidak
                                         ditemukan.
                                     @else
-                                        Belum ada data siswa. Silahkan tambahkan data siswa baru.
+                                        Belum ada kata sambutan.
                                     @endif
                                 </td>
                             </tr>
@@ -120,31 +140,31 @@
                 <!-- Informasi Jumlah Data -->
                 <div>
                     Menampilkan <span
-                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $students->firstItem() ?? 0 }}</span>
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $greetings->firstItem() ?? 0 }}</span>
                     - <span
-                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $students->lastItem() ?? 0 }}</span>
-                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $students->total() }}</span>
-                    Siswa
+                        class="font-semibold text-gray-700 dark:text-gray-200">{{ $greetings->lastItem() ?? 0 }}</span>
+                    dari <span class="font-semibold text-gray-700 dark:text-gray-200">{{ $greetings->total() }}</span>
+                    Sambutan
                 </div>
 
                 <!-- Tombol Navigasi Halaman -->
                 <div class="flex items-center gap-1">
                     <!-- Tombol Sebelumnya -->
-                    @if ($students->onFirstPage())
+                    @if ($greetings->onFirstPage())
                         <span
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 text-gray-400 dark:text-gray-500 cursor-not-allowed">
                             Sebelumnya
                         </span>
                     @else
-                        <a href="{{ $students->previousPageUrl() }}"
+                        <a href="{{ $greetings->previousPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
                             Sebelumnya
                         </a>
                     @endif
 
                     <!-- Nomor Halaman -->
-                    @foreach ($students->getUrlRange(1, $students->lastPage()) as $page => $url)
-                        @if ($page == $students->currentPage())
+                    @foreach ($greetings->getUrlRange(1, $greetings->lastPage()) as $page => $url)
+                        @if ($page == $greetings->currentPage())
                             <span class="px-2.5 py-1 rounded bg-blue-600 text-white font-semibold">
                                 {{ $page }}
                             </span>
@@ -157,8 +177,8 @@
                     @endforeach
 
                     <!-- Tombol Selanjutnya -->
-                    @if ($students->hasMorePages())
-                        <a href="{{ $students->nextPageUrl() }}"
+                    @if ($greetings->hasMorePages())
+                        <a href="{{ $greetings->nextPageUrl() }}"
                             class="px-2.5 py-1 rounded border border-gray-200 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 transition">
                             Selanjutnya
                         </a>
@@ -193,11 +213,11 @@
                     </div>
 
                     <div class="text-center space-y-1">
-                        <h3 class="text-base font-bold text-gray-900 dark:text-white">Hapus data siswa ini?</h3>
+                        <h3 class="text-base font-bold text-gray-900 dark:text-white">Hapus sambutan ini?</h3>
                         <p class="text-xs text-gray-500 dark:text-gray-400">
                             Anda yakin ingin menghapus data ini <span
                                 class="font-semibold text-gray-800 dark:text-gray-200" x-text="userName"></span>?
-                            Aksi ini tidak bisa dibatalkan.
+                            Aksi ini tidak dapat dibatalkan.
                         </p>
                     </div>
 

@@ -23,6 +23,11 @@ class Teacher extends Model
         'is_active' => 'boolean',
     ];
 
+    public function greeting()
+    {
+        return $this->hasOne(Greeting::class);
+    }
+
     // Konfigurasi Spatie Activity Log
     public function getActivitylogOptions(): LogOptions
     {

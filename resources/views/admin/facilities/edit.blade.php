@@ -6,14 +6,14 @@
         <!-- Header Page -->
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Edit Facility Information</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Update the facilities name, location, and description.</p>
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Edit Fasilitas</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Perbarui nama fasilitas, lokasi, dan deskripsi.</p>
             </div>
 
             <a href="{{ route('facilities.index') }}"
                 class="flex items-center gap-2 px-3.5 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs font-semibold rounded-lg transition">
                 <x-back-arrow-icon class="size-4" />
-                Back
+                Kembali
             </a>
         </div>
 
@@ -22,7 +22,7 @@
             <!-- Existing Photos Gallery Section -->
             @if ($facility->photos->count() > 0)
                 <div>
-                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">Recent Photo Gallery</label>
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-2">Foto Terakhir</label>
                     <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
                         @foreach ($facility->photos as $photo)
                             <div class="relative group rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
@@ -34,7 +34,7 @@
                                     <button type="button"
                                         @click="openPhotoDeleteModal = true; deletePhotoUrl = '{{ route('facilities.photo.destroy', $photo->id) }}'"
                                         class="p-1.5 bg-red-600 text-white rounded-lg text-xs font-semibold hover:bg-red-700 shadow-md transition">
-                                        Delete
+                                        Hapus
                                     </button>
                                 </div>
                             </div>
@@ -51,27 +51,27 @@
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Title *</label>
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Nama *</label>
                         <input type="text" name="name"
                             value="{{ old('name', $facility->name) }}" required
                             class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
                     </div>
 
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">location *</label>
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Lokasi *</label>
                         <input type="text" name="location" value="{{ old('location', $facility->location) }}" required
                             class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
                     </div>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Description *</label>
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Deskripsi *</label>
                     <textarea name="description" rows="4" required
                         class="w-full text-xs p-3 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">{{ old('description', $facility->description) }}</textarea>
                 </div>
 
                 <div>
-                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Add New Photo to Gallery (Optional)</label>
+                    <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Tambah Foto Baru ke Gallery (Optional)</label>
                     <input type="file" name="photos[]" multiple accept="image/*"
                         class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
                 </div>

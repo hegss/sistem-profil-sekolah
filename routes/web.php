@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExtracurricularController;
 use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\GreetingController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReferralCodeController;
@@ -50,6 +51,9 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
     // Route Data Student
     Route::resource('students', StudentController::class);
+
+    // Route Greetings
+    Route::resource('greetings', GreetingController::class);
 
     // Route Data Extracurricular
     Route::resource('extracurriculars', ExtracurricularController::class);

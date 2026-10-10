@@ -5,8 +5,8 @@
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Kelola Informasi Akademik</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola nama, deskripsi, dan informasi akademik lainnya.
+                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Informasi Akademik</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Kelola nama, deskripsi, dan informasi lainnya.
                 </p>
             </div>
 
@@ -84,7 +84,7 @@
                                 <td class="py-3 px-4 text-gray-500 dark:text-gray-400 truncate max-w-xs">
                                     {{ Str::limit($info->description, 60) }}</td>
                                 <!-- Link Utama Informasi -->
-                                <td class="py-3 px-4 font-bold text-gray-900 dark:text-white">
+                                <td class="py-3 px-4 text-blue-600 underline dark:text-white">
                                     {{ $info->info_link }}</td>
                                 <!-- Status Aktif -->
                                 <td class="py-3 px-4 text-center">
