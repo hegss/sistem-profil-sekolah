@@ -63,7 +63,7 @@
                 class="lg:col-span-2 bg-white dark:bg-gray-800 p-6 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-700">
                 <div class="flex items-center justify-between mb-4">
                     <div>
-                        <h3 class="text-base font-semibold text-blue-950 dark:text-gray-100">Statistik Pengunjung</h3>
+                        <h3 class="text-base font-semibold text-amber-600 dark:text-gray-100">Statistik Pengunjung</h3>
                         <p class="text-xs text-gray-500 dark:text-gray-400">Jumlah pengunjung website perbulan</p>
                     </div>
                 </div>
@@ -149,8 +149,8 @@
                         datasets: [{
                             label: 'Jumlah Pengunjung',
                             data: [20, 60, 80, 100, 120, 140, 160, 180, 200, 220, 240, 260],
-                            borderColor: '#2563eb', // Warna biru tailwind
-                            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                            borderColor: '#e17100', // Warna amber tailwind
+                            backgroundColor: 'rgba(187, 77, 0, 0.1)',
                             fill: true,
                             tension: 0.4, // Membuat garis grafik melengkung halus
                             pointRadius: 4,

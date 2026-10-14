@@ -27,13 +27,13 @@
         <div class="flex items-center justify-between mt-4">
             <label for="remember_me" class="inline-flex items-center">
                 <input id="remember_me" type="checkbox"
-                    class="rounded bg-gray-300 dark:bg-gray-400 border-gray-300 dark:border-gray-400 text-blue-500 shadow-sm focus:ring-blue-500 dark:focus:ring-offset-gray-300"
+                    class="rounded bg-gray-300 dark:bg-gray-400 border-gray-300 dark:border-gray-400 text-amber-500 shadow-sm focus:ring-amber-500 dark:focus:ring-offset-gray-300"
                     name="remember">
-                <span class="ms-2 text-sm text-gray-900 dark:text-gray-200">{{ __('Ingat saya') }}</span>
+                <span class="ms-2 text-sm text-amber-900 dark:text-gray-200">{{ __('Ingat saya') }}</span>
             </label>
 
             @if (Route::has('password.request'))
-                <a class="underline text-sm text-gray-900 dark:text-gray-200 hover:text-gray-500 rounded-md focus:outline-none"
+                <a class="underline text-sm text-amber-900 dark:text-gray-200 hover:text-gray-500 rounded-md focus:outline-none"
                     href="{{ route('password.request') }}">
                     {{ __('Lupa kata sandi?') }}
                 </a>
@@ -49,8 +49,8 @@
 
         <!-- Register -->
         <div class="flex items-center justify-center w-full mt-4">
-            <p class="text-gray-900 dark:text-gray-200 mr-1 text-sm">Belum punya akun?</p>
-            <a class="underline text-sm text-gray-900 dark:text-gray-200 hover:text-gray-500"
+            <p class="text-amber-900 dark:text-gray-200 mr-1 text-sm">Belum punya akun?</p>
+            <a class="underline text-sm text-amber-900 dark:text-gray-200 hover:text-gray-500"
                 href="{{ route('register') }}">
                 {{ __('Daftar') }}
             </a>

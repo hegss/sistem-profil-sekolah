@@ -32,7 +32,7 @@
 
                     <div class="mt-3">
                         <span
-                            class="px-3 py-1 text-[10px] font-bold rounded-full bg-blue-100 text-blue-700 dark:bg-blue-950 dark:text-blue-300 uppercase tracking-wider">
+                            class="px-3 py-1 text-[10px] font-bold rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300 uppercase tracking-wider">
                             {{ Auth::user()->role }}
                         </span>
                     </div>
@@ -77,7 +77,7 @@
                                 Foto Profil Baru</label>
                             <input type="file" name="photo" id="photo-file-input"
                                 accept="image/jpeg,image/png,image/jpg"
-                                class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:hover:file:bg-gray-500 dark:file:bg-gray-700 dark:file:text-gray-200 cursor-pointer">
+                                class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 dark:hover:file:bg-gray-500 dark:file:bg-gray-700 dark:file:text-gray-200 cursor-pointer">
                             @error('photo')
                                 <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                             @enderror
@@ -90,7 +90,7 @@
                                     class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Full Name *</label>
                                 <input type="text" name="name" id="name"
                                     value="{{ old('name', Auth::user()->name) }}" required
-                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
+                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">
                                 @error('name')
                                     <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                                 @enderror
@@ -103,7 +103,7 @@
                                     *</label>
                                 <input type="text" name="username" id="username"
                                     value="{{ old('username', Auth::user()->username) }}" required
-                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
+                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">
                                 @error('username')
                                     <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                                 @enderror
@@ -116,7 +116,7 @@
                                     *</label>
                                 <input type="email" name="email" id="email"
                                     value="{{ old('email', Auth::user()->email) }}" required
-                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
+                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">
                                 @error('email')
                                     <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                                 @enderror
@@ -128,7 +128,7 @@
                                     class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Phone Number</label>
                                 <input type="text" name="phone" id="phone"
                                     value="{{ old('phone', Auth::user()->phone) }}" placeholder="+62 812-xxxx-xxxx"
-                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
+                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">
                                 @error('phone')
                                     <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                                 @enderror
@@ -137,7 +137,7 @@
 
                         <div class="flex justify-end pt-4">
                             <button type="submit"
-                                class="px-5 py-2.5 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-xl shadow-sm transition">
+                                class="px-5 py-2.5 bg-amber-600 hover:bg-amber-800 text-white text-xs font-semibold rounded-xl shadow-sm transition">
                                 Save Update
                             </button>
                         </div>
@@ -158,7 +158,7 @@
                             <label for="current_password"
                                 class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Current Password</label>
                             <input type="password" name="current_password" id="current_password" required
-                                class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
+                                class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">
                             @error('current_password')
                                 <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                             @enderror
@@ -169,7 +169,7 @@
                                 <label for="password"
                                     class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">New Password</label>
                                 <input type="password" name="password" id="password" required
-                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
+                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">
                                 @error('password')
                                     <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                                 @enderror
@@ -179,7 +179,7 @@
                                 <label for="password_confirmation"
                                     class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Confirm New Password</label>
                                 <input type="password" name="password_confirmation" id="password_confirmation" required
-                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
+                                    class="w-full text-xs px-3.5 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">
                             </div>
                         </div>
 

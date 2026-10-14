@@ -5,7 +5,7 @@
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Informasi Akademik</h1>
+                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Informasi Akademik</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Kelola nama, deskripsi, dan informasi lainnya.
                 </p>
             </div>
@@ -15,7 +15,7 @@
                 <form action="{{ route('academic_infos.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
                         placeholder="Cari judul informasi, deskripsi..."
-                        class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
+                        class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
 
                     <!-- Icon Search -->
                     <x-search-icon class="size-4 absolute left-3 top-2.5 text-gray-400" />
@@ -32,7 +32,7 @@
 
                 <!-- Tomboh tambah facilitie -->
                 <a href="{{ route('academic_infos.create') }}"
-                    class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
+                    class="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
                     Tambah
                 </a>
@@ -53,6 +53,7 @@
                         <tr>
                             <th class="py-3.5 px-4 w-16 text-center">No</th>
                             <th class="py-3.5 px-4">Judul Informasi</th>
+                            <th class="py-3.5 px-4">Kategori</th>
                             <th class="py-3.5 px-4">Deskripsi</th>
                             <th class="py-3.5 px-4">Informasi Link</th>
                             <th class="py-3.5 px-4 max-w-xs">Status</th>
@@ -80,6 +81,9 @@
                                         </div>
                                     </div>
                                 </td>
+                                <!-- Kategory Informasi -->
+                                <td class="py-3 px-4 underline dark:text-white">
+                                    {{ $info->category }}</td>
                                 <!-- Deskripsi Informasi -->
                                 <td class="py-3 px-4 text-gray-500 dark:text-gray-400 truncate max-w-xs">
                                     {{ Str::limit($info->description, 60) }}</td>
@@ -118,7 +122,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="6" class="text-center py-8 text-gray-400">
+                                <td colspan="7" class="text-center py-8 text-gray-400">
                                     @if (request('search'))
                                         Pencarian "<span class="font-semibold">{{ request('search') }}</span>" tidak
                                         ditemukan.
@@ -166,7 +170,7 @@
                     <!-- Nomor Halaman -->
                     @foreach ($academic_infos->getUrlRange(1, $academic_infos->lastPage()) as $page => $url)
                         @if ($page == $academic_infos->currentPage())
-                            <span class="px-2.5 py-1 rounded bg-blue-600 text-white font-semibold">
+                            <span class="px-2.5 py-1 rounded bg-amber-600 text-white font-semibold">
                                 {{ $page }}
                             </span>
                         @else

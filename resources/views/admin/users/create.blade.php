@@ -4,14 +4,14 @@
         <!-- Header Page & Tombol Kembali -->
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Add New User</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Fill out the form below to add a new user to the system.</p>
+                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Tambah Pengguna Baru</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Lengkapi form di bawah ini untuk menambahkan pengguna.</p>
             </div>
 
             <a href="{{ route('users.index') }}"
                 class="flex items-center gap-2 px-3.5 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs font-semibold rounded-lg transition">
                 <x-back-arrow-icon class="size-4" />
-                Back
+                Kembali
             </a>
         </div>
 
@@ -29,10 +29,10 @@
                             class="size-20 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 shadow-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Profile Photo
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Foto Profil
                             (Opsional)</label>
                         <input type="file" name="photo" id="photo-input" accept="image/jpeg,image/png,image/jpg"
-                            class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
+                            class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
                         <p class="text-[10px] text-gray-400 mt-1">Format: JPG, JPEG, PNG. Maksimal 2MB.</p>
                         @error('photo')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
@@ -46,11 +46,11 @@
                     <!-- Nama Lengkap -->
                     <div>
                         <label for="name"
-                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Full Name <span
+                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Nama Lengkap <span
                                 class="text-red-500">*</span></label>
                         <input type="text" name="name" id="name" value="{{ old('name') }}"
                             placeholder="Input your full name" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
                         @error('name')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -63,7 +63,7 @@
                                 class="text-red-500">*</span></label>
                         <input type="text" name="username" id="username" value="{{ old('username') }}"
                             placeholder="example: giashegy" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
                         @error('username')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -76,7 +76,7 @@
                                 class="text-red-500">*</span></label>
                         <input type="email" name="email" id="email" value="{{ old('email') }}"
                             placeholder="example@email.ac.id" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
                         @error('email')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -85,10 +85,10 @@
                     <!-- Telepon -->
                     <div>
                         <label for="phone"
-                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Phone </label>
+                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Telepon </label>
                         <input type="text" name="phone" id="phone" value="{{ old('phone') }}"
                             placeholder="+62 812-xxxx-xxxx"
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
                         @error('phone')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -97,11 +97,11 @@
                     <!-- Role / Hak Akses -->
                     <div>
                         <label for="role"
-                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Role / Access
+                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Role / Akses
                             <span class="text-red-500">*</span></label>
                         <select name="role" id="role" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
-                            <option value="">-- Choose Role --</option>
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                            <option value="">-- Pilih Role --</option>
                             <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Administrator
                             </option>
                             <option value="user" {{ old('role') == 'teacher' ? 'selected' : '' }}>User
@@ -120,7 +120,7 @@
                             class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Password <span
                                 class="text-red-500">*</span></label>
                         <input type="password" name="password" id="password" placeholder="Minimal 8 characters" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
                         @error('password')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -129,10 +129,10 @@
                     <!-- Konfirmasi Password -->
                     <div>
                         <label for="password_confirmation"
-                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Password Confirmation <span class="text-red-500">*</span></label>
+                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Konfirmasi Password <span class="text-red-500">*</span></label>
                         <input type="password" name="password_confirmation" id="password_confirmation"
                             placeholder="Repeat password" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
                     </div>
 
                 </div>
@@ -141,11 +141,11 @@
                 <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-100 dark:border-gray-700">
                     <a href="{{ route('users.index') }}"
                         class="px-4 py-2 text-xs font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition">
-                        Cancel
+                        Batal
                     </a>
                     <button type="submit"
-                        class="px-5 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
-                        Save Data
+                        class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
+                        Simpan
                     </button>
                 </div>
             </form>

@@ -8,6 +8,7 @@ use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExtracurricularController;
 use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\GreetingController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReferralCodeController;
@@ -16,22 +17,19 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('auth.login');
-});
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/profil-sekolah', [HomeController::class, 'profile'])->name('school-profile');
+Route::get('/kegiatan/ekstrakurikuler', [HomeController::class, 'extracurriculars'])->name('extracurriculars');
+Route::get('/kegiatan/aktivitas-sekolah', [HomeController::class, 'events'])->name('events');
 
-// Route::get('/dashboard', function () {
-//     return view('dashboard');
-// })->middleware(['auth', 'verified'])->name('user.dashboard');
-
-Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/home', function () {
-        return view('home');
-    })->name('home');
-    Route::get('/about', function () {
-        return view('about');
-    })->name('about');
-});
+// Route::middleware(['auth', 'verified'])->group(function () {
+//     Route::get('/home', function () {
+//         return view('home');
+//     })->name('home');
+//     Route::get('/about', function () {
+//         return view('about');
+//     })->name('about');
+// });
 
 Route::middleware(['auth', 'is_admin'])->group(function () {
     // Route Dashboard

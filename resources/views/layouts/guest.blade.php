@@ -16,7 +16,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="font-sans text-gray-900 dark:text-gray-100 antialiased">
+<body class="font-sans text-amber-900 dark:text-gray-100 antialiased">
     <div class="min-h-screen p-6 grid grid-cols-5 gap-6 items-center bg-gray-100 dark:bg-gray-900">
         <div class="login-image relative rounded-3xl overflow-hidden col-span-3 shadow-md shadow-gray-400/50">
             <div class="login-slider w-full h-full overflow-hidden cursor-pointer">

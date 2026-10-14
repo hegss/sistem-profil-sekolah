@@ -2,7 +2,7 @@
     <div class="p-6 space-y-4 flex flex-col h-full overflow-y-auto custom-scrollbar">
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Tambah Informasi Akademik Baru</h1>
+                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Tambah Informasi Akademik Baru</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Isi form dibawah ini untuk menambahkan informasi
                     akademik baru</p>
             </div>
@@ -31,7 +31,7 @@
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Foto Informasi
                             (Opsional)</label>
                         <input type="file" name="photo" id="photo-input" accept="image/jpeg,image/png,image/jpg"
-                            class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
+                            class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
                         <p class="text-[10px] text-gray-400 mt-1">Format: JPG, JPEG, PNG. Maksimal 2MB.</p>
                         @error('photo')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
@@ -40,6 +40,7 @@
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <!-- Judul Informasi -->
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Judul Informasi
                             <span class="text-red-500">*</span></label>
@@ -51,6 +52,27 @@
                         @enderror
                     </div>
 
+                    <!-- Category -->
+                    <div>
+                        <label for="category"
+                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Kategori
+                            <span class="text-red-500">*</span></label>
+                        <select name="role" id="role" required
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                            <option value="">-- Pilih Kategori --</option>
+                            <option value="achievement" {{ old('category') == 'achievement' ? 'selected' : '' }}>Prestasi
+                            </option>
+                            <option value="scholarship" {{ old('category') == 'scholarship' ? 'selected' : '' }}>Beasiswa Pendidikan
+                            </option>
+                            <option value="general_info" {{ old('category') == 'general_info' ? 'selected' : '' }}>Informasi Umum
+                            </option>
+                        </select>
+                        @error('category')
+                            <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Link Informasi -->
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Link
                             Informasi</label>
@@ -77,14 +99,14 @@
                 <div class="flex items-center gap-3 pt-2">
                     <input type="checkbox" name="is_active" id="is_active" value="1"
                         {{ old('is_active', true) ? 'checked' : '' }}
-                        class="size-4 text-blue-600 rounded border-gray-300 focus:ring-blue-500">
+                        class="size-4 text-amber-600 rounded border-gray-300 focus:ring-amber-500">
                     <label for="is_active" class="text-xs font-semibold text-gray-700 dark:text-gray-200">Aktif Status
                         (Informasi akan ditampilkan.)</label>
                 </div>
 
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <button type="submit"
-                        class="px-5 py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg">Simpan
+                        class="px-5 py-2 bg-amber-600 text-white text-xs font-semibold rounded-lg">Simpan
                         Data</button>
                 </div>
             </form>

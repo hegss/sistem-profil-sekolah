@@ -2,7 +2,7 @@
     <div x-data="{ openPhotoDeleteModal: false, deletePhotoUrl: '' }" class="p-6 space-y-4 flex flex-col h-full overflow-y-auto custom-scrollbar">
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Edit Ekskul</h1>
+                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Edit Ekskul</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Isi form dibawah ini untuk mengedit ekskul.</p>
             </div>
 
@@ -31,7 +31,7 @@
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Ubah Logo
                             (Optional)</label>
                         <input type="file" name="logo" id="photo-input" accept="image/jpeg,image/png,image/jpg"
-                            class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-200 cursor-pointer">
+                            class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 dark:file:bg-gray-700 dark:file:text-gray-200 cursor-pointer">
                         <p class="text-[10px] text-gray-400 mt-1">Biarkan kosong jika tidak ingin memperbarui logo</p>
                         @error('logo')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
@@ -96,13 +96,13 @@
                     <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Tambah Dokumentasi
                         (Bisa lebih dari satu foto)</label>
                     <input type="file" name="photos[]" multiple accept="image/*"
-                        class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
+                        class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
                     <p class="text-[10px] text-gray-400 mt-1">Format: JPG, PNG, JPEG. Maksimal 2MB per foto.</p>
                 </div>
 
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <button type="submit"
-                        class="px-5 py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg">Simpan
+                        class="px-5 py-2 bg-amber-600 text-white text-xs font-semibold rounded-lg">Simpan
                         Data</button>
                 </div>
             </form>

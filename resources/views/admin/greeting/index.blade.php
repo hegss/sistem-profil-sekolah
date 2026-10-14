@@ -5,7 +5,7 @@
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Kata Sambutan</h1>
+                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Kata Sambutan</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Kelola kata sambutan dari Kepala Sekolah.</p>
             </div>
 
@@ -14,7 +14,7 @@
                 <form action="{{ route('greetings.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
                         placeholder="Cari kata sambutan..."
-                        class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
+                        class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
 
                     <!-- Icon Search -->
                     <x-search-icon class="size-4 absolute left-3 top-2.5 text-gray-400" />
@@ -31,7 +31,7 @@
 
                 <!-- Tomboh tambah user -->
                 <a href="{{ route('greetings.create') }}"
-                    class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
+                    class="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
                     Tambah
                 </a>
@@ -70,7 +70,7 @@
                                                 class="size-10 rounded-full object-cover border border-gray-200 dark:border-gray-700">
                                         @else
                                             <div
-                                                class="size-10 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 font-bold flex items-center justify-center shrink-0">
+                                                class="size-10 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 font-bold flex items-center justify-center shrink-0">
                                                 {{ strtoupper(substr($item->teacher->nama_guru ?? 'KS', 0, 2)) }}
                                             </div>
                                         @endif
@@ -165,7 +165,7 @@
                     <!-- Nomor Halaman -->
                     @foreach ($greetings->getUrlRange(1, $greetings->lastPage()) as $page => $url)
                         @if ($page == $greetings->currentPage())
-                            <span class="px-2.5 py-1 rounded bg-blue-600 text-white font-semibold">
+                            <span class="px-2.5 py-1 rounded bg-amber-600 text-white font-semibold">
                                 {{ $page }}
                             </span>
                         @else

@@ -27,6 +27,6 @@
 }
 
 .active-login-dot{
-    background: blue;
+    background: oklch(70.5% 0.213 47.604);
     transform:scale(1.3);
 }

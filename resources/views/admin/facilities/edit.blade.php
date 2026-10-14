@@ -54,31 +54,31 @@
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Nama *</label>
                         <input type="text" name="name"
                             value="{{ old('name', $facility->name) }}" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">
                     </div>
 
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Lokasi *</label>
                         <input type="text" name="location" value="{{ old('location', $facility->location) }}" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">
                     </div>
                 </div>
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Deskripsi *</label>
                     <textarea name="description" rows="4" required
-                        class="w-full text-xs p-3 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600">{{ old('description', $facility->description) }}</textarea>
+                        class="w-full text-xs p-3 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">{{ old('description', $facility->description) }}</textarea>
                 </div>
 
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Tambah Foto Baru ke Gallery (Optional)</label>
                     <input type="file" name="photos[]" multiple accept="image/*"
-                        class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
+                        class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
                 </div>
 
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <button type="submit"
-                        class="px-5 py-2 bg-blue-600 text-white text-xs font-semibold rounded-lg hover:bg-blue-700 transition">Update Data</button>
+                        class="px-5 py-2 bg-amber-600 text-white text-xs font-semibold rounded-lg hover:bg-amber-700 transition">Update Data</button>
                 </div>
             </form>
         </div>

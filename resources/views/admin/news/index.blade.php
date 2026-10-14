@@ -5,7 +5,7 @@
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-gray-800 dark:text-white">Kelola Berita</h1>
+                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Kelola Berita</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Kelola judul, isi berita, dan status aktifnya.
                 </p>
             </div>
@@ -15,7 +15,7 @@
                 <form action="{{ route('news.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
                         placeholder="Cari judul berita, deskripsi..."
-                        class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-blue-600 dark:focus:border-blue-400">
+                        class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
 
                     <!-- Icon Search -->
                     <x-search-icon class="size-4 absolute left-3 top-2.5 text-gray-400" />
@@ -32,7 +32,7 @@
 
                 <!-- Tomboh tambah facilitie -->
                 <a href="{{ route('news.create') }}"
-                    class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
+                    class="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
                     Tambah
                 </a>
@@ -166,7 +166,7 @@
                     <!-- Nomor Halaman -->
                     @foreach ($news->getUrlRange(1, $news->lastPage()) as $page => $url)
                         @if ($page == $news->currentPage())
-                            <span class="px-2.5 py-1 rounded bg-blue-600 text-white font-semibold">
+                            <span class="px-2.5 py-1 rounded bg-amber-600 text-white font-semibold">
                                 {{ $page }}
                             </span>
                         @else

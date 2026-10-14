@@ -13,6 +13,7 @@ class AcademicInfo extends Model
 
     protected $fillable = [
         'title',
+        'category',
         'photo',
         'description',
         'info_link',
@@ -27,7 +28,7 @@ class AcademicInfo extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['title', 'photo', 'description', 'info_link', 'is_active'])
+            ->logOnly(['title', 'category', 'description', 'info_link', 'is_active'])
             ->logOnlyDirty()
             ->useLogName('academic_info')
             ->setDescriptionForEvent(fn (string $eventName) => match ($eventName) {

@@ -56,7 +56,7 @@
         </div>
 
         <div class="flex flex-col items-center align-center mt-4">
-            <a class=" w-full underline text-right text-sm text-gray-900 dark:text-gray-200 hover:text-gray-500 focus:outline-none" href="{{ route('login') }}">
+            <a class=" w-full underline text-right text-sm text-amber-900 dark:text-gray-200 hover:text-gray-500 focus:outline-none" href="{{ route('login') }}">
                 {{ __('Sudah terdaftar?') }}
             </a>
 

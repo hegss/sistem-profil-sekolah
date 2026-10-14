@@ -18,6 +18,7 @@ class AcademicInfoController extends Controller
 
         $academic_infos = AcademicInfo::when($search, function ($query, $search) {
             $query->where('title', 'like', "%{$search}%")
+                ->orWhere('category', 'like', "%{$search}%")
                 ->orWhere('description', 'like', "%{$search}%");
         })
             ->latest()
@@ -42,6 +43,7 @@ class AcademicInfoController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'category' => ['required', 'string', 'in:achievement,scholarship,general_info'],
             'photo' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
             'description' => ['required', 'string'],
             'info_link' => ['nullable', 'url'],
@@ -92,6 +94,7 @@ class AcademicInfoController extends Controller
     {
         $validated = $request->validate([
             'title' => ['required', 'string', 'max:255'],
+            'category' => ['required', 'string', 'in:achievement,scholarship,general_info'],
             'photo' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
             'description' => ['required', 'string'],
             'info_link' => ['nullable', 'url'],

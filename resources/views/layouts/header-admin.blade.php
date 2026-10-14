@@ -8,7 +8,7 @@
             <x-search-icon
                 class="text-gray-400 dark:text-gray-400 size-4 absolute top-2 left-3.5 stroke-2 pointer-events-none" />
             <input type="text" name="search" value="{{ request('search') }}"
-                class="w-72 md:w-80 pl-10 pr-4 py-2 text-xs rounded-xl bg-gray-50 dark:bg-gray-900/50 text-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-blue-600 dark:focus:border-blue-500 focus:bg-white dark:focus:bg-gray-900 transition duration-200"
+                class="w-72 md:w-80 pl-10 pr-4 py-2 text-xs rounded-xl bg-gray-50 dark:bg-gray-900/50 text-gray-800 dark:text-gray-100 border border-gray-200 dark:border-gray-700 focus:outline-none focus:border-amber-600 dark:focus:border-amber-500 focus:bg-white dark:focus:bg-gray-900 transition duration-200"
                 placeholder="Cari disini...">
         </form>
     </div>
@@ -22,15 +22,15 @@
             <!-- Notification Trigger Button -->
             <button @click="openNotif = !openNotif" type="button"
                 class="relative p-2 rounded-xl text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60 transition duration-200 focus:outline-none"
-                :class="openNotif ? 'bg-gray-100 dark:bg-gray-700/60 text-blue-600 dark:text-blue-400' : ''">
+                :class="openNotif ? 'bg-gray-100 dark:bg-gray-700/60 text-amber-600 dark:text-amber-400' : ''">
 
                 <x-notif-icon class="size-5" />
 
                 <!-- Red Badge Indicator -->
                 <span class="absolute top-2 right-2 flex size-2">
                     <span
-                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full size-2 bg-blue-600"></span>
+                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full size-2 bg-amber-600"></span>
                 </span>
             </button>
 
@@ -50,7 +50,7 @@
                     class="px-4 py-3 border-b border-gray-100 dark:border-gray-700/60 flex items-center justify-between">
                     <h3 class="text-xs font-bold text-gray-800 dark:text-white">Pesan & Notifikasi</h3>
                     <span
-                        class="px-2 py-0.5 text-[10px] font-semibold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-950/60 rounded-full">4
+                        class="px-2 py-0.5 text-[10px] font-semibold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/60 rounded-full">4
                         Baru</span>
                 </div>
 
@@ -59,7 +59,7 @@
                     <a href="#"
                         class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition">
                         <div
-                            class="size-8 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                            class="size-8 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
                             <x-mail-icon class="size-4" />
                         </div>
                         <div class="flex flex-col flex-1 min-w-0">
@@ -73,7 +73,7 @@
                     <a href="#"
                         class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition">
                         <div
-                            class="size-8 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                            class="size-8 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
                             <x-mail-icon class="size-4" />
                         </div>
                         <div class="flex flex-col flex-1 min-w-0">
@@ -86,7 +86,7 @@
 
                 <!-- Dropdown Footer -->
                 <a href="#"
-                    class="block text-center py-2.5 text-[11px] font-semibold text-blue-600 dark:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700/40 border-t border-gray-100 dark:border-gray-700/60 transition">
+                    class="block text-center py-2.5 text-[11px] font-semibold text-amber-600 dark:text-amber-400 hover:bg-gray-50 dark:hover:bg-gray-700/40 border-t border-gray-100 dark:border-gray-700/60 transition">
                     Lihat Semua Pesan
                 </a>
             </div>
@@ -108,7 +108,7 @@
                         class="size-8 rounded-full object-cover border border-gray-200 dark:border-gray-600 shrink-0">
                 @else
                     <div
-                        class="size-8 rounded-full bg-blue-100 dark:bg-blue-950/60 text-blue-600 dark:text-blue-400 flex items-center justify-center shrink-0">
+                        class="size-8 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-600 dark:text-amber-400 flex items-center justify-center shrink-0">
                         <x-profile-icon class="size-4" />
                     </div>
                 @endif
@@ -122,7 +122,7 @@
 
                 <!-- Arrow Icon -->
                 <svg class="size-4 text-gray-400 transition-transform duration-200"
-                    :class="openProfile ? 'rotate-180 text-blue-600 dark:text-white' : ''" fill="none"
+                    :class="openProfile ? 'rotate-180 text-amber-600 dark:text-white' : ''" fill="none"
                     stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                 </svg>
@@ -158,7 +158,7 @@
                     <p class="text-xs text-gray-400 font-medium mt-0.5">@ {{ Auth::user()->username ?? 'user' }}</p>
 
                     <span
-                        class="mt-3 px-3.5 py-1 text-[10px] font-extrabold rounded-full bg-blue-50 text-blue-600 dark:bg-blue-950/80 dark:text-blue-400 uppercase tracking-wider">
+                        class="mt-3 px-3.5 py-1 text-[10px] font-extrabold rounded-full bg-amber-50 text-amber-600 dark:bg-amber-950/80 dark:text-amber-400 uppercase tracking-wider">
                         {{ Auth::user()->role }}
                     </span>
                 </div>
