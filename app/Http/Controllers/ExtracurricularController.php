@@ -46,8 +46,10 @@ class ExtracurricularController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'logo' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
             'schedule' => ['required', 'string', 'max:255'],
+            'mentor_phone' => ['nullable', 'string', 'max:255'],
+            'mentor_name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
-            'photos.*' => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'photos.*' => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:10000'],
         ]);
 
         // simpan logo ekskul jika ada yang diunggah
@@ -67,6 +69,8 @@ class ExtracurricularController extends Controller
             'name' => $validated['name'],
             'logo' => $validated['logo'] ?? null,
             'schedule' => $validated['schedule'],
+            'mentor_phone' => $validated['mentor_phone'] ?? null,
+            'mentor_name' => $validated['mentor_name'],
             'description' => $validated['description'],
         ]);
 
@@ -117,8 +121,10 @@ class ExtracurricularController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'logo' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
             'schedule' => ['required', 'string', 'max:255'],
+            'mentor_phone' => ['nullable', 'string', 'max:255'],
+            'mentor_name' => ['required', 'string', 'max:255'],
             'description' => ['required', 'string'],
-            'photos.*' => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'photos.*' => ['required', 'image', 'mimes:jpeg,jpg,png', 'max:10000'],
         ]);
 
         // simpan logo ekskul jika ada yang diunggah
@@ -142,6 +148,8 @@ class ExtracurricularController extends Controller
             'name' => $validated['name'],
             'logo' => $validated['logo'] ?? null,
             'schedule' => $validated['schedule'],
+            'mentor_phone' => $validated['mentor_phone'] ?? null,
+            'mentor_name' => $validated['mentor_name'],
             'description' => $validated['description'],
         ]);
 
@@ -173,6 +181,13 @@ class ExtracurricularController extends Controller
         // hapus logo ekskul jika ada
         if ($extracurricular->logo && Storage::disk('public')->exists($extracurricular->logo)) {
             Storage::disk('public')->delete($extracurricular->logo);
+        }
+
+        // hapus semua foto dokumentasi di folder storage/public
+        foreach ($extracurricular->photos as $photo) {
+            if (Storage::disk('public')->exists($photo->photos)) {
+                Storage::disk('public')->delete($photo->photos);
+            }
         }
 
         $extracurricular->delete();

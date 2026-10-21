@@ -27,7 +27,7 @@
             {{-- Phone --}}
             <div class="relative">
                 <x-input-label for="phone" :value="__('Telepon')" />
-                <x-text-input id="phone" class="block mt-1 w-full" type="text" name="phone" :value="old('phone')" placeholder="+62 8xx-xxxx-xxxx" required autocomplete="phone" />
+                <x-text-input id="phone" class="block mt-1 w-full" type="tel" name="phone" :value="old('phone')" placeholder="08xx-xxxx-xxxx" required autocomplete="phone" />
                 <x-input-error :messages="$errors->get('phone')" class="mt-2" />
             </div>
         </div>

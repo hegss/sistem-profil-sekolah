@@ -14,7 +14,7 @@
                 <!-- Form Pencarian -->
                 <form action="{{ route('academic_infos.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
-                        placeholder="Cari judul informasi, deskripsi..."
+                        placeholder="Cari judul informasi, kategori, deskripsi..."
                         class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
 
                     <!-- Icon Search -->
@@ -54,6 +54,7 @@
                             <th class="py-3.5 px-4 w-16 text-center">No</th>
                             <th class="py-3.5 px-4">Judul Informasi</th>
                             <th class="py-3.5 px-4">Kategori</th>
+                            <th class="py-3.5 px-4">Tanggal Unggah</th>
                             <th class="py-3.5 px-4">Deskripsi</th>
                             <th class="py-3.5 px-4">Informasi Link</th>
                             <th class="py-3.5 px-4 max-w-xs">Status</th>
@@ -71,7 +72,7 @@
                                     <div class="flex items-center gap-3">
                                         <!-- Foto Informasi -->
                                         <img class="size-9 rounded-full object-cover border border-gray-200 dark:border-gray-600 shrink-0"
-                                            src="{{ $info->photo ? asset('storage/' . $info->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($info->title) . '&background=0D8ABC&color=fff' }}"
+                                            src="{{ $info->photo ? asset('storage/' . $info->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($info->title) . '&background=fef3c6&color=e17100' }}"
                                             alt="{{ $info->title }}">
 
                                         <!-- Judul Informasi -->
@@ -84,12 +85,20 @@
                                 <!-- Kategory Informasi -->
                                 <td class="py-3 px-4 underline dark:text-white">
                                     {{ $info->category }}</td>
+                                 <!-- Tanggal Unggah -->
+                                <td class="py-3 px-4 text-gray-500 dark:text-white">
+                                    {{ $item->publish_date->format('d M Y') }}</td>
                                 <!-- Deskripsi Informasi -->
                                 <td class="py-3 px-4 text-gray-500 dark:text-gray-400 truncate max-w-xs">
                                     {{ Str::limit($info->description, 60) }}</td>
                                 <!-- Link Utama Informasi -->
                                 <td class="py-3 px-4 text-blue-600 underline dark:text-white">
-                                    {{ $info->info_link }}</td>
+                                    @if ($info->info_link)
+                                        {{ $info->info_link }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <!-- Status Aktif -->
                                 <td class="py-3 px-4 text-center">
                                     @if ($info->is_active)
@@ -122,7 +131,7 @@
                             </tr>
                         @empty
                             <tr>
-                                <td colspan="7" class="text-center py-8 text-gray-400">
+                                <td colspan="8" class="text-center py-8 text-gray-400">
                                     @if (request('search'))
                                         Pencarian "<span class="font-semibold">{{ request('search') }}</span>" tidak
                                         ditemukan.

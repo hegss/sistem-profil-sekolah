@@ -50,6 +50,9 @@ class AcademicInfoController extends Controller
             'is_active' => ['required', 'boolean'],
         ]);
 
+        // Otomatis set tanggal posting ke tanggal hari ini (YYYY-MM-DD)
+        $validated['publish_date'] = now()->toDateString();
+
         $validated['is_active'] = $request->has('is_active');
 
         // simpan foto informasi jika ada yang diunggah
@@ -100,6 +103,9 @@ class AcademicInfoController extends Controller
             'info_link' => ['nullable', 'url'],
             'is_active' => ['required', 'boolean'],
         ]);
+
+        // Otomatis set tanggal posting ke tanggal hari ini (YYYY-MM-DD)
+        $validated['publish_date'] = now()->toDateString();
 
         $validated['is_active'] = $request->has('is_active');
 

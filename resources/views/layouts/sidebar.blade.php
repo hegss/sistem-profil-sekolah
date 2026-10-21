@@ -7,7 +7,7 @@
 
     <!-- Logo & Title Header -->
     <div
-        class="p-1 flex justify-center items-center gap-3 shrink-0 border-b border-gray-100 dark:border-gray-700/50 overflow-hidden">
+        class="p-3 flex justify-center items-center gap-3 shrink-0 border-b border-gray-100 dark:border-gray-700/50 overflow-hidden">
         <a href="{{ route('home') }}" class="flex justify-center items-center">
             <x-application-logo class="h-16 w-auto fill-current shrink-0 text-amber-600 dark:text-amber-400" />
         </a>
@@ -190,7 +190,7 @@
                     class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('questions.*') ? 'bg-amber-600 text-white shadow-md shadow-amber-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
                     Pertanyaan
                 </a>
-                <a href="#"
+                <a href="{{ route('complaints.index') }}"
                     class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('complaints.*') ? 'bg-amber-600 text-white shadow-md shadow-amber-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
                     Keluhan
                 </a>

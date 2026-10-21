@@ -86,8 +86,8 @@
                     <div>
                         <label for="phone"
                             class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Telepon </label>
-                        <input type="text" name="phone" id="phone" value="{{ old('phone') }}"
-                            placeholder="+62 812-xxxx-xxxx"
+                        <input type="tel" name="phone" id="phone" value="{{ old('phone') }}"
+                            placeholder="0812-xxxx-xxxx"
                             class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
                         @error('phone')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>

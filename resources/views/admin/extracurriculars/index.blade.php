@@ -54,6 +54,7 @@
                             <th class="py-3.5 px-4 w-16 text-center">No</th>
                             <th class="py-3.5 px-4">Nama Ekstrakurikuler</th>
                             <th class="py-3.5 px-4">Jadwal</th>
+                            <th class="py-3.5 px-4">Pembimbing</th>
                             <th class="py-3.5 px-4">Dokumentasi</th>
                             <th class="py-3.5 px-4 max-w-xs">Deskripsi</th>
                             <th class="py-3.5 px-4 text-center w-28">Aksi</th>
@@ -70,7 +71,7 @@
                                     <div class="flex items-center gap-3">
                                         <!-- Logo Ekskul -->
                                         <img class="size-9 rounded-full object-cover border border-gray-200 dark:border-gray-600 shrink-0"
-                                            src="{{ $extracurricular->logo ? asset('storage/' . $extracurricular->logo) : 'https://ui-avatars.com/api/?name=' . urlencode($extracurricular->name) . '&background=0D8ABC&color=fff' }}"
+                                            src="{{ $extracurricular->logo ? asset('storage/' . $extracurricular->logo) : 'https://ui-avatars.com/api/?name=' . urlencode($extracurricular->name) . '&background=fef3c6&color=e17100' }}"
                                             alt="{{ $extracurricular->name }}">
 
                                         <!-- Nama Ekskul -->
@@ -82,6 +83,15 @@
                                 </td>
                                 <td class="py-3 px-4 font-bold text-gray-900 dark:text-white">
                                     {{ $extracurricular->schedule }}</td>
+                                <td class="py-3 px-4 font-bold text-gray-900 dark:text-white">
+                                    <!-- Nama Pembimbing + No Hp (Stacked) -->
+                                    <div class="flex flex-col">
+                                        <span
+                                            class="font-bold text-gray-900 dark:text-white text-sm leading-tight">{{ $extracurricular->mentor_name }}</span>
+                                        <span
+                                            class="text-[11px] text-gray-400 dark:text-gray-400">{{ $extracurricular->mentor_phone }}</span>
+                                    </div>
+                                </td>
                                 <td class="py-3 px-4">
                                     <div class="flex items-center -space-x-2 overflow-hidden">
                                         @forelse ($extracurricular->photos->take(3) as $photo)

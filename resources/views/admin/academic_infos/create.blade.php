@@ -72,10 +72,18 @@
                         @enderror
                     </div>
 
+                    <!-- Tanggal Unggah -->
+                    <div>
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Tanggal
+                            Unggah (Otomatis)</label>
+                        <input type="text" value="{{ \Carbon\Carbon::now()->translatedFormat('d F Y') }}" readonly
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white cursor-not-allowed">
+                    </div>
+
                     <!-- Link Informasi -->
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Link
-                            Informasi</label>
+                            Informasi (Opsional)</label>
                         <input type="text" name="info_link" value="{{ old('info_link') }}"
                             placeholder="Contoh: https://example.com/informasi-kjp"
                             class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white">
@@ -85,6 +93,7 @@
                     </div>
                 </div>
 
+                <!-- Deskripsi -->
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Deskripsi <span
                             class="text-red-500">*</span></label>

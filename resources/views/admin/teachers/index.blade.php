@@ -66,7 +66,7 @@
                                 <td class="py-3 px-4">
                                     <div class="flex items-center gap-3">
                                         <img class="size-9 rounded-full object-cover border border-gray-200 dark:border-gray-600 shrink-0"
-                                            src="{{ $teacher->photo ? asset('storage/' . $teacher->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($teacher->name) . '&background=0D8ABC&color=fff' }}"
+                                            src="{{ $teacher->photo ? asset('storage/' . $teacher->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($teacher->name) . '&background=fef3c6&color=e17100' }}"
                                             alt="{{ $teacher->name }}">
                                         <span
                                             class="font-bold text-gray-900 dark:text-white text-sm">{{ $teacher->name }}</span>

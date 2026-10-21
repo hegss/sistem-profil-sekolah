@@ -17,34 +17,36 @@
         <div>
             <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Navigasi Cepat</h4>
             <ul class="space-y-2.5 text-xs">
-                <li><a href="{{ route('home') }}" class="hover:text-white transition">Home</a></li>
-                <li><a href="#profil" class="hover:text-white transition">Profil Sekolah</a></li>
-                <li><a href="#ekstrakurikuler" class="hover:text-white transition">Ekstrakurikuler</a></li>
-                <li><a href="#berita" class="hover:text-white transition">Berita Terkini</a></li>
+                <li><a href="{{ route('home') }}" class="text-white hover:text-gray-500 transition">Home</a></li>
+                <li><a href="{{ route('school-profile') }}" class="text-white hover:text-gray-500 transition">Profil Sekolah</a></li>
+                <li><a href="{{ route('extracurriculars') }}" class="text-white hover:text-gray-500 transition">Ekstrakurikuler</a></li>
+                <li><a href="#berita" class="text-white hover:text-gray-500 transition">Berita Terkini</a></li>
             </ul>
         </div>
 
         <div>
             <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Layanan Layanan</h4>
             <ul class="space-y-2.5 text-xs">
-                <li><a href="#" class="hover:text-white transition">Penerimaan Siswa Baru (PPDB)</a></li>
-                <li><a href="#" class="hover:text-white transition">Pengajuan Dokumen</a></li>
-                <li><a href="#" class="hover:text-white transition">Layanan Pengaduan</a></li>
+                <li><a href="#" class="text-white hover:text-gray-500 transition">Penerimaan Siswa Baru (PPDB)</a></li>
+                <li><a href="#" class="text-white hover:text-gray-500 transition">Pengajuan Dokumen</a></li>
+                <li><a href="#" class="text-white hover:text-gray-500 transition">Layanan Pengaduan</a></li>
             </ul>
         </div>
 
         <div>
             <h4 class="text-white text-xs font-bold uppercase tracking-wider mb-4">Kontak Kami</h4>
             <ul class="space-y-3 text-xs">
-                <li class="flex items-start gap-2.5 text-white">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                        stroke="currentColor" class="size-5 text-white shrink-0 mt-0.5">
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
-                        <path stroke-linecap="round" stroke-linejoin="round"
-                            d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
-                    </svg>
-                    <span>Jl. Raya Condet, Gedong, Kec. Pasar Rebo, Jakarta Timur</span>
+                <li class="text-white">
+                    <a href="https://maps.app.goo.gl/DGhHupUcWBQ4bzsv7" class="flex items-start gap-2.5 cursor-pointer">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
+                                stroke="currentColor" class="size-5 text-white shrink-0 mt-0.5">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0Z" />
+                        </svg>
+                        <span>Jl. Raya Condet, Gedong, Kec. Pasar Rebo, Jakarta Timur</span>
+                    </a>
                 </li>
                 <li class="flex items-center gap-2.5 text-white">
                     <x-mail-icon class="size-5 text-white shrink-0" />

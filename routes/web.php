@@ -3,6 +3,7 @@
 use App\Http\Controllers\AcademicInfoController;
 use App\Http\Controllers\AdminProfileController;
 use App\Http\Controllers\BannerController;
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\EventController;
 use App\Http\Controllers\ExtracurricularController;
@@ -17,10 +18,23 @@ use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
+// Route Home
 Route::get('/', [HomeController::class, 'index'])->name('home');
+
+// Route School Profile
 Route::get('/profil-sekolah', [HomeController::class, 'profile'])->name('school-profile');
+
+// Route Extracurriculars
 Route::get('/kegiatan/ekstrakurikuler', [HomeController::class, 'extracurriculars'])->name('extracurriculars');
+// Route School Activity
 Route::get('/kegiatan/aktivitas-sekolah', [HomeController::class, 'events'])->name('events');
+
+// Route Academic Info
+Route::get('/informasi/akademik', [HomeController::class, 'academic_infos'])->name('academic-infos');
+// Route News
+Route::get('/informasi/berita', [HomeController::class, 'newsIndex'])->name('home-news.index');
+// Route News Detail
+Route::get('/informasi/berita/{id}', [HomeController::class, 'newsDetail'])->name('home-news.detail');
 
 // Route::middleware(['auth', 'verified'])->group(function () {
 //     Route::get('/home', function () {
@@ -73,6 +87,11 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
 
     // Route News
     Route::resource('news', NewsController::class);
+
+    // Route Complaint
+    Route::get('/complaints', [ComplaintController::class, 'index'])->name('complaints.index');
+    Route::patch('/complaints/{complaint}/status', [ComplaintController::class, 'updateStatus'])->name('complaints.update-status');
+    Route::delete('/complaints/{complaint}', [ComplaintController::class, 'destroy'])->name('complaints.destroy');
 
     // Route Data User
     Route::resource('users', UserController::class);

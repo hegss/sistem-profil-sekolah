@@ -70,17 +70,23 @@
 
                     <div class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed space-y-4 text-justify">
                         <p>
-                            SDN Gedong 12 Pagi didirikan sebagai bentuk komitmen pemerintah dalam menyediakan sarana pendidikan dasar yang terjangkau dan berkualitas bagi masyarakat di kawasan Gedong, Pasar Rebo, Jakarta Timur. Sejak awal berdirinya, sekolah ini terus berkembang baik dari segi sarana prasarana maupun mutu pendidikan.
+                            SDN Gedong 12 Pagi merupakan sekolah dasar negeri yang terletak di Jl. Raya Condet, Kelurahan GEDONG, Kecamatan PASAR REBO,
+                            Kota JAKARTA TIMUR, Provinsi DKI JAKARTA. Sekolah ini memiliki luas tanah 7.857 meter persegi dan beroperasi dengan waktu
+                            penyelenggaraan sehari penuh selama 5 hari. SDN Gedong 12 Pagi memiliki reputasi yang baik, terbukti dengan akreditasi A yang
+                            diraih pada tanggal 27 November 2017 dengan nomor sertifikat 255/BAP-SM/DKI/2017. Sekolah ini juga dilengkapi dengan akses
+                            internet dan menggunakan listrik PLN.
                         </p>
                         <p>
-                            Berlandaskan semangat gotong royong dan dedikasi para tenaga pendidik, SDN Gedong 12 berhasil mencetak ribuan alumni yang berprestasi dan berkarakter. Lingkungan sekolah yang asri dan kondusif senantiasa dijaga untuk mendukung proses belajar mengajar yang aman dan menyenangkan.
+                            Sekolah ini di bawah naungan Pemerintah Daerah dan memiliki nomor SK Pendirian 1929 TAHUN 2013 yang diterbitkan pada tanggal 13-12-1984.
+                            Nomor SK Operasional sekolah ini adalah 1929 TAHUN 2013 yang diterbitkan pada tanggal 01-01-1986.
                         </p>
                         <p>
-                            Hingga saat ini, SDN Gedong 12 terus bertransformasi mengikuti perkembangan teknologi informasi digital untuk melahirkan generasi penerus bangsa yang cerdas, berakhlak mulia, serta siap menghadapi tantangan masa depan.
+                            SDN Gedong 12 Pagi memiliki komitmen untuk memberikan pendidikan berkualitas kepada para siswanya. Hal ini dibuktikan dengan
+                            fasilitas yang memadai, tenaga pengajar yang profesional, dan program pembelajaran yang inovatif. Sekolah ini juga terbuka untuk
+                            menerima siswa baru dengan berbagai latar belakang.
                         </p>
                     </div>
                 </div>
-
             </div>
         </div>
     </section>

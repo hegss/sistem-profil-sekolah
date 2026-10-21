@@ -15,6 +15,8 @@ class Extracurricular extends Model
         'name',
         'logo',
         'schedule',
+        'mentor_name',
+        'mentor_phone',
         'description',
     ];
 
@@ -28,7 +30,7 @@ class Extracurricular extends Model
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
-            ->logOnly(['name', 'logo', 'schedule', 'description'])
+            ->logOnly(['name', 'logo', 'schedule', 'mentor_name', 'description'])
             ->logOnlyDirty()
             ->useLogName('extracurricular')
             ->setDescriptionForEvent(fn (string $eventName) => match ($eventName) {

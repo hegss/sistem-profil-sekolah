@@ -20,7 +20,7 @@
                     <!-- Avatar Preview -->
                     <div class="relative group mb-4">
                         <img id="profile-avatar-preview"
-                            src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=0D8ABC&color=fff' }}"
+                            src="{{ Auth::user()->photo ? asset('storage/' . Auth::user()->photo) : 'https://ui-avatars.com/api/?name=' . urlencode(Auth::user()->name) . '&background=fef3c6&color=e17100' }}"
                             alt="{{ Auth::user()->name }}"
                             class="size-28 rounded-full object-cover border-4 border-gray-100 dark:border-gray-700 shadow-md transition group-hover:opacity-90">
                     </div>

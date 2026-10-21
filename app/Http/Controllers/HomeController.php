@@ -7,8 +7,10 @@ use App\Models\Banner;
 use App\Models\Event;
 use App\Models\Extracurricular;
 use App\Models\Greeting;
+use App\Models\News;
 use App\Models\Student;
 use App\Models\Teacher;
+use Illuminate\Http\Request;
 
 class HomeController extends Controller
 {
@@ -113,5 +115,49 @@ class HomeController extends Controller
         }])->latest()->get();
 
         return view('events', compact('events'));
+    }
+
+    // Halaman Informasi Akademik
+    public function academic_infos()
+    {
+        $academicInfos = AcademicInfo::where('is_active', true)
+            ->latest()
+            ->get();
+
+        return view('academic-info', compact('academicInfos'));
+    }
+
+    // Halaman Berita
+    public function newsIndex(Request $request)
+    {
+        $search = $request->input('search');
+
+        // Query data berita dengan filter jika keyword search diisi
+        $allNews = News::when($search, function ($query, $search) {
+            $query->where(function ($q) use ($search) {
+                $q->where('title', 'like', "%{$search}%")
+                    ->orWhere('description', 'like', "%{$search}%");
+            });
+        })
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
+
+        return view('news-index', compact('allNews'));
+    }
+
+    // Halaman Detail Berita
+    public function newsDetail($id)
+    {
+        $news = News::where('is_active', true)->findOrFail($id);
+
+        // ambil 3 berita lainnya untuk rekomendasi
+        $recentNews = News::where('is_active', true)
+            ->where('id', '!=', $id)
+            ->latest('publish_date')
+            ->take(3)
+            ->get();
+
+        return view('news-detail', compact('news', 'recentNews'));
     }
 }

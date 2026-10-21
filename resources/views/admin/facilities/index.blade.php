@@ -41,11 +41,9 @@
         <!-- Card Container Tabel -->
         <div
             class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 flex flex-col flex-1 min-h-0 overflow-hidden">
-
             <!-- Table Area (Overflow-x auto untuk responsif di layar kecil) -->
             <div class="overflow-x-auto overflow-y-auto flex-1 custom-scrollbar">
                 <table class="w-full text-left text-xs border-collapse">
-
                     <!-- Table Header -->
                     <thead
                         class="bg-gray-50 dark:bg-gray-700/50 text-gray-500 dark:text-gray-400 uppercase tracking-wider font-semibold sticky top-0 border-b border-gray-100 dark:border-gray-700 z-10">
