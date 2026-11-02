@@ -48,12 +48,12 @@
         </div>
 
         <!-- Register -->
-        <div class="flex items-center justify-center w-full mt-4">
+        {{-- <div class="flex items-center justify-center w-full mt-4">
             <p class="text-amber-900 dark:text-gray-200 mr-1 text-sm">Belum punya akun?</p>
             <a class="underline text-sm text-amber-900 dark:text-gray-200 hover:text-gray-500"
                 href="{{ route('register') }}">
                 {{ __('Daftar') }}
             </a>
-        </div>
+        </div> --}}
     </form>
 </x-guest-layout>

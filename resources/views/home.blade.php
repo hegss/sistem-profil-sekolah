@@ -233,7 +233,8 @@
                 <div>
                     <span class="text-xs font-bold text-[#70282C] uppercase tracking-wider block">Informasi
                         Terbaru</span>
-                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">Prestasi & Informasi
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">Prestasi &
+                        Informasi
                         Lainnya</h2>
                 </div>
                 <a href="#berita" class="text-xs font-bold text-[#70282C] hover:underline hidden sm:block">Lihat Semua
@@ -288,7 +289,8 @@
 
                         </div>
                     @empty
-                        <div class="col-span-1 sm:col-span-3 text-center py-12 text-slate-400 text-xs">Belum ada informasi
+                        <div class="col-span-1 sm:col-span-3 text-center py-12 text-slate-400 text-xs">Belum ada
+                            informasi
                             dipublikasikan.</div>
                     @endforelse
                 </div>
@@ -299,176 +301,207 @@
     </section>
 
     <!-- 5. SECTION KEGIATAN (Slide Card Slider) -->
-    <section id="berita" class="py-16 sm:py-20 bg-slate-50/60 dark:bg-slate-900/40">
+    <section id="kegiatan" class="py-16 sm:py-20 bg-slate-50/60 dark:bg-slate-900/40" x-data="{
+        scrollLeft() { $refs.sliderContainer.scrollBy({ left: -360, behavior: 'smooth' }) },
+            scrollRight() { $refs.sliderContainer.scrollBy({ left: 360, behavior: 'smooth' }) }
+    }">
+
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
+            <!-- Header Section + Tombol Navigasi Slider Card -->
             <div class="flex items-end justify-between gap-4" data-aos="fade-up">
                 <div>
-                    <span class="text-xs font-bold text-[#70282C] uppercase tracking-wider block">Kegiatan</span>
-                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">Ekstrakurikuler & Kegiatan Sekolah
+                    <span
+                        class="text-xs font-bold text-[#70282C] dark:text-rose-400 uppercase tracking-wider block">Kegiatan</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">
+                        Ekstrakurikuler & Kegiatan Sekolah
                     </h2>
                 </div>
-                <a href="#berita" class="text-xs font-bold text-[#70282C] hover:underline hidden sm:block">Lihat Semua
-                    Kegiatan →</a>
+
+                <div class="flex items-center gap-3">
+                    <a href="{{ route('extracurriculars') }}"
+                        class="text-xs font-bold text-[#70282C] dark:text-rose-400 hover:underline hidden sm:block mr-2">
+                        Lihat Semua Kegiatan →
+                    </a>
+
+                    <!-- Tombol Panah Geser Kiri / Kanan -->
+                    <button @click="scrollLeft()" type="button"
+                        class="p-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-[#70282C] hover:text-white transition focus:outline-none">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+                    <button @click="scrollRight()" type="button"
+                        class="p-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-[#70282C] hover:text-white transition focus:outline-none">
+                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
+                </div>
             </div>
 
-            <!-- Kegiatan Slider Container (Alpine.js) -->
-            <div x-data="{
-                currentSlide: 0,
-                totalCards: {{ $activeExtracurricular->count() }},
-                get maxSlide() { return Math.max(0, this.totalCards - 1) }
-            }">
+            <!-- Slider Container (Horizontal Flex Scroll Snap) -->
+            <div x-ref="sliderContainer"
+                class="flex items-stretch gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar py-2">
+                @forelse ($activeExtracurricular as $ekskul)
+                    @php
+                        // Mempersiapkan array foto slider per ekstrakurikuler
+                        $galleryImages = [];
 
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @forelse ($activeExtracurricular as $ekskul)
-                        @php
-                            // Mempersiapkan array foto slider per ekstrakurikuler
-                            $galleryImages = [];
-
-                            // 1. Cek jika ada relasi photos
-                            if (isset($ekskul->photos) && $ekskul->photos->isNotEmpty()) {
-                                foreach ($ekskul->photos as $p) {
-                                    $path = $p->photos;
-                                    if ($path) $galleryImages[] = asset('storage/' . $path);
+                        if (isset($ekskul->photos) && $ekskul->photos->isNotEmpty()) {
+                            foreach ($ekskul->photos as $p) {
+                                $path = $p->photos ?? ($p->foto_path ?? $p->path);
+                                if ($path) {
+                                    $galleryImages[] = asset('storage/' . $path);
                                 }
                             }
+                        }
 
-                            // 2. Cek foto tunggal jika ada di atribut model
-                            if (empty($galleryImages)) {
-                                $singleFoto = $ekskul->photos;
-                                if ($singleFoto) {
-                                    $galleryImages[] = asset('storage/' . $singleFoto);
-                                }
+                        if (empty($galleryImages)) {
+                            $singleFoto = $ekskul->photos ?? ($ekskul->foto ?? $ekskul->image);
+                            if ($singleFoto && is_string($singleFoto)) {
+                                $galleryImages[] = asset('storage/' . $singleFoto);
                             }
+                        }
 
-                            // 3. Fallback gambar placeholder jika belum ada foto
-                            if (empty($galleryImages)) {
-                                $galleryImages = [
-                                    'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800',
-                                    'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800'
-                                ];
-                            }
-                        @endphp
+                        if (empty($galleryImages)) {
+                            $galleryImages = [
+                                'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800',
+                                'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800',
+                            ];
+                        }
+                    @endphp
 
-                        <!-- Card Item Ekstrakurikuler -->
-                        <div class="space-y-4 text-center group" data-aos="fade-up">
+                    <!-- Card Item (Fixed Width 340px agar terstruktur mendatar) -->
+                    <div class="w-[300px] sm:w-[340px] shrink-0 snap-start space-y-4 text-center group"
+                        data-aos="fade-up">
 
-                            <!-- Outer Frame Card (#F4EBE8) -->
-                            <div class="relative bg-[#F4EBE8] dark:bg-slate-800 p-3 sm:p-4 rounded-[2.5rem] border border-rose-100/60 dark:border-slate-700/60 shadow-sm"
-                                x-data="{
-                                    activeSlide: 0,
-                                    images: {{ json_encode($galleryImages) }},
-                                    next() { if(this.images.length) this.activeSlide = (this.activeSlide + 1) % this.images.length },
-                                    prev() { if(this.images.length) this.activeSlide = (this.activeSlide - 1 + this.images.length) % this.images.length }
-                                }"
-                                x-init="if(images.length > 1) setInterval(() => next(), 6000)">
+                        <!-- Outer Frame Card (#F4EBE8) -->
+                        <div class="relative bg-[#F4EBE8] dark:bg-slate-800 p-3 sm:p-4 rounded-[2.5rem] border border-rose-100/60 dark:border-slate-700/60 shadow-sm"
+                            x-data="{
+                                cardSlide: 0,
+                                imgs: @js($galleryImages),
+                                nextImg() { if (this.imgs.length) this.cardSlide = (this.cardSlide + 1) % this.imgs.length },
+                                prevImg() { if (this.imgs.length) this.cardSlide = (this.cardSlide - 1 + this.imgs.length) % this.imgs.length }
+                            }" x-init="if (imgs.length > 1) setInterval(() => nextImg(), 5000)">
 
-                                <!-- Inner Frame Image Container -->
-                                <div class="relative h-[280px] sm:h-[340px] rounded-3xl overflow-hidden bg-slate-200">
-                                    <template x-for="(img, idx) in images" :key="idx">
-                                        <img :src="img"
-                                            x-on:error="$event.target.src = 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800'"
-                                            x-show="activeSlide === idx"
-                                            x-transition:enter="transition ease-out duration-700"
-                                            x-transition:enter-start="opacity-0 scale-105"
-                                            x-transition:enter-end="opacity-100 scale-100"
-                                            x-transition:leave="transition ease-in duration-500"
-                                            x-transition:leave-start="opacity-100"
-                                            x-transition:leave-end="opacity-0"
-                                            class="absolute inset-0 w-full h-full object-cover">
+                            <!-- Inner Frame Image -->
+                            <div class="relative h-[260px] sm:h-[300px] rounded-3xl overflow-hidden bg-slate-200">
+                                <template x-for="(img, idx) in imgs" :key="idx">
+                                    <img :src="img"
+                                        x-on:error="$event.target.src = 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800'"
+                                        x-show="cardSlide === idx"
+                                        x-transition:enter="transition ease-out duration-700"
+                                        x-transition:enter-start="opacity-0 scale-105"
+                                        x-transition:enter-end="opacity-100 scale-100"
+                                        x-transition:leave="transition ease-in duration-500"
+                                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                        class="absolute inset-0 w-full h-full object-cover">
+                                </template>
+                            </div>
+
+                            <!-- Carousel Dots Controls di Gambar Card -->
+                            <div x-show="imgs.length > 1"
+                                class="absolute bottom-6 right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md flex items-center gap-2 border border-slate-100 dark:border-slate-800 z-10">
+                                <button @click="prevImg()" type="button"
+                                    class="text-slate-600 dark:text-slate-300 hover:text-[#70282C] transition p-0.5 focus:outline-none">
+                                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+
+                                <div class="flex items-center gap-1.5 px-1">
+                                    <template x-for="(img, idx) in imgs" :key="idx">
+                                        <button @click="cardSlide = idx" type="button"
+                                            class="h-2 rounded-full transition-all duration-300 focus:outline-none"
+                                            :class="cardSlide === idx ? 'w-5 bg-[#70282C]' :
+                                                'w-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400'"></button>
                                     </template>
                                 </div>
 
-                                <!-- Carousel Dots Controls -->
-                                <template x-if="images.length > 1">
-                                    <div class="absolute bottom-6 right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md flex items-center gap-2 border border-slate-100 dark:border-slate-800 z-10">
-                                        <button @click="prev()" type="button" class="text-slate-600 dark:text-slate-300 hover:text-[#70282C] transition p-0.5 focus:outline-none">
-                                            <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M15 19l-7-7 7-7" />
-                                            </svg>
-                                        </button>
-
-                                        <div class="flex items-center gap-1.5 px-1">
-                                            <template x-for="(img, idx) in images" :key="idx">
-                                                <button @click="activeSlide = idx"
-                                                        type="button"
-                                                        class="h-2 rounded-full transition-all duration-300 focus:outline-none"
-                                                        :class="activeSlide === idx ? 'w-5 bg-[#70282C]' : 'w-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400'"></button>
-                                            </template>
-                                        </div>
-
-                                        <button @click="next()" type="button" class="text-slate-600 dark:text-slate-300 hover:text-[#70282C] transition p-0.5 focus:outline-none">
-                                            <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7" />
-                                            </svg>
-                                        </button>
-                                    </div>
-                                </template>
-
-                            </div>
-
-                            <!-- Info Nama, Jadwal, Pembina & Mentor -->
-                            <div class="space-y-2">
-                                <div>
-                                    <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
-                                        {{ $ekskul->name ?? $ekskul->nama_ekskul }}
-                                    </h3>
-                                    <p class="text-xs sm:text-sm font-bold text-[#70282C] dark:text-rose-400 mt-0.5">
-                                        {{ $ekskul->schedule ?? $ekskul->jadwal ?? 'Jadwal belum diatur' }}
-                                    </p>
-                                </div>
-
-                                <!-- Detail Pembina, Mentor & Telepon -->
-                                @php
-                                    $mentorName = $ekskul->mentor_name ?? null;
-                                    $phone = $ekskul->mentor_phone ?? $ekskul->pembina_phone ?? $ekskul->no_telp ?? null;
-
-                                    $cleanPhone = $phone ? preg_replace('/[^0-9]/', '', $phone) : null;
-                                    if ($cleanPhone && str_starts_with($cleanPhone, '0')) {
-                                        $cleanPhone = '62' . substr($cleanPhone, 1);
-                                    }
-                                @endphp
-
-                                @if($mentorName || $phone)
-                                    <div class="pt-2.5 border-t border-slate-200/60 dark:border-slate-700/60 flex flex-col items-center gap-1.5 text-xs">
-
-                                        <!-- Pembina / Mentor -->
-                                        <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-0.5 text-slate-600 dark:text-slate-300">
-
-                                            @if($mentorName)
-                                                <span class="inline-flex items-center gap-1 font-medium">
-                                                    <span class="text-slate-300 dark:text-slate-600">•</span>
-                                                    <span>Mentor: <strong class="text-slate-900 dark:text-white">{{ $mentorName }}</strong></span>
-                                                </span>
-                                            @endif
-                                        </div>
-
-                                        <!-- Tombol WhatsApp / Telepon -->
-                                        @if($phone && $cleanPhone)
-                                            <a href="https://wa.me/{{ $cleanPhone }}?text=Halo,%20saya%20ingin%20bertanya%20mengenai%20ekstrakurikuler%20{{ urlencode($ekskul->name ?? $ekskul->nama_ekskul) }}"
-                                            target="_blank"
-                                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 font-semibold text-[11px] border border-emerald-200/60 dark:border-emerald-800/50 transition">
-                                                <svg class="size-3.5 fill-current" viewBox="0 0 24 24">
-                                                    <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
-                                                </svg>
-                                                <span>{{ $phone }}</span>
-                                            </a>
-                                        @endif
-
-                                    </div>
-                                @endif
-
+                                <button @click="nextImg()" type="button"
+                                    class="text-slate-600 dark:text-slate-300 hover:text-[#70282C] transition p-0.5 focus:outline-none">
+                                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
                             </div>
 
                         </div>
-                    @empty
-                        <div class="col-span-1 sm:col-span-3 text-center py-12 text-slate-400 text-xs">Belum ada kegiatan
-                            ekstrakurikuler.</div>
-                    @endforelse
-                </div>
+
+                        <!-- Info Ekstrakurikuler -->
+                        <div class="space-y-2">
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white line-clamp-1">
+                                    {{ $ekskul->name ?? $ekskul->nama_ekskul }}
+                                </h3>
+                                <p
+                                    class="text-xs sm:text-sm font-bold text-[#70282C] dark:text-rose-400 mt-0.5 line-clamp-1">
+                                    {{ $ekskul->schedule ?? ($ekskul->jadwal ?? 'Jadwal belum diatur') }}
+                                </p>
+                            </div>
+
+                            <!-- Mentor & Telepon -->
+                            @php
+                                $mentorName = $ekskul->mentor_name ?? null;
+                                $phone =
+                                    $ekskul->mentor_phone ?? ($ekskul->pembina_phone ?? ($ekskul->no_telp ?? null));
+                                $cleanPhone = $phone ? preg_replace('/[^0-9]/', '', $phone) : null;
+                                if ($cleanPhone && str_starts_with($cleanPhone, '0')) {
+                                    $cleanPhone = '62' . substr($cleanPhone, 1);
+                                }
+                            @endphp
+
+                            @if ($mentorName || $phone)
+                                <div
+                                    class="pt-2 border-t border-slate-200/60 dark:border-slate-700/60 flex flex-col items-center gap-1.5 text-xs">
+                                    @if ($mentorName)
+                                        <div class="text-slate-600 dark:text-slate-300 font-medium line-clamp-1">
+                                            Mentor: <strong
+                                                class="text-slate-900 dark:text-white">{{ $mentorName }}</strong>
+                                        </div>
+                                    @endif
+
+                                    @if ($phone && $cleanPhone)
+                                        <a href="https://wa.me/{{ $cleanPhone }}?text=Halo,%20saya%20ingin%20bertanya%20mengenai%20ekstrakurikuler%20{{ urlencode($ekskul->name ?? $ekskul->nama_ekskul) }}"
+                                            target="_blank"
+                                            class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 hover:bg-emerald-100 font-semibold text-[11px] border border-emerald-200/60 dark:border-emerald-800/50 transition">
+                                            <svg class="size-3.5 fill-current" viewBox="0 0 24 24">
+                                                <path
+                                                    d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
+                                            </svg>
+                                            <span>{{ $phone }}</span>
+                                        </a>
+                                    @endif
+                                </div>
+                            @endif
+                        </div>
+
+                    </div>
+                @empty
+                    <div class="w-full text-center py-12 text-slate-400 text-xs italic">
+                        Belum ada kegiatan ekstrakurikuler.
+                    </div>
+                @endforelse
             </div>
         </div>
     </section>
+
+    <!-- Tambahkan CSS untuk menyembunyikan scrollbar bawaan browser -->
+    <style>
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
 
     <!-- 6. GOOGLE MAPS EMBED SECTION -->
     <section id="lokasi" class="py-16 bg-white dark:bg-slate-900">
@@ -480,8 +513,10 @@
 
             <div
                 class="rounded-3xl overflow-hidden shadow-lg border border-slate-100 dark:border-slate-800 h-[350px] sm:h-[420px]">
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2845.192723861279!2d106.85378907316856!3d-6.301355561666852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed86f5d99e0f%3A0x8e852989c76e8861!2sSdn%20Gedong%2012%20Pagi!5e1!3m2!1sid!2sid!4v1792046652159!5m2!1sid!2sid"
-                    class="w-full h-full border-0" allowfullscreen="" loading="lazy" referrerpolicy="strict-origin-when-cross-origin">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2845.192723861279!2d106.85378907316856!3d-6.301355561666852!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69ed86f5d99e0f%3A0x8e852989c76e8861!2sSdn%20Gedong%2012%20Pagi!5e1!3m2!1sid!2sid!4v1792046652159!5m2!1sid!2sid"
+                    class="w-full h-full border-0" allowfullscreen="" loading="lazy"
+                    referrerpolicy="strict-origin-when-cross-origin">
                 </iframe>
             </div>
         </div>

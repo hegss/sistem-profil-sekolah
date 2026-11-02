@@ -69,4 +69,15 @@ class User extends Authenticatable
                 default => "Pengguna {$eventName}",
             });
     }
+
+    // Helper method untuk cek role pengguna
+    public function isAdmin()
+    {
+        return $this->role === 'admin';
+    }
+
+    public function isPicEkskul()
+    {
+        return $this->role === 'pic_ekskul';
+    }
 }

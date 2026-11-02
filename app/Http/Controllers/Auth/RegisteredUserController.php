@@ -44,7 +44,7 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'phone' => $request->phone,
             'password' => Hash::make($request->password),
-            'role' => 'user', // default role for new users
+            'role' => 'pic_ekskul', // default role for new users
         ]);
 
         event(new Registered($user));

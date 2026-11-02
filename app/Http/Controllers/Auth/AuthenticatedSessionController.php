@@ -34,6 +34,8 @@ class AuthenticatedSessionController extends Controller
         // cek role user, arahkan ke halaman sesuai role
         if ($user->role === 'admin') {
             return redirect()->intended(route('admin.dashboard'));
+        } elseif ($user->role === 'pic_ekskul') {
+            return redirect()->intended(route('extracurriculars.index'));
         } else {
             return redirect()->intended(route('home'));
         }

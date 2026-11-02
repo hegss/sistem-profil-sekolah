@@ -104,7 +104,7 @@
                             <option value="">-- Pilih Role --</option>
                             <option value="admin" {{ old('role') == 'admin' ? 'selected' : '' }}>Administrator
                             </option>
-                            <option value="user" {{ old('role') == 'teacher' ? 'selected' : '' }}>User
+                            <option value="pic_ekskul" {{ old('role') == 'pic_ekskul' ? 'selected' : '' }}>PIC Ekskul
                             </option>
                         </select>
                         @error('role')

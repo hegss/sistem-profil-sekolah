@@ -43,12 +43,12 @@
                 </div>
 
                 <div class="flex items-center gap-3 pt-2 border-t border-gray-100 dark:border-gray-700">
-                    <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', $greetings->is_active) ? 'checked' : '' }} class="size-4 text-amber-600 rounded border-gray-300 focus:ring-amber-500">
+                    <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', true) ? 'checked' : '' }} class="size-4 text-amber-600 rounded border-gray-300 focus:ring-amber-500">
                     <label for="is_active" class="text-xs font-semibold text-gray-700 dark:text-gray-200">Set sebagai Sambutan Aktif (Akan otomatis menonaktifkan sambutan lama)</label>
                 </div>
 
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
-                    <button type="submit" class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">Perbarui</button>
+                    <button type="submit" class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">Simpan</button>
                 </div>
             </form>
         </div>

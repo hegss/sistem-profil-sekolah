@@ -94,7 +94,7 @@
                                     @else
                                         <span
                                             class="px-2.5 py-1 text-[10px] font-bold rounded-full bg-purple-100 text-purple-700 dark:bg-purple-950 dark:text-purple-300">
-                                            User
+                                            PIC Ekskul
                                         </span>
                                     @endif
                                 </td>

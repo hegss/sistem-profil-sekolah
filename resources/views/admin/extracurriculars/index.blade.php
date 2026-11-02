@@ -77,17 +77,17 @@
                                         <!-- Nama Ekskul -->
                                         <div class="flex flex-col">
                                             <span
-                                                class="font-bold text-gray-900 dark:text-white text-sm leading-tight">{{ $extracurricular->name }}</span>
+                                                class="font-semibold text-gray-900 dark:text-white text-sm leading-tight">{{ $extracurricular->name }}</span>
                                         </div>
                                     </div>
                                 </td>
-                                <td class="py-3 px-4 font-bold text-gray-900 dark:text-white">
+                                <td class="py-3 px-4 font-semibold text-gray-900 dark:text-white">
                                     {{ $extracurricular->schedule }}</td>
-                                <td class="py-3 px-4 font-bold text-gray-900 dark:text-white">
+                                <td class="py-3 px-4 font-semibold text-gray-900 dark:text-white">
                                     <!-- Nama Pembimbing + No Hp (Stacked) -->
                                     <div class="flex flex-col">
                                         <span
-                                            class="font-bold text-gray-900 dark:text-white text-sm leading-tight">{{ $extracurricular->mentor_name }}</span>
+                                            class="font-semibold text-gray-900 dark:text-white text-sm leading-tight">{{ $extracurricular->mentor_name }}</span>
                                         <span
                                             class="text-[11px] text-gray-400 dark:text-gray-400">{{ $extracurricular->mentor_phone }}</span>
                                     </div>

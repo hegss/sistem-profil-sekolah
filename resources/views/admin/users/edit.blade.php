@@ -109,7 +109,7 @@
                             {{-- <option value="">-- Choose Role --</option> --}}
                             <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Administrator
                             </option>
-                            <option value="user" {{ old('role', $user->role) === 'user' ? 'selected' : '' }}>User
+                            <option value="pic_ekskul" {{ old('role', $user->role) === 'pic_ekskul' ? 'selected' : '' }}>PIC Ekskul
                             </option>
                         </select>
                         @error('role')

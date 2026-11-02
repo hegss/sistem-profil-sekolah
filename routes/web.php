@@ -11,7 +11,6 @@ use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\GreetingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ReferralCodeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -36,18 +35,9 @@ Route::get('/informasi/berita', [HomeController::class, 'newsIndex'])->name('hom
 // Route News Detail
 Route::get('/informasi/berita/{id}', [HomeController::class, 'newsDetail'])->name('home-news.detail');
 
-// Route::middleware(['auth', 'verified'])->group(function () {
-//     Route::get('/home', function () {
-//         return view('home');
-//     })->name('home');
-//     Route::get('/about', function () {
-//         return view('about');
-//     })->name('about');
-// });
-
-Route::middleware(['auth', 'is_admin'])->group(function () {
+Route::middleware(['auth'])->prefix('admin')->group(function () {
     // Route Dashboard
-    Route::get('admin/dashboard', [DashboardController::class, 'index'])
+    Route::get('dashboard', [DashboardController::class, 'index'])
         ->name('admin.dashboard');
 
     // Route Banner
@@ -68,9 +58,11 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::resource('greetings', GreetingController::class);
 
     // Route Data Extracurricular
-    Route::resource('extracurriculars', ExtracurricularController::class);
-    Route::delete('extracurriculars/photo/{id}', [ExtracurricularController::class, 'destroyPhoto'])
-        ->name('extracurriculars.photo.destroy');
+    Route::middleware(['role:admin,pic_ekskul'])->group(function () {
+        Route::resource('extracurriculars', ExtracurricularController::class);
+        Route::delete('extracurriculars/photo/{id}', [ExtracurricularController::class, 'destroyPhoto'])
+            ->name('extracurriculars.photo.destroy');
+    });
 
     // Route Data Event
     Route::resource('events', EventController::class);
@@ -97,21 +89,12 @@ Route::middleware(['auth', 'is_admin'])->group(function () {
     Route::resource('users', UserController::class);
 
     // Profile Admin
-    Route::get('admin/profile', [AdminProfileController::class, 'edit'])
+    Route::get('profile', [AdminProfileController::class, 'edit'])
         ->name('admin.profile.edit');
-    Route::patch('admin/profile', [AdminProfileController::class, 'update'])
+    Route::patch('profile', [AdminProfileController::class, 'update'])
         ->name('admin.profile.update');
-    Route::patch('admin/profile/password', [AdminProfileController::class, 'updatePassword'])
+    Route::patch('profile/password', [AdminProfileController::class, 'updatePassword'])
         ->name('admin.profile.password');
-});
-
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])
-        ->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])
-        ->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])
-        ->name('profile.destroy');
 });
 
 require __DIR__.'/auth.php';
