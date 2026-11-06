@@ -15,6 +15,7 @@ class AcademicInfo extends Model
         'title',
         'category',
         'photo',
+        'publish_date',
         'description',
         'info_link',
         'is_active',

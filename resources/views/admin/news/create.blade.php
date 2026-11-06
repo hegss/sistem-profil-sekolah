@@ -29,7 +29,7 @@
                     <div>
                         <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Foto Berita
                             (Opsional)</label>
-                        <input type="file" name="photo" id="photo-input" accept="image/jpeg,image/png,image/jpg" required
+                        <input type="file" name="photo" id="photo-input" accept="image/jpeg,image/png,image/jpg"
                             class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 dark:file:bg-gray-700 dark:file:text-gray-200 dark:hover:file:bg-gray-500 cursor-pointer">
                         <p class="text-[10px] text-gray-400 mt-1">Format: JPG, JPEG, PNG. Maksimal 2MB.</p>
                         @error('photo')

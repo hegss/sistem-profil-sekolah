@@ -14,7 +14,7 @@
         </div>
 
         <div class="bg-white dark:bg-gray-800 rounded-xl p-6 border border-gray-100 dark:border-gray-700 shadow-sm">
-            <form action="{{ route('greetings.update') }}" method="POST" class="space-y-6">
+            <form action="{{ route('greetings.update', $greeting->id) }}" method="POST" class="space-y-6">
                 @csrf
                 @method('PUT')
 
@@ -36,7 +36,7 @@
                 <div>
                     <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Kata Sambutan <span class="text-red-500">*</span></label>
                     <textarea name="greeting_text" rows="8" required placeholder="Tuliskan kata sambutan / motivasi Kepala Sekolah di sini..." class="w-full text-xs p-3 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600">
-                        {{ old('greeting_text', $greetings->greeting_text) }}
+                        {{ old('greeting_text', $greeting->greeting_text) }}
                     </textarea>
                     @error('greeting_text')
                         <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="flex items-center gap-3 pt-2 border-t border-gray-100 dark:border-gray-700">
-                    <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', $greetings->is_active) ? 'checked' : '' }} class="size-4 text-amber-600 rounded border-gray-300 focus:ring-amber-500">
+                    <input type="checkbox" name="is_active" id="is_active" value="1" {{ old('is_active', $greeting->is_active) ? 'checked' : '' }} class="size-4 text-amber-600 rounded border-gray-300 focus:ring-amber-500">
                     <label for="is_active" class="text-xs font-semibold text-gray-700 dark:text-gray-200">Set sebagai Sambutan Aktif (Akan otomatis menonaktifkan sambutan lama)</label>
                 </div>
 

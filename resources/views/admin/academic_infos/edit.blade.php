@@ -56,7 +56,7 @@
                         <label for="category"
                             class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Kategori
                             <span class="text-red-500">*</span></label>
-                        <select name="role" id="role" required
+                        <select name="category" id="category" required
                             class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
                             <option value="">-- Pilih Kategori --</option>
                             <option value="achievement" {{ old('category', $academic_info->category) == 'achievement' ? 'selected' : '' }}>Prestasi

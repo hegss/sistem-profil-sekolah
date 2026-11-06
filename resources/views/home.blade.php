@@ -153,7 +153,7 @@
     </section>
 
     <!-- 3. SAMBUTAN KEPALA SEKOLAH (Persis seperti Gambar 2) -->
-    <section id="profil" class="py-16 sm:py-24 bg-white dark:bg-slate-900">
+    <section id="profil" class="py-12 sm:py-18 bg-white dark:bg-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
             <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
@@ -225,121 +225,86 @@
         </div>
     </section>
 
-    <!-- 4. SECTION BERITA (Slide Card Slider) -->
-    <section id="berita" class="py-16 sm:py-20 bg-slate-50/60 dark:bg-slate-900/40">
+    <!-- SECTION FASILITAS UNGGULAN (BERANDA) -->
+    <section id="fasilitas" class="py-16 sm:py-20 bg-white dark:bg-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
 
             <div class="flex items-end justify-between gap-4" data-aos="fade-up">
                 <div>
-                    <span class="text-xs font-bold text-[#70282C] uppercase tracking-wider block">Informasi
-                        Terbaru</span>
-                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">Prestasi &
-                        Informasi
-                        Lainnya</h2>
+                    <span
+                        class="text-xs font-bold text-[#70282C] dark:text-rose-400 uppercase tracking-wider block">Sarana
+                        Sekolah</span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">
+                        Fasilitas Unggulan
+                    </h2>
                 </div>
-                <a href="#berita" class="text-xs font-bold text-[#70282C] hover:underline hidden sm:block">Lihat Semua
-                    Informasi →</a>
+                <a href="{{ route('facilities') }}"
+                    class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-[#70282C] dark:hover:text-rose-400 hover:border-[#70282C] shadow-sm transition">
+                    <span>Lihat Semua Fasilitas</span>
+                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
             </div>
 
-            <!-- News Slider Container (Alpine.js) -->
-            <div x-data="{
-                currentSlide: 0,
-                totalCards: {{ $latestInfos->count() }},
-                get maxSlide() { return Math.max(0, this.totalCards - 1) }
-            }">
-
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                    @forelse($latestInfos as $item)
-                        <div class="bg-white dark:bg-slate-800 rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-slate-700 flex flex-col group"
-                            data-aos="fade-up">
-
-                            <!-- Foto Berita -->
-                            <div class="h-48 overflow-hidden relative bg-slate-100">
-                                @if ($item->photo)
-                                    <img src="{{ asset('storage/' . $item->photo) }}"
-                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
-                                @else
-                                    <div
-                                        class="w-full h-full flex items-center justify-center text-slate-400 text-xs italic">
-                                        No Image</div>
-                                @endif
-                            </div>
-
-                            <!-- Detail Content -->
-                            <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
-                                <div class="space-y-2">
-                                    <h3
-                                        class="font-bold text-sm sm:text-base text-slate-900 dark:text-white line-clamp-2 group-hover:text-[#70282C] transition">
-                                        {{ $item->title }}
-                                    </h3>
-                                    <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-3 leading-relaxed">
-                                        {{ strip_tags($item->description) }}
-                                    </p>
-                                </div>
-
-                                <a href="#"
-                                    class="inline-flex items-center gap-1.5 text-xs font-bold text-[#70282C] hover:opacity-80 pt-1">
-                                    <span>Baca Selengkapnya</span>
-                                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                                    </svg>
-                                </a>
-                            </div>
-
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                @forelse($activeFacilities->take(3) as $fac)
+                    @php
+                        $foto = $fac->photos->first()?->photos;
+                        $fotoPath = $foto
+                            ? asset('storage/' . $foto)
+                            : 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800';
+                    @endphp
+                    <div class="bg-[#F4EBE8] dark:bg-slate-800 p-4 rounded-[2.5rem] border border-rose-100/60 dark:border-slate-700/60 space-y-3 group"
+                        data-aos="fade-up">
+                        <div class="h-48 rounded-3xl overflow-hidden bg-slate-200">
+                            <img src="{{ $fotoPath }}"
+                                class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
                         </div>
-                    @empty
-                        <div class="col-span-1 sm:col-span-3 text-center py-12 text-slate-400 text-xs">Belum ada
-                            informasi
-                            dipublikasikan.</div>
-                    @endforelse
-                </div>
-
+                        <div class="text-center space-y-1">
+                            <h3 class="font-bold text-base text-slate-900 dark:text-white">{{ $fac->name }}
+                            </h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 line-clamp-2">
+                                {{ strip_tags($fac->description) }}</p>
+                        </div>
+                    </div>
+                @empty
+                    <div class="col-span-full py-8 text-center text-slate-400 text-xs italic">
+                        Belum ada fasilitas unggulan dipublikasikan.
+                    </div>
+                @endforelse
             </div>
 
         </div>
     </section>
 
-    <!-- 5. SECTION KEGIATAN (Slide Card Slider) -->
-    <section id="kegiatan" class="py-16 sm:py-20 bg-slate-50/60 dark:bg-slate-900/40" x-data="{
-        scrollLeft() { $refs.sliderContainer.scrollBy({ left: -360, behavior: 'smooth' }) },
-            scrollRight() { $refs.sliderContainer.scrollBy({ left: 360, behavior: 'smooth' }) }
-    }">
+    <section id="kegiatan" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16">
+        <span
+            class="text-xs font-bold text-[#70282C] dark:text-rose-400 uppercase tracking-wider block">Kegiatan</span>
 
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+        <!-- 4. SECTION EKSKUL (Slide Card Slider) -->
+        <section id="ekskul" class="bg-slate-50/60 dark:bg-slate-900/40" x-data="{
+            scrollLeft() { $refs.sliderContainer.scrollBy({ left: -360, behavior: 'smooth' }) },
+                scrollRight() { $refs.sliderContainer.scrollBy({ left: 360, behavior: 'smooth' }) }
+        }">
 
             <!-- Header Section + Tombol Navigasi Slider Card -->
             <div class="flex items-end justify-between gap-4" data-aos="fade-up">
                 <div>
-                    <span
-                        class="text-xs font-bold text-[#70282C] dark:text-rose-400 uppercase tracking-wider block">Kegiatan</span>
                     <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">
-                        Ekstrakurikuler & Kegiatan Sekolah
+                        Ekstrakurikuler
                     </h2>
                 </div>
 
-                <div class="flex items-center gap-3">
-                    <a href="{{ route('extracurriculars') }}"
-                        class="text-xs font-bold text-[#70282C] dark:text-rose-400 hover:underline hidden sm:block mr-2">
-                        Lihat Semua Kegiatan →
-                    </a>
-
-                    <!-- Tombol Panah Geser Kiri / Kanan -->
-                    <button @click="scrollLeft()" type="button"
-                        class="p-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-[#70282C] hover:text-white transition focus:outline-none">
-                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M15 19l-7-7 7-7" />
-                        </svg>
-                    </button>
-                    <button @click="scrollRight()" type="button"
-                        class="p-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-[#70282C] hover:text-white transition focus:outline-none">
-                        <svg class="size-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
-                                d="M9 5l7 7-7 7" />
-                        </svg>
-                    </button>
-                </div>
+                <a href="{{ route('extracurriculars') }}"
+                    class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-[#70282C] dark:hover:text-rose-400 hover:border-[#70282C] shadow-sm transition">
+                    <span>Lihat Semua Ekskul</span>
+                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
             </div>
 
             <!-- Slider Container (Horizontal Flex Scroll Snap) -->
@@ -457,8 +422,7 @@
                             @endphp
 
                             @if ($mentorName || $phone)
-                                <div
-                                    class="pt-2 border-t border-slate-200/60 dark:border-slate-700/60 flex flex-col items-center gap-1.5 text-xs">
+                                <div class="pt-2 flex flex-col items-center gap-1.5 text-xs">
                                     @if ($mentorName)
                                         <div class="text-slate-600 dark:text-slate-300 font-medium line-clamp-1">
                                             Mentor: <strong
@@ -488,7 +452,189 @@
                     </div>
                 @endforelse
             </div>
-        </div>
+
+            <div class="flex justify-center items-center mt-3 gap-5">
+                <!-- Tombol Panah Geser Kiri / Kanan -->
+                <button @click="scrollLeft()" type="button"
+                    class="p-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-[#70282C] hover:text-white transition focus:outline-none">
+                    <x-chevron-left class="size-4" />
+                </button>
+                <button @click="scrollRight()" type="button"
+                    class="p-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-[#70282C] hover:text-white transition focus:outline-none">
+                    <x-chevron-right class="size-4" />
+                </button>
+            </div>
+        </section>
+
+        <!-- 5. SECTION EVENT SEKOLAH (Slide Card Slider) -->
+        <section id="events" class="py-10 sm:py-14 bg-slate-50/60 dark:bg-slate-900/40" x-data="{
+            scrollLeft() { $refs.sliderContainer.scrollBy({ left: -360, behavior: 'smooth' }) },
+                scrollRight() { $refs.sliderContainer.scrollBy({ left: 360, behavior: 'smooth' }) }
+        }">
+
+            <!-- Header Section + Tombol Navigasi Slider Card -->
+            <div class="flex items-end justify-between gap-4" data-aos="fade-up">
+                <div>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">
+                        Acara Sekolah
+                    </h2>
+                </div>
+
+                <a href="{{ route('events') }}"
+                    class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-[#70282C] dark:hover:text-rose-400 hover:border-[#70282C] shadow-sm transition">
+                    <span>Lihat Semua Acara</span>
+                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
+            </div>
+
+            <!-- Slider Container (Horizontal Flex Scroll Snap) -->
+            <div x-ref="sliderContainer"
+                class="flex items-start gap-6 overflow-x-auto scroll-smooth snap-x snap-mandatory no-scrollbar py-2">
+                @forelse ($schoolEvents as $event)
+                    @php
+                        // Mempersiapkan array foto slider per ekstrakurikuler
+                        $galleryImages = [];
+
+                        if (isset($event->photos) && $event->photos->isNotEmpty()) {
+                            foreach ($event->photos as $p) {
+                                $path = $p->photos;
+                                if ($path) {
+                                    $galleryImages[] = asset('storage/' . $path);
+                                }
+                            }
+                        }
+
+                        if (empty($galleryImages)) {
+                            $singleFoto = $event->photos ?? ($event->foto ?? $event->image);
+                            if ($singleFoto && is_string($singleFoto)) {
+                                $galleryImages[] = asset('storage/' . $singleFoto);
+                            }
+                        }
+
+                        if (empty($galleryImages)) {
+                            $galleryImages = [
+                                'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800',
+                                'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=800',
+                            ];
+                        }
+                    @endphp
+
+                    <!-- Card Item (Fixed Width 340px agar terstruktur mendatar) -->
+                    <div class="w-[300px] sm:w-[340px] shrink-0 snap-start space-y-4 text-center group"
+                        data-aos="fade-up">
+
+                        <!-- Outer Frame Card (#F4EBE8) -->
+                        <div class="relative bg-[#F4EBE8] dark:bg-slate-800 p-3 sm:p-4 rounded-[2.5rem] border border-rose-100/60 dark:border-slate-700/60 shadow-sm"
+                            x-data="{
+                                cardSlide: 0,
+                                imgs: @js($galleryImages),
+                                nextImg() { if (this.imgs.length) this.cardSlide = (this.cardSlide + 1) % this.imgs.length },
+                                prevImg() { if (this.imgs.length) this.cardSlide = (this.cardSlide - 1 + this.imgs.length) % this.imgs.length }
+                            }" x-init="if (imgs.length > 1) setInterval(() => nextImg(), 5000)">
+
+                            <!-- Inner Frame Image -->
+                            <div class="relative h-[260px] sm:h-[300px] rounded-3xl overflow-hidden bg-slate-200">
+                                <template x-for="(img, idx) in imgs" :key="idx">
+                                    <img :src="img"
+                                        x-on:error="$event.target.src = 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=800'"
+                                        x-show="cardSlide === idx"
+                                        x-transition:enter="transition ease-out duration-700"
+                                        x-transition:enter-start="opacity-0 scale-105"
+                                        x-transition:enter-end="opacity-100 scale-100"
+                                        x-transition:leave="transition ease-in duration-500"
+                                        x-transition:leave-start="opacity-100" x-transition:leave-end="opacity-0"
+                                        class="absolute inset-0 w-full h-full object-cover">
+                                </template>
+                            </div>
+
+                            <!-- Carousel Dots Controls di Gambar Card -->
+                            <div x-show="imgs.length > 1"
+                                class="absolute bottom-6 right-6 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-md flex items-center gap-2 border border-slate-100 dark:border-slate-800 z-10">
+                                <button @click="prevImg()" type="button"
+                                    class="text-slate-600 dark:text-slate-300 hover:text-[#70282C] transition p-0.5 focus:outline-none">
+                                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M15 19l-7-7 7-7" />
+                                    </svg>
+                                </button>
+
+                                <div class="flex items-center gap-1.5 px-1">
+                                    <template x-for="(img, idx) in imgs" :key="idx">
+                                        <button @click="cardSlide = idx" type="button"
+                                            class="h-2 rounded-full transition-all duration-300 focus:outline-none"
+                                            :class="cardSlide === idx ? 'w-5 bg-[#70282C]' :
+                                                'w-2 bg-slate-300 dark:bg-slate-600 hover:bg-slate-400'"></button>
+                                    </template>
+                                </div>
+
+                                <button @click="nextImg()" type="button"
+                                    class="text-slate-600 dark:text-slate-300 hover:text-[#70282C] transition p-0.5 focus:outline-none">
+                                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                            d="M9 5l7 7-7 7" />
+                                    </svg>
+                                </button>
+                            </div>
+
+                        </div>
+
+                        <!-- Info Acara Sekolah dengan Fitur Expand Deskripsi -->
+                        <div class="space-y-2" x-data="{ expanded: false }">
+                            <div>
+                                <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white line-clamp-1">
+                                    {{ $event->name }}
+                                </h3>
+                                <p
+                                    class="text-xs sm:text-sm font-bold text-[#70282C] dark:text-rose-400 mt-0.5 line-clamp-1">
+                                    {{ $event->schedule ?? 'Jadwal belum diatur' }}
+                                </p>
+                            </div>
+                            <div>
+                                <!-- Teks Deskripsi (Terpotong 3 Baris Secara Default, Lengkap Saat Diganti State expanded) -->
+                                <p class="text-xs sm:text-sm text-justify text-slate-600 dark:text-slate-300 transition-all duration-300 leading-relaxed"
+                                    :class="expanded ? '' : 'line-clamp-3'">
+                                    {{ $event->description }}
+                                </p>
+
+                                <!-- Tombol Expand / Toggle Panah Bawah/Atas -->
+                                @if (strlen($event->description ?? '') > 100)
+                                    <button @click="expanded = !expanded" type="button"
+                                        class="mt-2 inline-flex items-center gap-1 text-xs font-bold text-[#70282C] dark:text-rose-400 hover:underline focus:outline-none">
+                                        <span x-text="expanded ? 'Sembunyikan' : 'Selengkapnya'"></span>
+                                        <svg class="size-3.5 transition-transform duration-300"
+                                            :class="expanded ? 'rotate-180' : ''" fill="none"
+                                            stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                                                d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+
+                    </div>
+                @empty
+                    <div class="w-full text-center py-12 text-slate-400 text-xs italic">
+                        Belum ada acara sekolah.
+                    </div>
+                @endforelse
+            </div>
+
+            <div class="flex justify-center items-center mt-3 gap-5">
+                <!-- Tombol Panah Geser Kiri / Kanan -->
+                <button @click="scrollLeft()" type="button"
+                    class="p-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-[#70282C] hover:text-white transition focus:outline-none">
+                    <x-chevron-left class="size-4" />
+                </button>
+                <button @click="scrollRight()" type="button"
+                    class="p-2.5 rounded-full bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 shadow-sm border border-slate-200 dark:border-slate-700 hover:bg-[#70282C] hover:text-white transition focus:outline-none">
+                    <x-chevron-right class="size-4" />
+                </button>
+            </div>
+        </section>
     </section>
 
     <!-- Tambahkan CSS untuk menyembunyikan scrollbar bawaan browser -->
@@ -503,7 +649,145 @@
         }
     </style>
 
-    <!-- 6. GOOGLE MAPS EMBED SECTION -->
+    <!-- 6. SECTION BERITA (Slide Card Slider) -->
+    <section id="berita" class="pb-16 sm:pb-20 bg-slate-50/60 dark:bg-slate-900/40">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8">
+
+            <!-- Header Section -->
+            <div class="flex items-end justify-between gap-4" data-aos="fade-up">
+                <div>
+                    <span class="text-xs font-bold text-[#70282C] dark:text-rose-400 uppercase tracking-wider block">
+                        Informasi Terbaru
+                    </span>
+                    <h2 class="text-2xl sm:text-3xl font-black text-slate-900 dark:text-white mt-1">
+                        Prestasi & Informasi Lainnya
+                    </h2>
+                </div>
+                <a href="{{ route('home-news.index') }}"
+                    class="inline-flex items-center gap-1.5 px-4 py-2 rounded-full border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-xs font-bold text-slate-700 dark:text-slate-200 hover:text-[#70282C] dark:hover:text-rose-400 hover:border-[#70282C] shadow-sm transition">
+                    <span>Lihat Semua Informasi</span>
+                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                    </svg>
+                </a>
+            </div>
+
+            @if ($latestInfos->isNotEmpty())
+                @php
+                    // Berita Pertama dijadikan Featured Hero (Sisi Kiri)
+                    $featured = $latestInfos->first();
+                    // Berita Sisanya dijadikan List Item (Sisi Kanan)
+                    $sideList = $latestInfos->skip(1);
+                @endphp
+
+                <!-- Grid Layout 2 Kolom (1 Besar di Kiri, List di Kanan) -->
+                <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+
+                    <!-- 1. FEATURED CARD (SISI KIRI - 7 KOLOM) -->
+                    <div class="lg:col-span-7 group" data-aos="fade-right">
+                        <a href="{{ route('home-news.index') }}" class="block space-y-4">
+                            <!-- Frame Foto Berita Utama -->
+                            <div
+                                class="relative h-[280px] sm:h-[380px] rounded-3xl overflow-hidden bg-slate-200 dark:bg-slate-800 shadow-md border border-slate-100 dark:border-slate-700">
+                                @if ($featured->photo)
+                                    <img src="{{ asset('storage/' . $featured->photo) }}"
+                                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+                                @else
+                                    <div
+                                        class="w-full h-full flex items-center justify-center text-slate-400 text-xs italic">
+                                        No Image Available
+                                    </div>
+                                @endif
+
+                                <div
+                                    class="absolute inset-0 bg-gradient-to-t from-slate-950/70 via-transparent to-transparent">
+                                </div>
+
+                                <!-- Badge Tanggal / Kategori -->
+                                <div
+                                    class="absolute top-4 left-4 bg-[#70282C] text-white font-bold text-[10px] sm:text-xs px-3 py-1.5 rounded-full shadow-md">
+                                    {{ isset($featured->publish_date) ? $featured->publish_date : 'Informasi Utama' }}
+                                </div>
+                            </div>
+
+                            <!-- Info Berita Utama -->
+                            <div class="space-y-2">
+                                <h3
+                                    class="text-xl sm:text-2xl font-black text-slate-900 dark:text-white group-hover:text-[#70282C] dark:group-hover:text-rose-400 transition leading-snug">
+                                    {{ $featured->title }}
+                                </h3>
+                                <p
+                                    class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 line-clamp-2 leading-relaxed">
+                                    {{ strip_tags($featured->description ?? $featured->deskripsi) }}
+                                </p>
+                                <a href="{{ $featured->info_link }}" target="_blank" rel="noopener noreferrer"
+                                    class="text-rose-500 hover:text-rose-700 dark:text-rose-400 dark:hover:text-rose-300 font-bold text-sm flex items-center gap-1">
+                                    Telurusi
+                                    <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                            d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                                    </svg>
+                                </a>
+                            </div>
+                        </a>
+                    </div>
+
+                    <!-- 2. LIST ITEMS (SISI KANAN - 5 KOLOM) -->
+                    <div class="lg:col-span-5 space-y-4" data-aos="fade-left">
+                        @forelse($sideList as $item)
+                            <a href="{{ route('home-news.index') }}"
+                                class="flex items-center gap-4 p-3 rounded-2xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700/80 shadow-sm hover:shadow-md hover:border-rose-100 dark:hover:border-slate-600 transition group">
+
+                                <!-- Thumbnail Foto -->
+                                <div
+                                    class="size-20 sm:size-24 rounded-xl overflow-hidden shrink-0 bg-slate-100 dark:bg-slate-700 relative">
+                                    @if ($item->photo ?? $item->foto)
+                                        <img src="{{ asset('storage/' . ($item->photo ?? $item->foto)) }}"
+                                            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500">
+                                    @else
+                                        <div
+                                            class="w-full h-full flex items-center justify-center text-slate-400 text-[10px] italic">
+                                            No Image
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Detail Singkat -->
+                                <div class="flex-1 min-w-0 space-y-1">
+                                    <span class="text-[10px] font-bold text-[#70282C] dark:text-rose-400 block">
+                                        {{ isset($item->created_at) ? $item->created_at->format('d M Y') : 'Pengumuman' }}
+                                    </span>
+                                    <h4
+                                        class="font-bold text-xs sm:text-sm text-slate-900 dark:text-white line-clamp-2 group-hover:text-[#70282C] dark:group-hover:text-rose-400 transition leading-tight">
+                                        {{ $item->title ?? $item->judul }}
+                                    </h4>
+                                    <p
+                                        class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-1 leading-relaxed">
+                                        {{ strip_tags($item->description ?? $item->deskripsi) }}
+                                    </p>
+                                </div>
+
+                            </a>
+                        @empty
+                            <div
+                                class="py-8 text-center text-slate-400 text-xs italic border border-dashed border-slate-200 dark:border-slate-700 rounded-2xl">
+                                Belum ada informasi tambahan lainnya.
+                            </div>
+                        @endforelse
+                    </div>
+
+                </div>
+            @else
+                <div class="text-center py-12 text-slate-400 text-xs sm:text-sm italic">
+                    Belum ada informasi yang dipublikasikan.
+                </div>
+            @endif
+
+        </div>
+    </section>
+
+    <!-- 7. GOOGLE MAPS EMBED SECTION -->
     <section id="lokasi" class="py-16 bg-white dark:bg-slate-900">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-6" data-aos="fade-up">
             <div>

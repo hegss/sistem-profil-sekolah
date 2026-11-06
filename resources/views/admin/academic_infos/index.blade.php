@@ -83,11 +83,27 @@
                                     </div>
                                 </td>
                                 <!-- Kategory Informasi -->
-                                <td class="py-3 px-4 underline dark:text-white">
-                                    {{ $info->category }}</td>
-                                 <!-- Tanggal Unggah -->
+                                <td class="py-3 px-4 dark:text-white">
+                                    @if ($info->category == 'achievement')
+                                        <span
+                                            class="px-2 py-1 text-[10px] font-bold rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300">
+                                            Prestasi
+                                        </span>
+                                    @elseif ($info->category == 'scholarship')
+                                        <span
+                                            class="px-2 py-1 text-[10px] font-bold rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300">
+                                            Beasiswa
+                                        </span>
+                                    @elseif ($info->category == 'general_info')
+                                        <span
+                                            class="px-2 py-1 text-[10px] font-bold rounded-full bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300">
+                                            Informasi Umum
+                                        </span>
+                                    @endif
+                                </td>
+                                <!-- Tanggal Unggah -->
                                 <td class="py-3 px-4 text-gray-500 dark:text-white">
-                                    {{ $item->publish_date->format('d M Y') }}</td>
+                                    {{ $info->publish_date }}</td>
                                 <!-- Deskripsi Informasi -->
                                 <td class="py-3 px-4 text-gray-500 dark:text-gray-400 truncate max-w-xs">
                                     {{ Str::limit($info->description, 60) }}</td>

@@ -23,6 +23,9 @@ Route::get('/', [HomeController::class, 'index'])->name('home');
 // Route School Profile
 Route::get('/profil-sekolah', [HomeController::class, 'profile'])->name('school-profile');
 
+// Route Facilities
+Route::get('/fasilitas', [HomeController::class, 'facilities'])->name('facilities');
+
 // Route Extracurriculars
 Route::get('/kegiatan/ekstrakurikuler', [HomeController::class, 'extracurriculars'])->name('extracurriculars');
 // Route School Activity

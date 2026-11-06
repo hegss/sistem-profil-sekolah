@@ -6,6 +6,7 @@ use App\Models\AcademicInfo;
 use App\Models\Banner;
 use App\Models\Event;
 use App\Models\Extracurricular;
+use App\Models\Facility;
 use App\Models\Greeting;
 use App\Models\News;
 use App\Models\Student;
@@ -43,10 +44,24 @@ class HomeController extends Controller
             ];
         }
 
+        // ringkasan jumlah data statistik
+        $totalStudents = class_exists(Student::class) ? Student::count() : 1250;
+        $totalTeachers = class_exists(Teacher::class) ? Teacher::count() : 45;
+        $totalEkskul = Extracurricular::count();
+
         // sambutan kepala sekolah
         $activeGreeting = Greeting::with('teacher')
             ->where('is_active', true)
             ->first();
+
+        // highlight fasilitas sekolah
+        $activeFacilities = Facility::latest()->take(6)->get();
+
+        // ekstrakurikuler aktif
+        $activeExtracurricular = Extracurricular::latest()->take(6)->get();
+
+        // kegiatan sekolah
+        $schoolEvents = Event::latest()->take(6)->get();
 
         // berita aktif
         $latestInfos = AcademicInfo::where('is_active', true)
@@ -54,23 +69,17 @@ class HomeController extends Controller
             ->take(6)
             ->get();
 
-        // ekstrakurikuler aktif
-        $activeExtracurricular = Extracurricular::latest()->get();
-
-        // ringkasan jumlah data statistik
-        $totalStudents = class_exists(Student::class) ? Student::count() : 1250;
-        $totalTeachers = class_exists(Teacher::class) ? Teacher::count() : 45;
-        $totalEkskul = Extracurricular::count();
-
         return view('home', compact(
             'heroImages',
             'activeBanner',
             'activeGreeting',
-            'latestInfos',
+            'activeFacilities',
             'activeExtracurricular',
+            'schoolEvents',
             'totalStudents',
             'totalTeachers',
             'totalEkskul',
+            'latestInfos',
         ));
     }
 
@@ -95,6 +104,16 @@ class HomeController extends Controller
             ->get();
 
         return view('school-profile', compact('headmaster', 'viceheadmaster', 'teachers'));
+    }
+
+    // Halaman Fasilitas
+    public function facilities()
+    {
+        $facilities = Facility::with(['photos' => function ($query) {
+            $query->latest();
+        }])->latest()->paginate(9);
+
+        return view('facilities', compact('facilities'));
     }
 
     // Halaman Ekstrakurikuler
