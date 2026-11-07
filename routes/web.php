@@ -21,22 +21,35 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', [HomeController::class, 'index'])->name('home');
 
 // Route School Profile
-Route::get('/profil-sekolah', [HomeController::class, 'profile'])->name('school-profile');
+Route::get('/profil-sekolah', [HomeController::class, 'profile'])
+    ->name('school-profile');
 
 // Route Facilities
-Route::get('/fasilitas', [HomeController::class, 'facilities'])->name('facilities');
+Route::get('/fasilitas', [HomeController::class, 'facilities'])
+    ->name('facilities');
 
 // Route Extracurriculars
-Route::get('/kegiatan/ekstrakurikuler', [HomeController::class, 'extracurriculars'])->name('extracurriculars');
+Route::get('/kegiatan/ekstrakurikuler', [HomeController::class, 'extracurriculars'])
+    ->name('extracurriculars');
 // Route School Activity
-Route::get('/kegiatan/aktivitas-sekolah', [HomeController::class, 'events'])->name('events');
+Route::get('/kegiatan/aktivitas-sekolah', [HomeController::class, 'events'])
+    ->name('events');
 
 // Route Academic Info
 Route::get('/informasi/akademik', [HomeController::class, 'academic_infos'])->name('academic-infos');
 // Route News
-Route::get('/informasi/berita', [HomeController::class, 'newsIndex'])->name('home-news.index');
+Route::get('/informasi/berita', [HomeController::class, 'newsIndex'])
+    ->name('home-news.index');
 // Route News Detail
-Route::get('/informasi/berita/{id}', [HomeController::class, 'newsDetail'])->name('home-news.detail');
+Route::get('/informasi/berita/{id}', [HomeController::class, 'newsDetail'])
+    ->name('home-news.detail');
+
+// Route Complaint User
+Route::get('/layanan-pengunjung', [ComplaintController::class, 'faqs'])
+    ->name('faqs.index');
+// Route Complaints
+Route::post('/layanan-pengunjung', [ComplaintController::class, 'store'])
+    ->name('complaints.store');
 
 Route::middleware(['auth'])->prefix('admin')->group(function () {
     // Route Dashboard

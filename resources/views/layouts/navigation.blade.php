@@ -114,7 +114,8 @@
                 </div>
 
                 <!-- 5. Kontak -->
-                <a href="#kontak" class="hover:text-rose-900 dark:hover:text-rose-400 transition">
+                <a href="{{ route('faqs.index') }}" 
+                class="{{ request()->routeIs('faqs.index') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }} transition">
                     Kontak
                 </a>
 
@@ -183,7 +184,7 @@
                 </div>
             </div>
 
-            <a href="#kontak" @click="mobileMenuOpen = false"
+            <a href="{{ route('faqs.index') }}" @click="mobileMenuOpen = false"
                 class="block px-3 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-50">Kontak</a>
         </div>
     </div>

@@ -118,7 +118,7 @@
                 </button>
 
                 <!-- Sublist Items -->
-                <div x-show="openGroup === 'activities' && !isMinimized" x-collapse class="pl-9 pr-2 space-y-1 pt-0.5">            
+                <div x-show="openGroup === 'activities' && !isMinimized" x-collapse class="pl-9 pr-2 space-y-1 pt-0.5">
                     <a href="{{ route('extracurriculars.index') }}"
                         class="block py-2 px-3 text-xs font-semibold rounded-lg transition-all duration-200 {{ request()->routeIs('extracurriculars.*') ? 'bg-amber-600 text-white shadow-md shadow-amber-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
                         Ekstrakurikuler
@@ -202,10 +202,6 @@
                     <a href="{{ route('complaints.index') }}"
                         class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('complaints.*') ? 'bg-amber-600 text-white shadow-md shadow-amber-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
                         Keluhan
-                    </a>
-                    <a href="#"
-                        class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('docs_request.*') ? 'bg-amber-600 text-white shadow-md shadow-amber-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
-                        Pengajuan Dokumen
                     </a>
                 </div>
             </div>
