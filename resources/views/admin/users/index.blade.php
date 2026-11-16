@@ -5,7 +5,7 @@
         <!-- Header Halaman & Form Pencarian + Tombol Tambah -->
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Managemen Pengguna</h1>
+                <h1 class="text-xl font-bold text-red-900 dark:text-white">Managemen Pengguna</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Kelola data pengguna, hak akses, dan informasi
                     kontak.</p>
             </div>
@@ -15,7 +15,7 @@
                 <form action="{{ route('users.index') }}" method="get" class="relative flex-1 md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
                         placeholder="Cari nama, username, email..."
-                        class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                        class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-red-900 dark:focus:border-amber-400">
 
                     <!-- Icon Search -->
                     <x-search-icon class="size-4 absolute left-3 top-2.5 text-gray-400" />
@@ -32,7 +32,7 @@
 
                 <!-- Tomboh tambah user -->
                 <a href="{{ route('users.create') }}"
-                    class="flex items-center gap-2 px-4 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
+                    class="flex items-center gap-2 px-4 py-2 bg-red-900 hover:bg-red-950 text-white text-xs font-semibold rounded-lg shadow-sm transition">
                     <x-plus-icon class="size-4" />
                     Tambah
                 </a>
@@ -102,7 +102,7 @@
                                     <div class="flex items-center justify-center gap-1.5">
                                         <!-- Edit Button -->
                                         <a href="{{ route('users.edit', $user->id) }}"
-                                            class="p-1.5 rounded-lg text-amber-600 dark:text-amber-400 hover:bg-amber-50 dark:hover:bg-amber-950/40 transition"
+                                            class="p-1.5 rounded-lg text-red-900 dark:text-red-100 hover:bg-red-50 dark:hover:bg-red-950/40 transition"
                                             title="Edit User">
                                             <x-edit-icon class="size-4" />
                                         </a>
@@ -165,7 +165,7 @@
                     <!-- Nomor Halaman -->
                     @foreach ($users->getUrlRange(1, $users->lastPage()) as $page => $url)
                         @if ($page == $users->currentPage())
-                            <span class="px-2.5 py-1 rounded bg-amber-600 text-white font-semibold">
+                            <span class="px-2.5 py-1 rounded bg-red-900 text-white font-semibold">
                                 {{ $page }}
                             </span>
                         @else

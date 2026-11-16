@@ -11,6 +11,7 @@ use App\Http\Controllers\FacilityController;
 use App\Http\Controllers\GreetingController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\ReferralCodeController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
@@ -46,7 +47,7 @@ Route::get('/informasi/berita/{id}', [HomeController::class, 'newsDetail'])
 
 // Route Complaint User
 Route::get('/layanan-pengunjung', [ComplaintController::class, 'faqs'])
-    ->name('faqs.index');
+    ->name('faqs');
 // Route Complaints
 Route::post('/layanan-pengunjung', [ComplaintController::class, 'store'])
     ->name('complaints.store');
@@ -95,6 +96,9 @@ Route::middleware(['auth'])->prefix('admin')->group(function () {
 
     // Route News
     Route::resource('news', NewsController::class);
+
+    // Route Template FAQ
+    Route::resource('questions', QuestionController::class);
 
     // Route Complaint
     Route::get('/complaints', [ComplaintController::class, 'index'])->name('complaints.index');

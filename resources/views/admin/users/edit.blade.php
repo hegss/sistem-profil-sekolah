@@ -4,14 +4,14 @@
         <!-- Header Page & Tombol Kembali -->
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Edit Data User</h1>
-                <p class="text-xs text-gray-500 dark:text-gray-400">Update user data and access rights below.</p>
+                <h1 class="text-xl font-bold text-red-900 dark:text-white">Edit Data User</h1>
+                <p class="text-xs text-gray-500 dark:text-gray-400">Perbarui data user dan hak aksesnya.</p>
             </div>
 
             <a href="{{ route('users.index') }}"
                 class="flex items-center gap-2 px-3.5 py-2 bg-gray-100 hover:bg-gray-200 dark:bg-gray-700 dark:hover:bg-gray-600 text-gray-700 dark:text-gray-200 text-xs font-semibold rounded-lg transition">
                 <x-back-arrow-icon class="size-4" />
-                Back
+                Kembali
             </a>
         </div>
 
@@ -31,12 +31,11 @@
                             class="size-20 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 shadow-sm">
                     </div>
                     <div>
-                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Change Photo
+                        <label class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Ubah Foto
                             (Optional)</label>
                         <input type="file" name="photo" id="photo-input" accept="image/jpeg,image/png,image/jpg"
                             class="text-xs text-gray-500 dark:text-gray-400 file:mr-4 file:py-2 file:px-4 file:rounded-lg file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 dark:file:bg-gray-700 dark:file:text-gray-200 cursor-pointer">
-                        <p class="text-[10px] text-gray-400 mt-1">Leave blank if you do not want to change your profile
-                            photo.
+                        <p class="text-[10px] text-gray-400 mt-1">Biarkan kosong jika tidak ingin mengubah.
                         </p>
                         @error('photo')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
@@ -50,11 +49,11 @@
                     <!-- Nama Lengkap -->
                     <div>
                         <label for="name"
-                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Full Name <span
+                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Nama Lengkap <span
                                 class="text-red-500">*</span></label>
                         <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}"
                             required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-red-900 dark:focus:border-red-400">
                         @error('name')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -67,7 +66,7 @@
                                 class="text-red-500">*</span></label>
                         <input type="text" name="username" id="username"
                             value="{{ old('username', $user->username) }}" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-red-900 dark:focus:border-red-400">
                         @error('username')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -80,7 +79,7 @@
                                 class="text-red-500">*</span></label>
                         <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
                             required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-red-900 dark:focus:border-red-400">
                         @error('email')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -89,10 +88,10 @@
                     <!-- Telepon -->
                     <div>
                         <label for="phone"
-                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Phone </label>
+                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Telepon </label>
                         <input type="tel" name="phone" id="phone" value="{{ old('phone', $user->phone) }}"
                             placeholder="0812-xxxx-xxxx"
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-red-900 dark:focus:border-red-400">
                         @error('phone')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -101,12 +100,11 @@
                     <!-- Role / Hak Akses -->
                     <div>
                         <label for="role"
-                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Role / Access
-                            Right
+                            class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Role / Hak Akses
                             <span class="text-red-500">*</span></label>
                         <select name="role" id="role" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
-                            {{-- <option value="">-- Choose Role --</option> --}}
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-red-900 dark:focus:border-red-400">
+                            <option value="">-- Pilih Role --</option>
                             <option value="admin" {{ old('role', $user->role) === 'admin' ? 'selected' : '' }}>Administrator
                             </option>
                             <option value="pic_ekskul" {{ old('role', $user->role) === 'pic_ekskul' ? 'selected' : '' }}>PIC Ekskul
@@ -126,7 +124,7 @@
                             (Opsional)</label>
                         <input type="password" name="password" id="password"
                             placeholder="Leave blank if don't want to change password"
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-red-900 dark:focus:border-red-400">
                         @error('password')
                             <p class="text-red-500 text-[11px] mt-1">{{ $message }}</p>
                         @enderror
@@ -139,7 +137,7 @@
                             Password Baru</label>
                         <input type="password" name="password_confirmation" id="password_confirmation"
                             placeholder="Repeat new password"
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-red-900 dark:focus:border-red-400">
                     </div>
 
                 </div>
@@ -148,11 +146,11 @@
                 <div class="flex items-center justify-end gap-3 pt-6 border-t border-gray-100 dark:border-gray-700">
                     <a href="{{ route('users.index') }}"
                         class="px-4 py-2 text-xs font-semibold text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition">
-                        Cancel
+                        Batal
                     </a>
                     <button type="submit"
-                        class="px-5 py-2 bg-amber-600 hover:bg-amber-700 text-white text-xs font-semibold rounded-lg shadow-sm transition">
-                        Update Data
+                        class="px-5 py-2 bg-red-900 hover:bg-red-950 text-white text-xs font-semibold rounded-lg shadow-sm transition">
+                        Perbarui
                     </button>
                 </div>
             </form>

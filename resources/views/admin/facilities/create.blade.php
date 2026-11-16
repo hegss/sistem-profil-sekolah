@@ -2,7 +2,7 @@
     <div class="p-6 space-y-4 flex flex-col h-full overflow-y-auto custom-scrollbar">
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Tambah Fasilitas Baru</h1>
+                <h1 class="text-xl font-bold text-red-900 dark:text-white">Tambah Fasilitas Baru</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Lengkapi form dibawah ini untuk menambahkan fasilitas baru.</p>
             </div>
 
@@ -65,7 +65,7 @@
 
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <button type="submit"
-                        class="px-5 py-2 bg-amber-600 text-white text-xs font-semibold rounded-lg">Simpan</button>
+                        class="px-5 py-2 bg-red-900 text-white text-xs font-semibold rounded-lg">Simpan</button>
                 </div>
             </form>
         </div>

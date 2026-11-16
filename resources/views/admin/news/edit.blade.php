@@ -2,7 +2,7 @@
     <div class="p-6 space-y-4 flex flex-col h-full overflow-y-auto custom-scrollbar">
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Tambah Berita Baru</h1>
+                <h1 class="text-xl font-bold text-red-900 dark:text-white">Tambah Berita Baru</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Isi form dibawah ini untuk menambahkan berita baru.</p>
             </div>
 
@@ -73,14 +73,14 @@
                 <div class="flex items-center gap-3 pt-2">
                     <input type="checkbox" name="is_active" id="is_active" value="1"
                         {{ old('is_active', true) ? 'checked' : '' }}
-                        class="size-4 text-amber-600 rounded border-gray-300 focus:ring-amber-500">
+                        class="size-4 text-red-900 rounded border-gray-300 focus:ring-amber-500">
                     <label for="is_active" class="text-xs font-semibold text-gray-700 dark:text-gray-200">Aktif Status
                         (Berita akan ditampilkan.)</label>
                 </div>
 
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <button type="submit"
-                        class="px-5 py-2 bg-amber-600 text-white text-xs font-semibold rounded-lg">Perbarui
+                        class="px-5 py-2 bg-red-900 text-white text-xs font-semibold rounded-lg">Perbarui
                         Data</button>
                 </div>
             </form>

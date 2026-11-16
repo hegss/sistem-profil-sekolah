@@ -5,7 +5,7 @@
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-4">
             <!-- Judul & Subtitle -->
             <div>
-                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Keluhan Warga Sekolah</h1>
+                <h1 class="text-xl font-bold text-red-900 dark:text-white">Keluhan Warga Sekolah</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Kelola dan tindak lanjuti informasi keluhan yang
                     disampaikan warga sekolah.</p>
             </div>
@@ -15,7 +15,7 @@
                 class="flex flex-wrap items-center gap-2">
                 <!-- Dropdown Filter Status -->
                 <select name="status" onchange="this.form.submit()"
-                    class="text-xs rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:ring-amber-500 focus:border-amber-500 py-2.5">
+                    class="text-xs rounded-xl border-slate-200 dark:border-slate-700 dark:bg-slate-800 text-slate-700 dark:text-slate-200 focus:ring-amber-500 focus:border-amber-500 py-2.5 cursor-pointer">
                     <option value="">Semua Status</option>
                     <option value="accepted" {{ request('status') === 'accepted' ? 'selected' : '' }}>
                         Diterima</option>
@@ -29,7 +29,7 @@
                 <div class="relative md:w-64">
                     <input type="text" name="search" id="search" value="{{ request('search') }}"
                         placeholder="Cari nama pengirim, no telepon..."
-                        class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                        class="w-full text-xs pl-9 pr-8 py-2 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-800 text-gray-800 dark:text-white focus:outline-none focus:border-red-900 dark:focus:border-amber-400">
 
                     <!-- Icon Search -->
                     <x-search-icon class="size-4 absolute left-3 top-2.5 text-gray-400" />
@@ -237,7 +237,7 @@
                     <!-- Nomor Halaman -->
                     @foreach ($complaints->getUrlRange(1, $complaints->lastPage()) as $page => $url)
                         @if ($page == $complaints->currentPage())
-                            <span class="px-2.5 py-1 rounded bg-amber-600 text-white font-semibold">
+                            <span class="px-2.5 py-1 rounded bg-red-900 text-white font-semibold">
                                 {{ $page }}
                             </span>
                         @else
@@ -266,7 +266,7 @@
 
         <!-- MODAL DETAIL KELUHAN -->
         <div x-show="detailModalOpen" x-transition
-            class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm" x-cloak>
+            class="fixed inset-0 !mt-0 z-50 flex items-center justify-center p-4 bg-slate-900/50 backdrop-blur-sm" style="display: none" x-cloak>
             <div @click.away="detailModalOpen = false"
                 class="bg-white dark:bg-slate-800 rounded-3xl max-w-lg w-full p-6 space-y-5 border border-slate-100 dark:border-slate-700 shadow-2xl">
                 <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-700 pb-3">

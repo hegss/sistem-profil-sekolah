@@ -2,7 +2,7 @@
     <div class="p-6 space-y-4 flex flex-col h-full overflow-y-auto custom-scrollbar">
         <div class="flex items-center justify-between shrink-0">
             <div>
-                <h1 class="text-xl font-bold text-amber-600 dark:text-white">Tambah Informasi Akademik Baru</h1>
+                <h1 class="text-xl font-bold text-red-900 dark:text-white">Tambah Informasi Akademik Baru</h1>
                 <p class="text-xs text-gray-500 dark:text-gray-400">Isi form dibawah ini untuk menambahkan informasi
                     akademik baru</p>
             </div>
@@ -58,7 +58,7 @@
                             class="block text-xs font-semibold text-gray-700 dark:text-gray-200 mb-1">Kategori
                             <span class="text-red-500">*</span></label>
                         <select name="category" id="category" required
-                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-amber-600 dark:focus:border-amber-400">
+                            class="w-full text-xs px-3 py-2.5 rounded-lg border border-gray-200 dark:border-gray-600 bg-white dark:bg-gray-700 text-gray-800 dark:text-white focus:outline-none focus:border-red-900 dark:focus:border-amber-400">
                             <option value="">-- Pilih Kategori --</option>
                             <option value="achievement" {{ old('category') == 'achievement' ? 'selected' : '' }}>Prestasi
                             </option>
@@ -108,14 +108,14 @@
                 <div class="flex items-center gap-3 pt-2">
                     <input type="checkbox" name="is_active" id="is_active" value="1"
                         {{ old('is_active', true) ? 'checked' : '' }}
-                        class="size-4 text-amber-600 rounded border-gray-300 focus:ring-amber-500">
+                        class="size-4 text-red-900 rounded border-gray-300 focus:ring-amber-500">
                     <label for="is_active" class="text-xs font-semibold text-gray-700 dark:text-gray-200">Aktif Status
                         (Informasi akan ditampilkan.)</label>
                 </div>
 
                 <div class="flex justify-end gap-3 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <button type="submit"
-                        class="px-5 py-2 bg-amber-600 text-white text-xs font-semibold rounded-lg">Simpan
+                        class="px-5 py-2 bg-red-900 text-white text-xs font-semibold rounded-lg">Simpan
                         Data</button>
                 </div>
             </form>

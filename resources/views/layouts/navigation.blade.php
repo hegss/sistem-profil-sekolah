@@ -1,7 +1,12 @@
+@php
+    $isHome = request()->routeIs('home') || request()->is('/');
+@endphp
+
 <!-- FLOATING NAVBAR WITH SCROLL DETECTION -->
 <header class="fixed top-4 inset-x-0 z-50 px-4 sm:px-6 lg:px-8" x-data="{
     scrolled: false,
-    mobileMenuOpen: false
+    mobileMenuOpen: false,
+    isHome: {{ $isHome ? 'true' : 'false' }}
 }"
     @scroll.window="scrolled = (window.pageYOffset > 20)" x-init="scrolled = (window.pageYOffset > 20)">
 
@@ -19,11 +24,13 @@
                     class="size-10 sm:size-11 object-contain group-hover:scale-105 transition-transform" />
                 <div>
                     <span class="block font-bold text-base sm:text-lg transition-colors duration-300 leading-tight"
-                        :class="scrolled ? 'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white drop-shadow-sm'">
+                        :class="(isHome && !scrolled) ? 'text-white drop-shadow-md' : (scrolled ?
+                            'text-slate-900 dark:text-white' : 'text-slate-900 dark:text-white drop-shadow-sm')">
                         SDN Gedong 12
                     </span>
                     <span class="block text-[10px] sm:text-xs transition-colors duration-300"
-                        :class="scrolled ? 'text-slate-500 dark:text-slate-400' : 'text-slate-600 dark:text-slate-300'">
+                        :class="(isHome && !scrolled) ? 'text-slate-100 drop-shadow' : (scrolled ?
+                            'text-slate-500 dark:text-slate-400' : 'text-slate-600 dark:text-slate-300')">
                         Pasar Rebo, Jakarta Timur
                     </span>
                 </div>
@@ -31,22 +38,28 @@
 
             <!-- Desktop Menu (Sisi Kanan) -->
             <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-xs sm:text-sm font-medium transition-colors duration-300"
-                :class="scrolled ? 'text-slate-700 dark:text-slate-200' : 'text-slate-800 dark:text-slate-100'">
+                :class="(isHome && !scrolled) ? 'text-white' : (scrolled ? 'text-slate-700 dark:text-slate-200' :
+                    'text-slate-800 dark:text-slate-100')">
 
                 <!-- 1. Beranda -->
                 <a href="{{ route('home') }}"
-                    class="{{ request()->routeIs('home') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }} hover:opacity-80 transition">
+                    :class="(isHome && !scrolled) ?
+                    '{{ request()->routeIs('home') ? 'text-white font-black underline underline-offset-4 decoration-rose-300' : 'hover:text-rose-200' }}' :
+                    '{{ request()->routeIs('home') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }}'"
+                    class="transition">
                     Beranda
                 </a>
 
                 <!-- 2. Dropdown Profil -->
                 <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button
-                        class="flex items-center gap-1 {{ request()->routeIs('school-profile', 'facilities') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }} transition py-2 focus:outline-none">
+                        :class="(isHome && !scrolled) ?
+                        '{{ request()->routeIs('school-profile', 'facilities') ? 'text-white font-black underline underline-offset-4 decoration-rose-300' : 'hover:text-rose-200' }}' :
+                        '{{ request()->routeIs('school-profile', 'facilities') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }}'"
+                        class="flex items-center gap-1 transition py-2 focus:outline-none">
                         <span>Profil</span>
-                        <svg class="size-3.5 transition-transform duration-200"
-                            :class="open ? 'rotate-180 text-rose-900' : ''" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
+                        <svg class="size-3.5 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
@@ -54,12 +67,12 @@
                     <div x-show="open" x-transition:enter="transition ease-out duration-150"
                         x-transition:enter-start="opacity-0 translate-y-2"
                         x-transition:enter-end="opacity-100 translate-y-0" x-cloak
-                        class="absolute top-full left-0 w-52 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-50">
+                        class="absolute top-full left-0 w-52 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-50 text-slate-900 dark:text-white">
                         <a href="{{ route('school-profile') }}"
-                            class="block px-4 py-2 {{ request()->routeIs('school-profile') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">
+                            class="block px-4 py-2 {{ request()->routeIs('school-profile') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">
                             Profil Sekolah</a>
                         <a href="{{ route('facilities') }}"
-                            class="block px-4 py-2 {{ request()->routeIs('facilities') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">
+                            class="block px-4 py-2 {{ request()->routeIs('facilities') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">
                             Fasilitas</a>
                     </div>
                 </div>
@@ -67,11 +80,13 @@
                 <!-- 3. Dropdown Kegiatan -->
                 <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button
-                        class="flex items-center gap-1 {{ request()->routeIs('extracurriculars', 'events') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }} transition py-2 focus:outline-none">
+                        :class="(isHome && !scrolled) ?
+                        '{{ request()->routeIs('extracurriculars', 'events') ? 'text-white font-black underline underline-offset-4 decoration-rose-300' : 'hover:text-rose-200' }}' :
+                        '{{ request()->routeIs('extracurriculars', 'events') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }}'"
+                        class="flex items-center gap-1 transition py-2 focus:outline-none">
                         <span>Kegiatan</span>
-                        <svg class="size-3.5 transition-transform duration-200"
-                            :class="open ? 'rotate-180 text-rose-900' : ''" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
+                        <svg class="size-3.5 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
@@ -79,11 +94,11 @@
                     <div x-show="open" x-transition:enter="transition ease-out duration-150"
                         x-transition:enter-start="opacity-0 translate-y-2"
                         x-transition:enter-end="opacity-100 translate-y-0" x-cloak
-                        class="absolute top-full left-0 w-52 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-50">
+                        class="absolute top-full left-0 w-52 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-50 text-slate-900 dark:text-white">
                         <a href="{{ route('extracurriculars') }}"
-                            class="block px-4 py-2 {{ request()->routeIs('extracurriculars') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Ekstrakurikuler</a>
+                            class="block px-4 py-2 {{ request()->routeIs('extracurriculars') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Ekstrakurikuler</a>
                         <a href="{{ route('events') }}"
-                            class="block px-4 py-2 {{ request()->routeIs('events') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Kegiatan
+                            class="block px-4 py-2 {{ request()->routeIs('events') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Kegiatan
                             Sekolah</a>
                     </div>
                 </div>
@@ -91,11 +106,13 @@
                 <!-- 4. Dropdown Informasi -->
                 <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button
-                        class="flex items-center gap-1 {{ request()->routeIs('academic-infos', 'home-news.*') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }} transition py-2 focus:outline-none">
+                        :class="(isHome && !scrolled) ?
+                        '{{ request()->routeIs('academic-infos', 'home-news.*') ? 'text-white font-black underline underline-offset-4 decoration-rose-300' : 'hover:text-rose-200' }}' :
+                        '{{ request()->routeIs('academic-infos', 'home-news.*') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }}'"
+                        class="flex items-center gap-1 transition py-2 focus:outline-none">
                         <span>Informasi</span>
-                        <svg class="size-3.5 transition-transform duration-200"
-                            :class="open ? 'rotate-180 text-rose-900' : ''" fill="none" stroke="currentColor"
-                            viewBox="0 0 24 24">
+                        <svg class="size-3.5 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
+                            fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
                         </svg>
                     </button>
@@ -103,19 +120,22 @@
                     <div x-show="open" x-transition:enter="transition ease-out duration-150"
                         x-transition:enter-start="opacity-0 translate-y-2"
                         x-transition:enter-end="opacity-100 translate-y-0" x-cloak
-                        class="absolute top-full left-0 w-52 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-50">
+                        class="absolute top-full left-0 w-52 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-50 text-slate-900 dark:text-white">
                         <a href="{{ route('academic-infos') }}"
-                            class="block px-4 py-2 {{ request()->routeIs('academic-infos') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Informasi
+                            class="block px-4 py-2 {{ request()->routeIs('academic-infos') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Informasi
                             Akademik</a>
                         <a href="{{ route('home-news.index') }}"
-                            class="block px-4 py-2 {{ request()->routeIs('home-news.*') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Berita
+                            class="block px-4 py-2 {{ request()->routeIs('home-news.*') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Berita
                             & Pengumuman</a>
                     </div>
                 </div>
 
                 <!-- 5. Kontak -->
-                <a href="{{ route('faqs.index') }}" 
-                class="{{ request()->routeIs('faqs.index') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }} transition">
+                <a href="{{ route('faqs') }}"
+                    :class="(isHome && !scrolled) ?
+                    '{{ request()->routeIs('faqs') ? 'text-white font-black underline underline-offset-4 decoration-rose-300' : 'hover:text-rose-200' }}' :
+                    '{{ request()->routeIs('faqs') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }}'"
+                    class="transition">
                     Kontak
                 </a>
 
@@ -123,7 +143,9 @@
 
             <!-- Mobile Hamburger Button -->
             <button @click="mobileMenuOpen = !mobileMenuOpen"
-                class="lg:hidden p-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-100/50 dark:hover:bg-slate-800/50 focus:outline-none">
+                :class="(isHome && !scrolled) ? 'text-white hover:bg-white/20' :
+                'text-slate-700 dark:text-slate-200 hover:bg-slate-100/50 dark:hover:bg-slate-800/50'"
+                class="lg:hidden p-2 rounded-xl focus:outline-none transition-colors duration-300">
                 <svg x-show="!mobileMenuOpen" class="size-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
                 </svg>
@@ -140,7 +162,7 @@
             x-transition:enter-start="opacity-0 -translate-y-4" x-transition:enter-end="opacity-100 translate-y-0"
             x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0"
             x-transition:leave-end="opacity-0 -translate-y-4" @click.away="mobileMenuOpen = false"
-            class="lg:hidden px-5 pb-6 pt-2 border-t border-slate-100 dark:border-slate-800 space-y-2 text-xs font-medium bg-white/95 dark:bg-slate-900/95 rounded-b-2xl"
+            class="lg:hidden px-5 pb-6 pt-2 border-t border-slate-100 dark:border-slate-800 space-y-2 text-xs font-medium bg-white/95 dark:bg-slate-900/95 rounded-b-2xl text-slate-800 dark:text-slate-100 shadow-xl"
             x-cloak>
 
             <a href="{{ route('home') }}" @click="mobileMenuOpen = false"
@@ -184,7 +206,7 @@
                 </div>
             </div>
 
-            <a href="{{ route('faqs.index') }}" @click="mobileMenuOpen = false"
+            <a href="{{ route('faqs') }}" @click="mobileMenuOpen = false"
                 class="block px-3 py-2 rounded-xl text-slate-700 dark:text-slate-200 hover:bg-slate-50">Kontak</a>
         </div>
     </div>
