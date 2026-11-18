@@ -64,8 +64,11 @@ class AcademicInfoController extends Controller
             $extension = $file->getClientOriginalExtension();
             $fileName = 'img_'.$slugNames.'_'.time().'.'.$extension;
 
-            // simpan file dengan custom name file
-            $validated['photo'] = $file->storeAs('academic_info_photos', $fileName, 'public');
+            // simpan file di storage publik dengan custom name file
+            // $validated['photo'] = $file->storeAs('academic_info_photos', $fileName, 'public');
+
+            // simpan file di bucket supabase dengan custom nama file
+            $validated['photo'] = $file->storeAs('academic_info_photos', $fileName);
         }
 
         AcademicInfo::create($validated);
@@ -111,9 +114,14 @@ class AcademicInfoController extends Controller
 
         // simpan foto informasi jika ada yang diunggah
         if ($request->hasFile('photo')) {
-            // hapus foto lama jika ada
-            if ($academicInfo->photo && Storage::disk('public')->exists($academicInfo->photo)) {
-                Storage::disk('public')->delete($academicInfo->photo);
+            // hapus foto lama di storage publik jika ada
+            // if ($academicInfo->photo && Storage::disk('public')->exists($academicInfo->photo)) {
+            //     Storage::disk('public')->delete($academicInfo->photo);
+            // }
+
+            // hapus foto lama di bucket supabase jika ada
+            if ($academicInfo->photo && Storage::exists($academicInfo->photo)) {
+                Storage::delete($academicInfo->photo);
             }
 
             $file = $request->file('photo');
@@ -138,9 +146,14 @@ class AcademicInfoController extends Controller
      */
     public function destroy(AcademicInfo $academicInfo)
     {
-        // hapus foto informasi akademik
-        if ($academicInfo->photo && Storage::disk('public')->exists($academicInfo->photo)) {
-            Storage::disk('public')->delete($academicInfo->photo);
+        // hapus foto informasi akademik dari storage publik
+        // if ($academicInfo->photo && Storage::disk('public')->exists($academicInfo->photo)) {
+        //     Storage::disk('public')->delete($academicInfo->photo);
+        // }
+
+        // hapus foto informasi akademik dari bucket supabase
+        if ($academicInfo->photo && Storage::exists($academicInfo->photo)) {
+            Storage::delete($academicInfo->photo);
         }
 
         $academicInfo->delete();

@@ -253,7 +253,7 @@
                     @php
                         $foto = $fac->photos->first()?->photos;
                         $fotoPath = $foto
-                            ? asset('storage/' . $foto)
+                            ? Storage::url($foto)
                             : 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800';
                     @endphp
                     <div class="bg-[#F4EBE8] dark:bg-slate-800 p-4 rounded-[2.5rem] border border-rose-100/60 dark:border-slate-700/60 space-y-3 group"
@@ -319,7 +319,7 @@
                             foreach ($ekskul->photos as $p) {
                                 $path = $p->photos ?? ($p->foto_path ?? $p->path);
                                 if ($path) {
-                                    $galleryImages[] = asset('storage/' . $path);
+                                    $galleryImages[] = Storage::url($path);
                                 }
                             }
                         }
@@ -327,7 +327,7 @@
                         if (empty($galleryImages)) {
                             $singleFoto = $ekskul->photos ?? ($ekskul->foto ?? $ekskul->image);
                             if ($singleFoto && is_string($singleFoto)) {
-                                $galleryImages[] = asset('storage/' . $singleFoto);
+                                $galleryImages[] = Storage::url($singleFoto);
                             }
                         }
 
@@ -502,7 +502,7 @@
                             foreach ($event->photos as $p) {
                                 $path = $p->photos;
                                 if ($path) {
-                                    $galleryImages[] = asset('storage/' . $path);
+                                    $galleryImages[] = Storage::url($path);
                                 }
                             }
                         }
@@ -510,7 +510,7 @@
                         if (empty($galleryImages)) {
                             $singleFoto = $event->photos ?? ($event->foto ?? $event->image);
                             if ($singleFoto && is_string($singleFoto)) {
-                                $galleryImages[] = asset('storage/' . $singleFoto);
+                                $galleryImages[] = Storage::url($singleFoto);
                             }
                         }
 
@@ -691,7 +691,7 @@
                             <div
                                 class="relative h-[280px] sm:h-[380px] rounded-3xl overflow-hidden bg-slate-200 dark:bg-slate-800 shadow-md border border-slate-100 dark:border-slate-700">
                                 @if ($featured->photo)
-                                    <img src="{{ asset('storage/' . $featured->photo) }}"
+                                    <img src="{{ Storage::url($featured->photo) }}"
                                         class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                                 @else
                                     <div

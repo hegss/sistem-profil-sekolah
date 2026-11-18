@@ -12,6 +12,7 @@ use App\Models\News;
 use App\Models\Student;
 use App\Models\Teacher;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller
 {
@@ -31,7 +32,7 @@ class HomeController extends Controller
                 $path = $photo->photos ?? $photo->photos ?? $photo->photos;
 
                 if ($path) {
-                    $heroImages[] = asset('storage/'.$path);
+                    $heroImages[] = Storage::url($path);
                 }
             }
         }
@@ -51,7 +52,7 @@ class HomeController extends Controller
 
         // sambutan kepala sekolah
         $activeGreeting = Greeting::with('teacher')
-            ->where('is_active', true)
+            ->whereRaw('"is_active" = true')
             ->first();
 
         // highlight fasilitas sekolah
@@ -64,7 +65,7 @@ class HomeController extends Controller
         $schoolEvents = Event::latest()->take(6)->get();
 
         // berita aktif
-        $latestInfos = AcademicInfo::where('is_active', true)
+        $latestInfos = AcademicInfo::whereRaw('"is_active" = true')
             ->latest('created_at')
             ->take(6)
             ->get();
@@ -137,13 +138,27 @@ class HomeController extends Controller
     }
 
     // Halaman Informasi Akademik
-    public function academic_infos()
+    public function academicInfos()
     {
         $academicInfos = AcademicInfo::where('is_active', true)
             ->latest()
             ->get();
 
         return view('academic-info', compact('academicInfos'));
+    }
+
+    public function academicInfoDetail($id)
+    {
+        $infos = AcademicInfo::where('is_active', true)->findOrFail($id);
+
+        // ambil 3 berita lainnya untuk rekomendasi
+        $recentInfos = AcademicInfo::where('is_active', true)
+            ->where('id', '!=', $id)
+            ->latest('publish_date')
+            ->take(3)
+            ->get();
+
+        return view('academic-info-detail', compact('infos', 'recentInfos'));
     }
 
     // Halaman Berita

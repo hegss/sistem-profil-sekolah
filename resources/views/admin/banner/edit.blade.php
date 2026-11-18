@@ -26,9 +26,13 @@
                     <div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-3">
                         @foreach ($banner->photos as $photo)
                             <div class="relative group rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
-                                <img src="{{ asset('storage/' . $photo->photos) }}"
-                                    class="size-24 object-cover w-full">
+                                {{-- file dari publik storage --}}
+                                {{-- <img src="{{ asset('storage/' . $photo->photos) }}"
+                                    class="size-24 object-cover w-full"> --}}
 
+                                {{-- file dari bucket supabase --}}
+                                <img src="{{ Storage::url($photo->photos) }}"
+                                    class="size-24 object-cover w-full">
                                 <!-- Delete Single Photo Trigger Button (Mengaktifkan Modal Custom) -->
                                 <div class="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center transition duration-200">
                                     <button type="button"

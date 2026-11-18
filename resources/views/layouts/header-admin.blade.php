@@ -26,12 +26,14 @@
 
                 <x-notif-icon class="size-5" />
 
-                <!-- Red Badge Indicator -->
-                <span class="absolute top-2 right-2 flex size-2">
-                    <span
-                        class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
-                    <span class="relative inline-flex rounded-full size-2 bg-red-900"></span>
-                </span>
+                <!-- Red Badge Indicator (Hanya tampil jika ada pesan masuk baru) -->
+                @if (($unreadComplaintsCount ?? 0) > 0)
+                    <span class="absolute top-2 right-2 flex size-2">
+                        <span
+                            class="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75"></span>
+                        <span class="relative inline-flex rounded-full size-2 bg-red-900"></span>
+                    </span>
+                @endif
             </button>
 
             <!-- Notification Dropdown Menu -->
@@ -48,44 +50,45 @@
                 <!-- Dropdown Header -->
                 <div
                     class="px-4 py-3 border-b border-gray-100 dark:border-gray-700/60 flex items-center justify-between">
-                    <h3 class="text-xs font-bold text-gray-800 dark:text-white">Pesan & Notifikasi</h3>
+                    <h3 class="text-xs font-bold text-gray-800 dark:text-white">Pesan Masuk</h3>
                     <span
-                        class="px-2 py-0.5 text-[10px] font-semibold text-red-900 dark:text-red-400 bg-amber-50 dark:bg-amber-950/60 rounded-full">4
-                        Baru</span>
+                        class="px-2 py-0.5 text-[10px] font-semibold text-red-900 dark:text-red-400 bg-amber-50 dark:bg-amber-950/60 rounded-full">
+                        {{ $unreadComplaintsCount ?? 0 }} Baru
+                    </span>
                 </div>
 
                 <!-- Dropdown List -->
                 <div class="max-h-64 overflow-y-auto custom-scrollbar divide-y divide-gray-50 dark:divide-gray-700/40">
-                    <a href="#"
-                        class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition">
-                        <div
-                            class="size-8 rounded-full bg-amber-100 dark:bg-amber-950/60 text-red-900 dark:text-red-400 flex items-center justify-center shrink-0">
-                            <x-mail-icon class="size-4" />
+                    @forelse($unreadComplaints ?? [] as $item)
+                        <a href="{{ route('complaints.index') }}"
+                            class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition">
+                            <div
+                                class="size-8 rounded-full bg-amber-100 dark:bg-amber-950/60 text-red-900 dark:text-red-400 flex items-center justify-center shrink-0">
+                                <x-mail-icon class="size-4" />
+                            </div>
+                            <div class="flex flex-col flex-1 min-w-0">
+                                <div class="flex items-center justify-between gap-2">
+                                    <span class="text-xs font-semibold text-gray-800 dark:text-gray-200 truncate">
+                                        {{ $item->sender_name ?? 'Warga Sekolah' }}
+                                    </span>
+                                    <span class="text-xs text-gray-400 shrink-0">
+                                        {{ $item->created_at->diffForHumans() }}
+                                    </span>
+                                </div>
+                                <span class="text-[10px] text-gray-400 truncate">
+                                    {{ $item->message }}
+                                </span>
+                            </div>
+                        </a>
+                    @empty
+                        <div class="px-4 py-6 text-center text-[11px] text-gray-400">
+                            Belum ada pesan komplain masuk baru.
                         </div>
-                        <div class="flex flex-col flex-1 min-w-0">
-                            <span class="text-xs font-semibold text-gray-800 dark:text-gray-200 truncate">Risma
-                                Cahaya</span>
-                            <span class="text-[10px] text-gray-400 truncate">Mengirim pesan baru terkait
-                                kegiatan...</span>
-                        </div>
-                    </a>
-
-                    <a href="#"
-                        class="flex items-center gap-3 px-4 py-3 hover:bg-gray-50 dark:hover:bg-gray-700/40 transition">
-                        <div
-                            class="size-8 rounded-full bg-amber-100 dark:bg-amber-950/60 text-red-900 dark:text-red-400 flex items-center justify-center shrink-0">
-                            <x-mail-icon class="size-4" />
-                        </div>
-                        <div class="flex flex-col flex-1 min-w-0">
-                            <span class="text-xs font-semibold text-gray-800 dark:text-gray-200 truncate">Nadia
-                                Fitri</span>
-                            <span class="text-[10px] text-gray-400 truncate">Mengunggah berkas data siswa baru.</span>
-                        </div>
-                    </a>
+                    @endforelse
                 </div>
 
                 <!-- Dropdown Footer -->
-                <a href="#"
+                <a href="{{ route('complaints.index') }}"
                     class="block text-center py-2.5 text-[11px] font-semibold text-red-900 dark:text-red-400 hover:bg-gray-50 dark:hover:bg-gray-700/40 border-t border-gray-100 dark:border-gray-700/60 transition">
                     Lihat Semua Pesan
                 </a>
@@ -153,7 +156,8 @@
                         @endif
                     </div>
 
-                    <h3 class="text-base font-bold text-gray-900 dark:text-white leading-tight">{{ Auth::user()->name }}
+                    <h3 class="text-base font-bold text-gray-900 dark:text-white leading-tight">
+                        {{ Auth::user()->name }}
                     </h3>
                     <p class="text-xs text-gray-400 font-medium mt-0.5">@ {{ Auth::user()->username ?? 'user' }}</p>
 

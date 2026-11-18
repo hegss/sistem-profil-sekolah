@@ -37,7 +37,11 @@ Route::get('/kegiatan/aktivitas-sekolah', [HomeController::class, 'events'])
     ->name('events');
 
 // Route Academic Info
-Route::get('/informasi/akademik', [HomeController::class, 'academic_infos'])->name('academic-infos');
+Route::get('/informasi/akademik', [HomeController::class, 'academicInfos'])
+    ->name('academic-infos');
+// Route Academic Info Detail
+Route::get('/informasi/akademik/{id}', [HomeController::class, 'academicInfoDetail'])
+    ->name('academic-infos.detail');
 // Route News
 Route::get('/informasi/berita', [HomeController::class, 'newsIndex'])
     ->name('home-news.index');

@@ -132,7 +132,7 @@
                     <div class="bg-[#F4EBE8] dark:bg-slate-800 p-3 sm:p-4 rounded-[2.5rem] border border-rose-100/60 dark:border-slate-700/60 shadow-sm">
                         <div class="h-[320px] sm:h-[400px] rounded-3xl overflow-hidden bg-slate-200">
                             @if ($headmaster && $headmaster->photo)
-                                <img src="{{ asset('storage/' . $headmaster->photo) }}" class="w-full h-full object-cover">
+                                <img src="{{ Storage::url($headmaster->photo) }}" class="w-full h-full object-cover">
                             @else
                                 <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800" class="w-full h-full object-cover">
                             @endif
@@ -153,7 +153,7 @@
                     <div class="bg-[#F4EBE8] dark:bg-slate-800 p-3 sm:p-4 rounded-[2.5rem] border border-rose-100/60 dark:border-slate-700/60 shadow-sm">
                         <div class="h-[320px] sm:h-[400px] rounded-3xl overflow-hidden bg-slate-200">
                             @if ($viceheadmaster && $viceheadmaster->photo)
-                                <img src="{{ asset('storage/' . $viceheadmaster->photo) }}" class="w-full h-full object-cover">
+                                <img src="{{ Storage::url($viceheadmaster->photo) }}" class="w-full h-full object-cover">
                             @else
                                 <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800" class="w-full h-full object-cover">
                             @endif
@@ -194,7 +194,7 @@
                         <div class="bg-[#F4EBE8] dark:bg-slate-800 p-2 sm:p-3 rounded-[2rem] border border-rose-100/60 dark:border-slate-700/60 shadow-sm transition-transform duration-300 group-hover:-translate-y-1">
                             <div class="h-[180px] sm:h-[220px] rounded-2xl overflow-hidden bg-slate-200">
                                 @if ($teacher->photo)
-                                    <img src="{{ asset('storage/' . $teacher->photo) }}" class="w-full h-full object-cover">
+                                    <img src="{{ Storage::url($teacher->photo) }}" class="w-full h-full object-cover">
                                 @else
                                     <div class="w-full h-full bg-slate-100 dark:bg-slate-700 flex items-center justify-center text-slate-400 font-bold text-xs">
                                         {{ strtoupper(substr($teacher->name, 0, 2)) }}

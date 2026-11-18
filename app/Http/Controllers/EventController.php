@@ -61,7 +61,11 @@ class EventController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $fileName = 'docs_of_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
 
-                $path = $file->storeAs('event-photos', $fileName, 'public');
+                // penyimpanan file di publik storage
+                // $path = $file->storeAs('event-photos', $fileName, 'public');
+
+                // penyimpanan di bucket supabase
+                $path = $file->storeAs('event-photos', $fileName);
 
                 EventPhoto::create([
                     'event_id' => $event->id,
@@ -116,7 +120,11 @@ class EventController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $fileName = 'docs_of_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
 
-                $path = $file->storeAs('event-photos', $fileName, 'public');
+                // penyimpanan file di publik storage
+                // $path = $file->storeAs('event-photos', $fileName, 'public');
+
+                // penyimpanan di bucket supabase
+                $path = $file->storeAs('event-photos', $fileName);
 
                 EventPhoto::create([
                     'event_id' => $event->id,
@@ -136,8 +144,14 @@ class EventController extends Controller
     {
         // Hapus semua file foto fisik di folder public/storage
         foreach ($event->photos as $photo) {
-            if (Storage::disk('public')->exists($photo->photos)) {
-                Storage::disk('public')->delete($photo->photos);
+            // menghapus file dari publik storage
+            // if (Storage::disk('public')->exists($photo->photos)) {
+            //     Storage::disk('public')->delete($photo->photos);
+            // }
+
+            // menghapus file dari bucket supabase
+            if (Storage::exists($photo->photos)) {
+                Storage::delete($photo->photos);
             }
 
             $event->delete();
@@ -153,8 +167,13 @@ class EventController extends Controller
         $photo = EventPhoto::findOrFail($id);
 
         // hapus file foto dari folder public storage
-        if (Storage::disk('public')->exists($photo->photos)) {
-            Storage::disk('public')->delete($photo->photos);
+        // if (Storage::disk('public')->exists($photo->photos)) {
+        //     Storage::disk('public')->delete($photo->photos);
+        // }
+
+        // hapus file foto dari bucket supabase
+        if (Storage::exists($photo->photos)) {
+            Storage::delete($photo->photos);
         }
 
         $photo->delete();

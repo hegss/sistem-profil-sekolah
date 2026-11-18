@@ -31,7 +31,7 @@
                             foreach ($event->photos as $p) {
                                 $path = $p->photos;
                                 if ($path) {
-                                    $galleryImages[] = asset('storage/' . $path);
+                                    $galleryImages[] = Storage::url($path);
                                 }
                             }
                         }
@@ -40,7 +40,7 @@
                         if (empty($galleryImages)) {
                             $singleFoto = $event->foto ?? ($event->foto_ekskul ?? $event->image);
                             if ($singleFoto) {
-                                $galleryImages[] = asset('storage/' . $singleFoto);
+                                $galleryImages[] = Storage::url($singleFoto);
                             }
                         }
 

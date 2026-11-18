@@ -28,7 +28,7 @@
                         if (isset($ekskul->photos) && $ekskul->photos->isNotEmpty()) {
                             foreach ($ekskul->photos as $p) {
                                 $path = $p->photos;
-                                if ($path) $galleryImages[] = asset('storage/' . $path);
+                                if ($path) $galleryImages[] = Storage::url($path);
                             }
                         }
 
@@ -36,7 +36,7 @@
                         if (empty($galleryImages)) {
                             $singleFoto = $ekskul->photos;
                             if ($singleFoto) {
-                                $galleryImages[] = asset('storage/' . $singleFoto);
+                                $galleryImages[] = Storage::url($singleFoto);
                             }
                         }
 
@@ -110,10 +110,10 @@
                         <div class="space-y-2">
                             <div>
                                 <h3 class="text-lg sm:text-xl font-black text-slate-900 dark:text-white">
-                                    {{ $ekskul->name ?? $ekskul->nama_ekskul }}
+                                    {{ $ekskul->name }}
                                 </h3>
                                 <p class="text-xs sm:text-sm font-bold text-[#70282C] dark:text-rose-400 mt-0.5">
-                                    {{ $ekskul->schedule ?? $ekskul->jadwal ?? 'Jadwal belum diatur' }}
+                                    {{ $ekskul->schedule ?? 'Jadwal belum diatur' }}
                                 </p>
                             </div>
 

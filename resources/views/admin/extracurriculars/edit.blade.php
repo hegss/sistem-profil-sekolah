@@ -102,7 +102,12 @@
                             @foreach ($extracurricular->photos as $photo)
                                 <div
                                     class="relative group rounded-xl overflow-hidden border border-gray-200 dark:border-gray-700">
-                                    <img src="{{ asset('storage/' . $photo->photos) }}"
+                                    {{-- file lokal --}}
+                                    {{-- <img src="{{ asset('storage/' . $photo->photos) }}"
+                                        class="size-24 object-cover w-full"> --}}
+
+                                    {{-- file dari bucket supabase --}}
+                                    <img src="{{ Storage::url($photo->photos) }}"
                                         class="size-24 object-cover w-full">
 
                                     <!-- Delete Single Photo Trigger Button (Mengaktifkan Modal Custom) -->

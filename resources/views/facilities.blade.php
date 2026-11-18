@@ -23,7 +23,7 @@
                 @forelse ($facilities as $facility)
                     @php
                         $foto = $facility->photos->first()?->photos; // Ambil foto pertama dari relasi photos
-                        $fotoPath = $foto ? asset('storage/' . $foto) : 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800';
+                        $fotoPath = $foto ? Storage::url($foto) : 'https://images.unsplash.com/photo-1580582932707-520aed937b7b?q=80&w=800';
                     @endphp
 
                     <!-- Card Item Fasilitas -->
@@ -38,7 +38,7 @@
                                      alt="{{ $facility->name }}"
                                      class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
 
-                                @if($facility->lokasi)
+                                @if($facility->location)
                                     <span class="absolute top-4 left-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md text-slate-800 dark:text-white font-bold text-[10px] px-3 py-1.5 rounded-full shadow-sm border border-slate-100 dark:border-slate-800 flex items-center gap-1">
                                         <svg class="size-3 text-[#70282C] dark:text-rose-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                                         <span>{{ $facility->location }}</span>

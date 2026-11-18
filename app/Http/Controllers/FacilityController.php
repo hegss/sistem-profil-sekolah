@@ -62,7 +62,11 @@ class FacilityController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $fileName = 'img_facility_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
 
-                $path = $file->storeAs('facility-photos', $fileName, 'public');
+                // simpan file ke public storage
+                // $path = $file->storeAs('facility-photos', $fileName, 'public');
+
+                // simpan file ke bucket supabase
+                $path = $file->storeAs('facility-photos', $fileName);
 
                 FacilityPhoto::create([
                     'facility_id' => $facility->id,
@@ -99,10 +103,10 @@ class FacilityController extends Controller
     public function update(Request $request, Facility $facility)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'description' => 'required|string',
-            'photos.*' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
+            'name' => ['required', 'string', 'max:255'],
+            'location' => ['required', 'string', 'max:255'],
+            'description' => ['required', 'string'],
+            'photos.*' => ['nullable', 'image', 'mimes:png,jpg,jpeg', 'max:2048'],
         ]);
 
         $facility->update([
@@ -118,7 +122,11 @@ class FacilityController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $fileName = 'img_facility_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
 
-                $path = $file->storeAs('facility-photos', $fileName, 'public');
+                // simpan file ke public storage
+                // $path = $file->storeAs('facility-photos', $fileName, 'public');
+
+                // simpan file ke bucket supabase
+                $path = $file->storeAs('facility-photos', $fileName);
 
                 FacilityPhoto::create([
                     'facility_id' => $facility->id,
@@ -138,8 +146,14 @@ class FacilityController extends Controller
     {
         // Hapus semua file foto fisik di folder public/storage
         foreach ($facility->photos as $photo) {
-            if (Storage::disk('public')->exists($photo->photos)) {
-                Storage::disk('public')->delete($photo->photos);
+            // hapus file dari storage publik jika ada
+            // if (Storage::disk('public')->exists($photo->photos)) {
+            //     Storage::disk('public')->delete($photo->photos);
+            // }
+
+            // hapus file dari bucket supabase jika ada
+            if (Storage::exists($photo->photos)) {
+                Storage::delete($photo->photos);
             }
         }
 
@@ -154,8 +168,14 @@ class FacilityController extends Controller
     {
         $photo = FacilityPhoto::findOrFail($id);
 
-        if (Storage::disk('public')->exists($photo->photos)) {
-            Storage::disk('public')->delete($photo->photos);
+        // hapus file dari storage publik jika ada
+        // if (Storage::disk('public')->exists($photo->photos)) {
+        //     Storage::disk('public')->delete($photo->photos);
+        // }
+
+        // hapus file dari bucket supabase jika ada
+        if (Storage::exists($photo->photos)) {
+            Storage::delete($photo->photos);
         }
 
         $photo->delete();

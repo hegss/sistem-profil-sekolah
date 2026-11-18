@@ -60,7 +60,10 @@ class NewsController extends Controller
             $fileName = 'news_'.$slugNames.'_'.time().'.'.$extension;
 
             // simpan file dengan custom name file
-            $validated['photo'] = $file->storeAs('news-photos', $fileName, 'public');
+            // $validated['photo'] = $file->storeAs('news-photos', $fileName, 'public');
+
+            // simpan file di bucket supabase dengan file yang sudah diformat
+            $validated['photo'] = $file->storeAs('news-photos', $fileName);
         }
 
         // Otomatis set tanggal posting ke tanggal hari ini (YYYY-MM-DD)
@@ -117,7 +120,10 @@ class NewsController extends Controller
             $fileName = 'news_'.$slugNames.'_'.time().'.'.$extension;
 
             // simpan file dengan custom name file
-            $validated['photo'] = $file->storeAs('news-photos', $fileName, 'public');
+            // $validated['photo'] = $file->storeAs('news-photos', $fileName, 'public');
+
+            // simpan file di bucket supabase dengan file yang sudah diformat
+            $validated['photo'] = $file->storeAs('news-photos', $fileName);
         }
 
         // Otomatis set tanggal posting ke tanggal hari ini (YYYY-MM-DD)
@@ -136,9 +142,14 @@ class NewsController extends Controller
      */
     public function destroy(News $news)
     {
-        // hapus foto jika ada
-        if ($news->photo && Storage::disk('public')->exists($news->photo)) {
-            Storage::disk('public')->delete($news->photo);
+        // hapus foto dari storage publik jika ada
+        // if ($news->photo && Storage::disk('public')->exists($news->photo)) {
+        //     Storage::disk('public')->delete($news->photo);
+        // }
+
+        // hapus foto dari bucket supabase jika ada
+        if ($news->photo && Storage::exists($news->photo)) {
+            Storage::delete($news->photo);
         }
 
         $news->delete();

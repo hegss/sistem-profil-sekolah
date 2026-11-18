@@ -1,7 +1,7 @@
 <x-app-layout>
     <section class="pt-8 pb-20 bg-slate-50/50 dark:bg-slate-900/50">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-8" data-aos="fade-up">
-            
+
             <!-- Breadcrumb Navigation -->
             <nav class="flex items-center gap-2 text-xs text-slate-500">
                 <a href="{{ route('home') }}" class="hover:text-[#70282C]">Beranda</a>
@@ -24,7 +24,7 @@
             <!-- Banner Utama Berita -->
             @if($news->photo)
                 <div class="rounded-3xl overflow-hidden shadow-lg h-[280px] sm:h-[420px] bg-slate-200">
-                    <img src="{{ asset('storage/' . $news->photo) }}" class="w-full h-full object-cover">
+                    <img src="{{ Storage::url($news->photo) }}" class="w-full h-full object-cover">
                 </div>
             @endif
 

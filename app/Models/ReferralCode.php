@@ -22,6 +22,13 @@ class ReferralCode extends Model
         'is_active' => 'boolean',
     ];
 
+    protected function casts(): array
+    {
+        return [
+            'is_active' => 'boolean',
+        ];
+    }
+
     // Log Activity (Spatie)
     public function getActivitylogOptions(): LogOptions
     {

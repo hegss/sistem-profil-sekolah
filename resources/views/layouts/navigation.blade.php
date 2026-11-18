@@ -107,8 +107,8 @@
                 <div class="relative" x-data="{ open: false }" @mouseenter="open = true" @mouseleave="open = false">
                     <button
                         :class="(isHome && !scrolled) ?
-                        '{{ request()->routeIs('academic-infos', 'home-news.*') ? 'text-white font-black underline underline-offset-4 decoration-rose-300' : 'hover:text-rose-200' }}' :
-                        '{{ request()->routeIs('academic-infos', 'home-news.*') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }}'"
+                        '{{ request()->routeIs('academic-infos.*', 'home-news.*') ? 'text-white font-black underline underline-offset-4 decoration-rose-300' : 'hover:text-rose-200' }}' :
+                        '{{ request()->routeIs('academic-infos.*', 'home-news.*') ? 'text-rose-900 dark:text-rose-400 font-bold' : 'hover:text-rose-900 dark:hover:text-rose-400' }}'"
                         class="flex items-center gap-1 transition py-2 focus:outline-none">
                         <span>Informasi</span>
                         <svg class="size-3.5 transition-transform duration-200" :class="open ? 'rotate-180' : ''"
@@ -122,7 +122,7 @@
                         x-transition:enter-end="opacity-100 translate-y-0" x-cloak
                         class="absolute top-full left-0 w-52 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-50 text-slate-900 dark:text-white">
                         <a href="{{ route('academic-infos') }}"
-                            class="block px-4 py-2 {{ request()->routeIs('academic-infos') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Informasi
+                            class="block px-4 py-2 {{ request()->routeIs('academic-infos.*') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Informasi
                             Akademik</a>
                         <a href="{{ route('home-news.index') }}"
                             class="block px-4 py-2 {{ request()->routeIs('home-news.*') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Berita

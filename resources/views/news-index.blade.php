@@ -1,7 +1,7 @@
 <x-app-layout>
 
     <!-- HEADER SECTION -->
-    <section class="pt-8 pb-12 sm:pb-16 bg-slate-50/50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
+    <section class="pt-8 pb-6 sm:pb-10 bg-slate-50/50 dark:bg-slate-900 border-b border-slate-100 dark:border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-4" data-aos="fade-up">
             <span class="text-xs sm:text-sm font-bold text-[#70282C] dark:text-rose-400 uppercase tracking-widest block">
                 KABAR SEKOLAH
@@ -28,7 +28,7 @@
     </section>
 
     <!-- GRID DAFTAR BERITA -->
-    <section class="py-12 sm:py-20 bg-slate-50/50 dark:bg-slate-900/50 min-h-[60vh]">
+    <section class="py-2 sm:py-8 bg-slate-50/50 dark:bg-slate-900/50 min-h-[60vh]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-10">
 
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -38,7 +38,7 @@
                         <!-- Gambar Berita -->
                         <div class="h-48 overflow-hidden relative bg-slate-100 dark:bg-slate-700">
                             @if($news->photo)
-                                <img src="{{ asset('storage/' . $news->photo) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                                <img src="{{ Storage::url($news->photo) }}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                             @else
                                 <div class="w-full h-full flex items-center justify-center text-slate-400 text-xs italic">No Image</div>
                             @endif

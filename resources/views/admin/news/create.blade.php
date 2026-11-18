@@ -86,7 +86,7 @@
         </div>
     </div>
 
-    <!-- Script Live Preview photo Ekskul -->
+    <!-- Script Live Preview Foto Berita -->
     <script>
         document.getElementById('photo-input').addEventListener('change', function(e) {
             const file = e.target.files[0];

@@ -22,7 +22,7 @@
                 <div class="flex items-center gap-6 pb-6 border-b border-gray-100 dark:border-gray-700">
                     <div class="relative">
                         <img id="photo-preview"
-                            src="{{ $academic_info->photo ? asset('storage/' . $academic_info->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($academic_info->title) }}"
+                            src="{{ $academic_info->photo ? Storage::url($academic_info->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($academic_info->title) }}"
                             alt="{{ $academic_info->title }}"
                             alt="Preview Photo"
                             class="size-20 rounded-full object-cover border-2 border-gray-200 dark:border-gray-600 shadow-sm">

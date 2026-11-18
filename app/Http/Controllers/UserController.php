@@ -67,8 +67,11 @@ class UserController extends Controller
             $extension = $file->getClientOriginalExtension();
             $fileName = 'img_profile_'.$slugNames.'_'.time().'.'.$extension;
 
-            // simpan file dengan custom name file
-            $validated['photo'] = $file->storeAs('photo-profile', $fileName, 'public');
+            // simpan file di storage publik dengan custom name file
+            // $validated['photo'] = $file->storeAs('photo-profile', $fileName, 'public');
+
+            // simpan file ke bucket supabase
+            $validated['photo'] = $file->storeAs('photo-profile', $fileName);
         }
 
         $validated['password'] = Hash::make($validated['password']);
@@ -76,7 +79,7 @@ class UserController extends Controller
         User::create($validated);
 
         return redirect()->route('users.index')
-            ->with('success', 'Data added successfully!');
+            ->with('success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -112,9 +115,14 @@ class UserController extends Controller
 
         // jika foto baru diunggah
         if ($request->hasFile('photo')) {
-            // hapus foto lama jika ada
-            if ($user->photo && Storage::disk('public')->exists($user->photo)) {
-                Storage::disk('public')->delete($user->photo);
+            // hapus foto lama dari storage publik jika ada
+            // if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+            //     Storage::disk('public')->delete($user->photo);
+            // }
+
+            // hapus foto lama dari bucket supabase jika ada
+            if ($user->photo && Storage::exists($user->photo)) {
+                Storage::delete($user->photo);
             }
 
             // nama file baru sesuai nama user yang diupdate
@@ -123,8 +131,11 @@ class UserController extends Controller
             $extension = $file->getClientOriginalExtension();
             $fileName = 'img_profile_'.$slugName.'_'.time().'.'.$extension;
 
-            // simpan file baru
-            $validated['photo'] = $file->storeAs('photo-profile', $fileName, 'public');
+            // simpan file baru ke storage publik
+            // $validated['photo'] = $file->storeAs('photo-profile', $fileName, 'public');
+
+            // simpan file baru ke bucket supabase
+            $validated['photo'] = $file->storeAs('photo-profile', $fileName);
         }
 
         // update password hanya jika di isi
@@ -137,7 +148,7 @@ class UserController extends Controller
         $user->update($validated);
 
         return redirect()->route('users.index')
-            ->with('success', 'Data updated successfully!');
+            ->with('success', 'Data berhasil diperbarui!');
     }
 
     /**
@@ -147,17 +158,22 @@ class UserController extends Controller
     {
         // cegah admin menghapus diri sendiri
         if ($user->id === auth()->id()) {
-            return back()->with('error', 'You cannot delete the account yourself.');
+            return back()->with('error', 'Anda tidak dapat menghapus akun anda sendiri.');
         }
 
-        // hapus foto dari storage jika ada
-        if ($user->photo && Storage::disk('public')->exists($user->photo)) {
-            Storage::disk('public')->delete($user->photo);
+        // hapus foto dari storage publik jika ada
+        // if ($user->photo && Storage::disk('public')->exists($user->photo)) {
+        //     Storage::disk('public')->delete($user->photo);
+        // }
+
+        // hapus foto dari bucket supabase jika ada
+        if ($user->photo && Storage::exists($user->photo)) {
+            Storage::delete($user->photo);
         }
 
         $user->delete();
 
         return redirect()->route('users.index')
-            ->with('success', 'Data deleted successfully!');
+            ->with('success', 'Data berhasil dihapus!');
     }
 }

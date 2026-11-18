@@ -62,7 +62,10 @@ class ExtracurricularController extends Controller
             $fileName = 'logo_'.$slugNames.'_'.time().'.'.$extension;
 
             // simpan file dengan custom name file
-            $validated['logo'] = $file->storeAs('extracurriculars/logo', $fileName, 'public');
+            // $validated['logo'] = $file->storeAs('extracurriculars/logo', $fileName, 'public');
+
+            // simpan file ke bucket supabase
+            $validated['logo'] = $file->storeAs('extracurriculars/logo', $fileName);
         }
 
         $extracurricular = Extracurricular::create([
@@ -81,7 +84,11 @@ class ExtracurricularController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $fileName = 'docs_of_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
 
-                $path = $file->storeAs('extracurriculars/photos', $fileName, 'public');
+                // penyimpanan file di publik storage
+                // $path = $file->storeAs('extracurriculars/photos', $fileName, 'public');
+
+                // penyimpanan di bucket supabase
+                $path = $file->storeAs('extracurriculars/photos', $fileName);
 
                 ExtracurricularPhoto::create([
                     'extracurricular_id' => $extracurricular->id,
@@ -141,7 +148,10 @@ class ExtracurricularController extends Controller
             $fileName = 'logo_'.$slugNames.'_'.time().'.'.$extension;
 
             // simpan file dengan custom name file
-            $validated['logo'] = $file->storeAs('extracurriculars/logo', $fileName, 'public');
+            // $validated['logo'] = $file->storeAs('extracurriculars/logo', $fileName, 'public');
+
+            // simpan file ke bucket supabase
+            $validated['logo'] = $file->storeAs('extracurriculars/logo', $fileName);
         }
 
         $extracurricular->update([
@@ -160,7 +170,11 @@ class ExtracurricularController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $fileName = 'docs_of_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
 
-                $path = $file->storeAs('extracurriculars/photos', $fileName, 'public');
+                // penyimpnan file di publik storage
+                // $path = $file->storeAs('extracurriculars/photos', $fileName, 'public');
+
+                // penyimpanan di bucket supabase
+                $path = $file->storeAs('extracurriculars/photos', $fileName);
 
                 ExtracurricularPhoto::create([
                     'extracurricular_id' => $extracurricular->id,
@@ -178,15 +192,26 @@ class ExtracurricularController extends Controller
      */
     public function destroy(Extracurricular $extracurricular)
     {
-        // hapus logo ekskul jika ada
-        if ($extracurricular->logo && Storage::disk('public')->exists($extracurricular->logo)) {
-            Storage::disk('public')->delete($extracurricular->logo);
+        // hapus logo ekskul di publik storage jika ada
+        // if ($extracurricular->logo && Storage::disk('public')->exists($extracurricular->logo)) {
+        //     Storage::disk('public')->delete($extracurricular->logo);
+        // }
+
+        // hapus logo ekskul di bucket supabase jika ada
+        if ($extracurricular->logo && Storage::exists($extracurricular->logo)) {
+            Storage::delete($extracurricular->logo);
         }
 
         // hapus semua foto dokumentasi di folder storage/public
         foreach ($extracurricular->photos as $photo) {
-            if (Storage::disk('public')->exists($photo->photos)) {
-                Storage::disk('public')->delete($photo->photos);
+            // menghapus file dari publik storage
+            // if (Storage::disk('public')->exists($photo->photos)) {
+            //     Storage::disk('public')->delete($photo->photos);
+            // }
+
+            // menghapus file dari bucket supabase
+            if (Storage::exists($photo->photos)) {
+                Storage::delete($photo->photos);
             }
         }
 
@@ -200,8 +225,14 @@ class ExtracurricularController extends Controller
     {
         $photo = ExtracurricularPhoto::findOrFail($id);
 
-        if (Storage::disk('public')->exists($photo->photos)) {
-            Storage::disk('public')->delete($photo->photos);
+        // menghapus file dari publik storage
+        // if (Storage::disk('public')->exists($photo->photos)) {
+        //     Storage::disk('public')->delete($photo->photos);
+        // }
+
+        // menghapus file dari bucket supabase
+        if (Storage::exists($photo->photos)) {
+            Storage::delete($photo->photos);
         }
 
         $photo->delete();

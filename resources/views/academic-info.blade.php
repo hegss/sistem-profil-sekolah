@@ -81,7 +81,7 @@
                         <div class="bg-white dark:bg-slate-800 rounded-3xl p-6 border border-slate-100 dark:border-slate-700 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between space-y-4 group"
                             data-aos="fade-up">
                             @if ($item->photo)
-                                <img src="{{ asset('storage/' . $item->photo) }}"
+                                <img src="{{ Storage::url($item->photo) }}"
                                     class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
                             @else
                                 <div
@@ -105,9 +105,9 @@
                             </div>
 
                             <div class="pt-3 border-t border-slate-100 dark:border-slate-700/60">
-                                <a href="#"
+                                <a href="{{ route('academic-infos.detail', $item->id) }}"
                                     class="inline-flex items-center gap-1.5 text-xs font-bold text-[#70282C] dark:text-rose-400 hover:opacity-80">
-                                    <span>Lihat Detail Pengumuman</span>
+                                    <span>Lihat Detail Informasi</span>
                                     <svg class="size-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                             d="M14 5l7 7m0 0l-7 7m7-7H3" />

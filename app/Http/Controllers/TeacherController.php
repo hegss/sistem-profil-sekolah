@@ -61,8 +61,11 @@ class TeacherController extends Controller
             $extension = $file->getClientOriginalExtension();
             $fileName = 'teacher_'.$slugNames.'_'.time().'.'.$extension;
 
-            // simpan file dengan custom name file
-            $validated['photo'] = $file->storeAs('teachers-photo', $fileName, 'public');
+            // simpan file di storage publik dengan custom name file
+            // $validated['photo'] = $file->storeAs('teachers-photo', $fileName, 'public');
+
+            // simpan file di bucket supabase dengan custom nama file
+            $validated['photo'] = $file->storeAs('teachers-photo', $fileName);
         }
 
         Teacher::create($validated);
@@ -114,8 +117,11 @@ class TeacherController extends Controller
             $extension = $file->getClientOriginalExtension();
             $fileName = 'teacher_'.$slugNames.'_'.time().'.'.$extension;
 
-            // simpan file dengan custom name file
-            $validated['photo'] = $file->storeAs('teachers-photo', $fileName, 'public');
+            // simpan file di storage publik dengan custom name file
+            // $validated['photo'] = $file->storeAs('teachers-photo', $fileName, 'public');
+
+            // simpan file di bucket supabase dengan custom nama file
+            $validated['photo'] = $file->storeAs('teachers-photo', $fileName);
         }
 
         $teacher->update($validated);
@@ -129,9 +135,14 @@ class TeacherController extends Controller
      */
     public function destroy(Teacher $teacher)
     {
-        // hapus foto dari storage (jika ada)
-        if ($teacher->photo && Storage::disk('public')->exists($teacher->photo)) {
-            Storage::disk('public')->delete($teacher->photo);
+        // hapus foto dari storage publik (jika ada)
+        // if ($teacher->photo && Storage::disk('public')->exists($teacher->photo)) {
+        //     Storage::disk('public')->delete($teacher->photo);
+        // }
+
+        // hapus foto dari bucket supabase (jika ada)
+        if ($teacher->photo && Storage::exists($teacher->photo)) {
+            Storage::delete($teacher->photo);
         }
 
         $teacher->delete();

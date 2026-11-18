@@ -197,7 +197,7 @@
                 <div x-show="openGroup === 'mails' && !isMinimized" x-collapse class="pl-9 pr-2 space-y-1 pt-0.5">
                     <a href="{{ route('questions.index') }}"
                         class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('questions.*') ? 'bg-red-900 text-white shadow-md shadow-amber-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">
-                        FAQ
+                        Tambah FAQ
                     </a>
                     <a href="{{ route('complaints.index') }}"
                         class="block py-2 px-3 text-xs font-semibold rounded-lg transition duration-200 {{ request()->routeIs('complaints.*') ? 'bg-red-900 text-white shadow-md shadow-amber-500/20' : 'text-gray-600 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700/60' }}">

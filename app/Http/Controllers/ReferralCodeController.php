@@ -57,7 +57,7 @@ class ReferralCodeController extends Controller
             'is_active' => ['nullable', 'boolean'],
         ]);
 
-        $validated['is_active'] = $request->has('is_active');
+        $validated['is_active'] = $request->boolean('is_active');
         $validated['reff_code'] = strtoupper(trim($validated['reff_code']));
 
         ReferralCode::create($validated);

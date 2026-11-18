@@ -13,10 +13,16 @@ class DashboardController extends Controller
     public function index()
     {
         // jumlah siswa aktif
-        $activeStudents = Student::where('is_active', true)->count();
+        // aturan MySQL
+        // $activeStudents = Student::where('is_active', true)->count();
+        // aturan PostgreSQL
+        $activeStudents = Student::whereRaw('"is_active" = true')->count();
 
         // jumlah guru yang aktif
-        $activeTeacher = Teacher::where('is_active', true)->count();
+        // aturan MySQL
+        // $activeTeacher = Teacher::where('is_active', true)->count();
+        // aturan PostgreSQL
+        $activeTeacher = Teacher::whereRaw('"is_active" = true')->count();
 
         // jumlah fasilitas yang tersedia
         $totalFacilities = Facility::count();

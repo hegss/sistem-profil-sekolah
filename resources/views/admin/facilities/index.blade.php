@@ -66,7 +66,12 @@
                                 <td class="py-3 px-4">
                                     <div class="flex items-center -space-x-2 overflow-hidden">
                                         @forelse ($facility->photos->take(3) as $photo)
-                                            <img src="{{ asset('storage/' . $photo->photos) }}"
+                                            {{-- mengambil file dari storage publik --}}
+                                            {{-- <img src="{{ asset('storage/' . $photo->photos) }}"
+                                                class="inline-block size-9 rounded-lg object-cover ring-2 ring-white dark:ring-gray-800"> --}}
+
+                                            {{-- mengambil file dari bucket supabase --}}
+                                            <img src="{{ Storage::url($photo->photos) }}"
                                                 class="inline-block size-9 rounded-lg object-cover ring-2 ring-white dark:ring-gray-800">
                                         @empty
                                             <span class="text-gray-400 text-[11px] italic">Without a Photo</span>

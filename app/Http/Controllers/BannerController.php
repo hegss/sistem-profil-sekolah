@@ -63,7 +63,11 @@ class BannerController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $fileName = 'banner_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
 
-                $path = $file->storeAs('banner-photos', $fileName, 'public');
+                // penyimpanan file di publik storage
+                // $path = $file->storeAs('banner-photos', $fileName, 'public');
+
+                // penyimpanan di bucket supabase
+                $path = $file->storeAs('banner-photos', $fileName);
 
                 BannerPhoto::create([
                     'banner_id' => $banner->id,
@@ -73,7 +77,7 @@ class BannerController extends Controller
         }
 
         return redirect()->route('banners.index')
-            ->with('success', 'Banner added successfully!');
+            ->with('success', 'Banner berhasil ditambahkan!');
     }
 
     /**
@@ -119,7 +123,11 @@ class BannerController extends Controller
                 $extension = $file->getClientOriginalExtension();
                 $fileName = 'banner_'.$slugName.'_'.time().'_'.($index + 1).'.'.$extension;
 
-                $path = $file->storeAs('banner-photos', $fileName, 'public');
+                // penyimpanan file di publik storage
+                // $path = $file->storeAs('banner-photos', $fileName, 'public');
+
+                // penyimpanan di bucket supabase
+                $path = $file->storeAs('banner-photos', $fileName);
 
                 BannerPhoto::create([
                     'banner_id' => $banner->id,
@@ -129,7 +137,7 @@ class BannerController extends Controller
         }
 
         return redirect()->route('banners.index')
-            ->with('success', 'Banner updated successfully!');
+            ->with('success', 'Banner berhasil diperbarui!');
     }
 
     /**
@@ -139,15 +147,21 @@ class BannerController extends Controller
     {
         // Hapus semua file foto fisik di folder public/storage
         foreach ($banner->photos as $photo) {
-            if (Storage::disk('public')->exists($photo->photos)) {
-                Storage::disk('public')->delete($photo->photos);
+            // menghapus file dari publik storage
+            // if (Storage::disk('public')->exists($photo->photos)) {
+            //     Storage::disk('public')->delete($photo->photos);
+            // }
+
+            // menghapus file dari bucket supabase
+            if (Storage::exists($photo->photos)) {
+                Storage::delete($photo->photos);
             }
         }
 
         $banner->delete();
 
         return redirect()->route('banners.index')
-            ->with('success', 'Banner deleted successfully!');
+            ->with('success', 'Banner berhasil dihapus!');
     }
 
     // Method tambahan untuk menghapus satu foto galeri spesifik
@@ -155,12 +169,18 @@ class BannerController extends Controller
     {
         $photo = BannerPhoto::findOrFail($id);
 
-        if (Storage::disk('public')->exists($photo->photos)) {
-            Storage::disk('public')->delete($photo->photos);
+        // menghapus file dari publik storage
+        // if (Storage::disk('public')->exists($photo->photos)) {
+        //     Storage::disk('public')->delete($photo->photos);
+        // }
+
+        // menghapus file dari bucket supabase
+        if (Storage::exists($photo->photos)) {
+            Storage::delete($photo->photos);
         }
 
         $photo->delete();
 
-        return back()->with('success', 'Photo deleted from gallery.');
+        return back()->with('success', 'Foto dihapus dari galeri.');
     }
 }

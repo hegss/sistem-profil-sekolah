@@ -70,7 +70,7 @@
                                     <div class="flex items-center gap-3">
                                         <!-- Foto Informasi -->
                                         <img class="size-9 rounded-full object-cover border border-gray-200 dark:border-gray-600 shrink-0"
-                                            src="{{ $item->photo ? asset('storage/' . $item->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($item->title) . '&background=fef3c6&color=e17100' }}"
+                                            src="{{ $item->photo ? Storage::url($item->photo) : 'https://ui-avatars.com/api/?name=' . urlencode($item->title) . '&background=fef3c6&color=e17100' }}"
                                             alt="{{ $item->title }}">
 
                                         <!-- Judul Informasi -->
