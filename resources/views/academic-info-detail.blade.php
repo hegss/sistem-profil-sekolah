@@ -6,7 +6,7 @@
             <nav class="flex items-center gap-2 text-xs text-slate-500">
                 <a href="{{ route('home') }}" class="hover:text-[#70282C]">Beranda</a>
                 <span>/</span>
-                <a href="{{ route('academic-infos') }}" class="hover:text-[#70282C]">Info Akademik</a>
+                <a href="{{ route('academic-infos.home') }}" class="hover:text-[#70282C]">Info Akademik</a>
                 <span>/</span>
                 <span class="text-slate-900 dark:text-white font-semibold truncate">{{ $infos->title }}</span>
             </nav>
@@ -46,7 +46,7 @@
 
             <!-- Tombol Kembali -->
             <div class="pt-4">
-                <a href="{{ route('academic-infos') }}"
+                <a href="{{ route('academic-infos.home') }}"
                     class="inline-flex items-center gap-2 text-xs font-bold text-[#70282C] dark:text-rose-400 hover:underline">
                     ← Kembali ke Daftar Berita
                 </a>

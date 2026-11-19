@@ -121,12 +121,12 @@
                         x-transition:enter-start="opacity-0 translate-y-2"
                         x-transition:enter-end="opacity-100 translate-y-0" x-cloak
                         class="absolute top-full left-0 w-52 bg-white dark:bg-slate-800 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-700 py-2 z-50 text-slate-900 dark:text-white">
-                        <a href="{{ route('academic-infos') }}"
-                            class="block px-4 py-2 {{ request()->routeIs('academic-infos.*') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Informasi
-                            Akademik</a>
+                        <a href="{{ route('academic-infos.home') }}"
+                            class="block px-4 py-2 {{ request()->routeIs('academic-infos.*') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">
+                            Informasi Akademik</a>
                         <a href="{{ route('home-news.index') }}"
-                            class="block px-4 py-2 {{ request()->routeIs('home-news.*') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">Berita
-                            & Pengumuman</a>
+                            class="block px-4 py-2 {{ request()->routeIs('home-news.*') ? 'bg-slate-50 dark:bg-slate-700/50 text-rose-900 dark:text-rose-400 font-bold' : 'hover:bg-slate-50 dark:hover:bg-slate-700/50 text-slate-900 dark:text-white hover:text-rose-900 hover:dark:text-rose-400' }} text-xs">
+                            Berita & Pengumuman</a>
                     </div>
                 </div>
 
@@ -199,7 +199,7 @@
                     </svg>
                 </button>
                 <div x-show="open" class="pl-6 pt-1 space-y-1" x-cloak>
-                    <a href="{{ route('academic-infos') }}" @click="mobileMenuOpen = false"
+                    <a href="{{ route('academic-infos.home') }}" @click="mobileMenuOpen = false"
                         class="block py-1.5 text-slate-500 hover:text-rose-900">Informasi Akademik</a>
                     <a href="{{ route('home-news.index') }}" @click="mobileMenuOpen = false"
                         class="block py-1.5 text-slate-500 hover:text-rose-900">Berita & Pengumuman</a>

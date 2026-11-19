@@ -38,7 +38,7 @@ Route::get('/kegiatan/aktivitas-sekolah', [HomeController::class, 'events'])
 
 // Route Academic Info
 Route::get('/informasi/akademik', [HomeController::class, 'academicInfos'])
-    ->name('academic-infos');
+    ->name('academic-infos.home');
 // Route Academic Info Detail
 Route::get('/informasi/akademik/{id}', [HomeController::class, 'academicInfoDetail'])
     ->name('academic-infos.detail');
